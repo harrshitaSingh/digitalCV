@@ -47,7 +47,7 @@ function SettingsPage() {
 
           <Box className="section-header">
             <Typography variant="h4" className="section-title">
-              PROFILE
+              USER PROFILE
             </Typography>
           </Box>
 
