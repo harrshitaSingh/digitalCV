@@ -1,0 +1,123 @@
+/* General Styles */
+.resume-dashboard {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
+  /* Bright and fresh */
+  padding: 3rem;
+}
+
+/* App Bar */
+.resume-dashboard .app-bar {
+  background: linear-gradient(135deg, #FFDEE9, #B5FFFC);
+  /* Bright and fresh */
+  z-index: 1000;
+}
+
+.resume-dashboard .app-title {
+  color: #4b2354;
+  font-weight: bold;
+}
+
+/* Resume Cards */
+.resume-card {
+  background: #ffffff;
+  border-radius: 12px;
+  min-height: 420px;
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.resume-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.resume-title {
+  color: #4b2354;
+  font-weight: bold;
+  font-size: 1.6rem;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.add-card {
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px dashed #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 280px;
+  border-radius: 12px;
+  transition: background 0.3s ease-in-out;
+  padding: 20px;
+}
+
+.add-card:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.add-card-title {
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.add-button {
+  background-color: #4b2354 !important;
+  color: #ffffff !important;
+  border: none;
+  width: 150px;
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.add-button:hover {
+  transform: scale(1.05);
+}
+
+
+/* Modal Styling */
+.modal-box {
+  width: 400px;
+  background-color: #ffffff;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+.MuiCardActions-root {
+  flex-direction: row !important;
+}
+
+@keyframes fadeSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated-card {
+  animation: fadeSlideIn 0.5s ease-in-out forwards;
+}

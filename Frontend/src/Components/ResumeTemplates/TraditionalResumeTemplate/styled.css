@@ -1,0 +1,74 @@
+.template-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resume-card {
+  width: 8in;
+  margin: 1% 0;
+  box-shadow: 1px 1px 8px 8px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  background: #fff;
+}
+
+.download-button {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.download-button button {
+  cursor: pointer;
+  color: #fff;
+  background-color: #538ec3;
+  padding: 10px 20px;
+  border: none;
+  font-weight: bold;
+}
+
+h1 {
+  padding-top: 22px;
+  font-weight: 100;
+  font-size: 25px;
+  color: #000;
+}
+
+h3, span {
+  text-transform: uppercase;
+  color: #767270;
+  margin-top: 5%;
+}
+
+ul {
+  color: #767270;
+  font-weight: bold;
+  font-size: 16px;
+  list-style-type: circle;
+  margin-left: 3%;
+}
+
+h4, p {
+  color: #767270;
+}
+
+.contact-info, .summary, .section {
+  margin-left: 1%;
+  margin-bottom: 20px;
+  word-break: break-word;
+}
+
+.contact-info h5 {
+  color: #538ec3;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.summary p {
+  border-bottom: 1px solid #767270;
+  padding-bottom: 22px;
+  font-family: serif;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 5%;
+}

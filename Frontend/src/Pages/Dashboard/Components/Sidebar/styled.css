@@ -1,0 +1,26 @@
+/* Sidebar.css */
+
+/* Sidebar container */
+.sidebar-container {
+  width: 240px;
+  flex-shrink: 0;
+}
+
+.sidebar-paper {
+  width: 240px;
+  /* Adjust based on your drawer width */
+  box-sizing: border-box;
+}
+
+/* Sidebar header */
+.sidebar-header {
+  text-align: center;
+  background:  linear-gradient(135deg, #FFDEE9, #B5FFFC);
+  padding: 16px;
+}
+
+
+.sidebar-content {
+  text-align: center;
+  margin-top: 16px;
+}

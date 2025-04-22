@@ -1,0 +1,20 @@
+/* SidebarContent.css */
+
+.custom-step-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: grey;
+}
+
+.custom-step-icon.active {
+  background-color: #62aa62;
+}
+
+
+ .MuiDrawer-paper {
+    width: 240px;
+    box-sizing: border-box;
+    background-color: #000;
+}
+

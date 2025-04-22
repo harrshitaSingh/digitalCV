@@ -1,0 +1,74 @@
+.emp-profile {
+  padding: 3%;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  border-radius: 0.5rem;
+  background: #fff;
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.1);
+}
+.profile-img {
+  text-align: center;
+}
+.profile-img img {
+  width: 70%;
+  height: 100%;
+  border-radius: 50%;
+}
+.profile-head {
+  margin-top: 20px;
+}
+.profile-head h5 {
+  color: #333;
+}
+.profile-head h6 {
+  color: #0062cc;
+}
+.profile-edit-btn {
+  border: none;
+  border-radius: 1.5rem;
+  width: 100%;
+  padding: 2%;
+  font-weight: 600;
+  color: #6c757d;
+  cursor: pointer;
+}
+.profile-rating {
+  font-size: 14px;
+  color: #818182;
+}
+.profile-rating span {
+  color: #495057;
+  font-size: 15px;
+  font-weight: 600;
+}
+.profile-work {
+  padding: 14%;
+  margin-top: -15%;
+}
+.profile-work p {
+  font-size: 16px;
+  color: #818182;
+  font-weight: 600;
+  margin-top: 10%;
+}
+.profile-work a {
+  text-decoration: none;
+  color: #495057;
+  font-weight: 600;
+  display: block;
+  margin-top: 10px;
+}
+.about-info {
+  margin-top: 20px;
+}
+.nav-tabs {
+  border: none;
+}
+.nav-tabs .nav-link {
+  border: none;
+  font-weight: 600;
+  color: #555;
+}
+.nav-tabs .nav-link.active {
+  border-bottom: 2px solid #0062cc;
+}

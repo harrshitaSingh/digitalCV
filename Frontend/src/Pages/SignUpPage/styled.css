@@ -1,0 +1,121 @@
+/* Background with Soft Gradient */
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #c46575, #7e0135);
+  font-family: "Poppins", sans-serif;
+  padding: 20px;
+  position: relative;
+}
+
+
+/* Title */
+.signup-title {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  font-weight: 800;
+  color: #F8F8F8;
+  text-shadow: 5px 5px 20px rgba(0, 0, 0, 0.7);
+  letter-spacing: 2px;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+/* Layout */
+.signup-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  max-width: 1100px;
+  margin-top: 20px;
+  gap: 50px;
+}
+
+/* Sign-Up Image */
+.signup-image {
+  width: 420px;
+  height: auto;
+  border-radius: 15px;
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease-in-out;
+}
+
+.signup-image:hover {
+  transform: scale(1.05);
+}
+
+/* Glassmorphism Effect for Sign-Up Box */
+.signup-box {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  width: 420px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.3s ease-in-out;
+}
+
+.signup-box:hover {
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* Sign-Up Heading */
+.signup-heading {
+  font-weight: bold;
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 25px;
+}
+
+/* Form */
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Custom Button */
+.button-group button {
+  background-color: #662535;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 14px 22px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  text-transform: uppercase;
+}
+
+.button-group button:hover {
+  background-color: #ff4b2b;
+  transform: translateY(-2px);
+  box-shadow: 0px 5px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .signup-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .signup-image {
+    width: 80%;
+  }
+
+  .signup-box {
+    width: 90%;
+    padding: 30px;
+  }
+}

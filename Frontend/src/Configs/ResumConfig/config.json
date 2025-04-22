@@ -1,0 +1,171 @@
+[
+    {
+        "id": 1,
+        "name": "Alice Johnson",
+        "email": "aliceJohnson@gmail.com",
+        "phnNumber": "9449949494",
+        "education": [
+            {
+                "degree": "Bachelor of Science in Computer Science",
+                "institution": "University A",
+                "percentage": "70%",
+                "location": "Lucknow",
+                "startDate": 2020,
+                "endDate": 2024
+            },
+            {
+                "degree": "Master of Science in Software Engineering",
+                "institution": "University B",
+                "percentage": "90%",
+                "location": "Lucknow",
+                "startDate": 2020,
+                "endDate": 2022
+            }
+        ],
+        "experience": [
+            {
+                "jobTitle": "Frontend Developer",
+                "company": "Tech Solutions",
+                "years": "2022 - Present",
+                "location": "Noida",
+                "description": "Developing user interfaces and implementing web applications."
+            },
+            {
+                "jobTitle": "Intern",
+                "company": "Web Innovations",
+                "years": "2021 - 2022",
+                "location": "Delhi",
+                "description": "Assisted in developing a responsive website for clients."
+            }
+        ],
+        "projects": [
+            {
+                "title": "Portfolio Website",
+                "description": "A personal portfolio website showcasing my projects.",
+                "technologies": [
+                    "React",
+                    "CSS",
+                    "JavaScript"
+                ],
+                "link": "https://myportfolio.com"
+            },
+            {
+                "title": "E-commerce App",
+                "description": "A full-stack e-commerce application with payment integration.",
+                "technologies": [
+                    "Node.js",
+                    "Express",
+                    "MongoDB"
+                ],
+                "link": "https://ecommerceapp.com"
+            }
+        ],
+        "certifications": [
+            {
+                "title": "Certified React Developer",
+                "institution": "React Academy",
+                "year": 2023,
+                "description": "Completed advanced certification in React, covering hooks, state management, and performance optimization techniques."
+            },
+            {
+                "title": "JavaScript Algorithms and Data Structures",
+                "institution": "freeCodeCamp",
+                "year": 2021,
+                "description": "Studied essential JavaScript algorithms and data structures, focusing on problem-solving and optimization strategies."
+            }
+        ],
+        "github": "https://github.com/alicejohnson",
+        "linkedin": "https://linkedin.com/in/alicejohnson"
+    },
+    {
+        "id": 2,
+        "name": "Bob Smith",
+        "email": "bobSmith@gmail.com",
+        "phnNumber": "9449949495",
+        "education": [
+            {
+                "degree": "Bachelor of Technology in Information Technology",
+                "institution": "Institute C",
+                "percentage": "90%",
+                "location": "Kanpur",
+                "year": 2021
+            }
+        ],
+        "experience": [
+            {
+                "jobTitle": "Backend Developer",
+                "company": "Cloud Services",
+                "years": "2021 - Present",
+                "location": "Hyderabad",
+                "description": "Building and maintaining APIs for web applications."
+            }
+        ],
+        "projects": [
+            {
+                "title": "Weather App",
+                "description": "A web application that provides weather updates.",
+                "technologies": [
+                    "React",
+                    "OpenWeather API"
+                ],
+                "link": "https://weatherapp.com"
+            }
+        ],
+        "certifications": [
+            {
+                "title": "MongoDB Developer",
+                "institution": "MongoDB University",
+                "year": 2022,
+                "description": "Acquired knowledge in MongoDB fundamentals, indexing, aggregation, and performance tuning for large datasets."
+            }
+        ],
+        "github": "https://github.com/bobsmith",
+        "linkedin": "https://linkedin.com/in/bobsmith"
+    },
+    {
+        "id": 3,
+        "name": "Charlie Brown",
+        "email": "charlieBrown@gmail.com",
+        "phnNumber": "9449949496",
+        "education": [
+            {
+                "degree": "Bachelor of Science in Software Engineering",
+                "institution": "University D",
+                "percentage": "60%",
+                "location": "Delhi",
+                "year": 2019
+            }
+        ],
+        "experience": [
+            {
+                "jobTitle": "Backend Developer",
+                "company": "Cloud Services",
+                "years": "2021 - Present",
+                "location": "Bengaluru",
+                "description": "Building and maintaining APIs for web applications."
+            }
+        ],
+        "projects": [
+            {
+                "title": "Task Management System",
+                "description": "A task management web application for teams.",
+                "technologies": [
+                    "Java",
+                    "Spring Boot",
+                    "Thymeleaf"
+                ],
+                "link": "https://taskmanagement.com"
+            }
+        ],
+        "certifications": [
+            {
+                "title": "Java Developer Certification",
+                "institution": "Oracle",
+                "year": 2020,
+                "description": "Completed comprehensive training in Java development, covering object-oriented programming, concurrency, and advanced frameworks like Spring."
+            }
+        ],
+        "github": "https://github.com/charliebrown",
+        "linkedin": "https://linkedin.com/in/charliebrown"
+    }
+]

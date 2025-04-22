@@ -1,0 +1,113 @@
+/* DashboardPage.css */
+
+.dashboard-container {
+  display: flex;
+}
+
+.dashboard-appbar {
+  width: calc(100% - 240px);
+  margin-left: 240px;
+  z-index: 1201;
+  position: fixed;
+}
+
+.dashboard-toolbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.dashboard-form-control {
+  margin: 8px;
+  width: 50ch;
+  display: flex;
+  align-items: center;
+}
+
+/* Main content area */
+.dashboard-main {
+  flex-grow: 1;
+  padding: 2px;
+  padding-top: 64px;
+  height: calc(100% - 2vw);
+}
+
+/* Modal styles */
+.dashboard-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  background-color: #fff;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+}
+
+/* Grid container spacing */
+.dashboard-grid-container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
+}
+
+/* Centered text with uppercase and specific color */
+.dashboard-header {
+  grid-column: span 12;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  color: #4b2354;
+  font-size: 36px;
+  font-weight: bold;
+}
+
+/* Underlined text for contact and links */
+.dashboard-contact-info {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Section titles with bold text and bottom border */
+.dashboard-section-title {
+  font-weight: bold;
+  border-bottom: 1px solid #000;
+  padding-bottom: 8px;
+}
+
+/* Button styles */
+.dashboard-button {
+  background-color: #4b2354;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 150px;
+  text-align: center;
+}
+
+/* User details section aligned to the right */
+.dashboard-user-details {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Logout button with transparent background */
+.dashboard-logout-btn {
+  background: none;
+  color: #d3d3d3;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  width: 3vw;
+}
+
+/* Details section with evenly spaced items */
+.dashboard-details {
+  display: flex;
+  justify-content: space-around;
+}

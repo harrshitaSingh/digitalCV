@@ -1,0 +1,88 @@
+.classic-template-container {
+    font-family: 'Google Sans', Roboto, sans-serif;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.resume-download-btn {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.resume-download-btn button {
+    background-color: #538ec3;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 15px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.resume-download-btn button:hover {
+    background-color: #3d72a0;
+}
+
+.resume-card {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    padding: 40px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.resume-name {
+    font-size: 32px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.resume-contact {
+    text-align: center;
+    font-size: 15px;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 5px;
+}
+
+.resume-email {
+    text-align: center;
+    font-size: 14px;
+    color: #538ec3;
+    margin-bottom: 20px;
+}
+
+.resume-summary {
+    text-align: center;
+    font-size: 16px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    color: #444;
+    margin-bottom: 30px;
+}
+
+.resume-section {
+    margin-top: 20px;
+}
+
+.resume-section h2 {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.resume-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    color: #333;
+}
+
+.resume-section li {
+    margin-bottom: 8px;
+    font-size: 15px;
+}

@@ -1,0 +1,336 @@
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { Box, Typography, Grid } from "@mui/material";
+import CustomInput from "../../../../Components/CustomInput";
+import { ResumeContext } from "../../../../Context/ResumeContext";
+import CustomButton from "../../../../Components/CustomButton";
+import Add from "@mui/icons-material/Add";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+
+
+function ProjectForm({ resumeId, setGetData }) {
+  const { resumes } = useContext(ResumeContext);
+  const [projectName, setProjectName] = useState([
+    {
+      title: "",
+      description: "",
+      technologies: "",
+      startDate: '',
+      endDate: '',
+      link: "",
+    },
+  ]);
+
+  const isValidFieldProjects = (value) => {
+    const valid = typeof value === "string" && value.trim().length > 0;
+    return valid;
+  };
+
+  const getter = useCallback(() => {
+    for (let i = 0; i < projectName.length; i++) {
+      const cert = projectName[i];
+      console.log(cert)
+      for (const key in cert) {
+        if (!isValidFieldProjects(cert[key])) {
+          console.log(`Invalid field: Index ${i}, Field: ${key}, Value: "${cert[key]}"`);
+        }
+      }
+    }
+
+    const isAllValidCertificate = projectName.every((edu) => {
+      return Object.values(edu).every((val) => isValidFieldProjects(val));
+    });
+
+    if (!isAllValidCertificate) {
+      console.log("Not all fields are valid!");
+      return null;
+    }
+
+    return projectName;
+  }, [projectName])
+
+  useEffect(() => {
+    if (setGetData) {
+
+      setGetData(() => getter);
+    }
+  }, [setGetData, getter]);
+
+  useEffect(() => {
+    if (resumes && resumes.length > 0) {
+      const selectedProj = resumes.find((resume) => resume.id === resumeId);
+
+      if (
+        selectedProj &&
+        Array.isArray(selectedProj.project) &&
+        selectedProj.project.length > 0
+      ) {
+        setProjectName(
+          selectedProj.project.map((proj) => ({
+            title: proj.title || "",
+            description: proj.description || "",
+            technologies: proj.technologies || "",
+            startDate: proj.startDate|| '',
+            endDate: proj.endDate||'',
+            link: proj.link || "",
+          }))
+        );
+      }
+    }
+  }, [resumes, resumeId, projectName]);
+
+
+
+  const handleProj = (index, field, value) => {
+    const updatedProjectName = projectName.map((proj, i) =>
+      i === index ? { ...proj, [field]: value } : proj
+    );
+
+    setProjectName(updatedProjectName);
+  };
+
+
+  const handleProjectAdd = () => {
+    const newProject = {
+      title: "",
+      description: "",
+      technologies: "",
+      startDate: '',
+      endDate: '',
+      link: "",
+    };
+
+    const updatedProject = [...projectName, newProject];
+    setProjectName(updatedProject);
+    // updateResume(resumeId, "project", updatedProject);
+  };
+
+  // const handleProjectDelete = (index) => {
+  //   const updatedProject = projectName.filter((_, i) => i !== index);
+  //   setProjectName(updatedProject);
+  //   updateResume(resumeId, "projects", updatedProject);
+  // };
+
+  return (
+    <Box
+      sx={{
+        width: "60%",
+        margin: "0 auto",
+        padding: "2rem",
+        boxShadow: 3,
+        borderRadius: 2,
+        bgcolor: "#f9f9f9",
+      }}
+    >
+      <Box sx={{ display: "flex", justifyContent: "space-between", p: 3 }}>
+        <Box sx={{ marginBottom: 3 }}>
+          <Typography
+            variant="h5"
+            sx={{
+              fontWeight: 'bold',
+              fontSize: '1.5rem',
+              color: '#1e1e1e',
+            }}
+          >
+            Showcase the projects that define your journey
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              fontSize: '1rem',
+              color: '#1e1e1e',
+              marginTop: 0.5,
+            }}
+          >
+            Highlight the real-world projects that reflect your initiative, innovation, and ability to drive results from concept to completion          </Typography>
+        </Box>
+
+        <CustomButton
+          btnText={<Add />}
+          btnStyles={{
+            backgroundColor: "#4b2354",
+            color: "white",
+            border: "none",
+            borderRadius: "50%",
+            width: "48px",
+            height: "48px",
+            minWidth: "unset",
+            padding: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer"
+          }}
+          updateClick={handleProjectAdd}
+        />
+      </Box>
+      {projectName.map((projects, index) => (
+        <Grid container spacing={2} sx={{ mb: 10 }} key={index}>
+          {/* <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <CustomButton
+              btnText={<DeleteIcon />}
+              btnStyles={{
+                backgroundColor: "#d32f2f",
+                border: "none",
+                color: "white",
+                width: "50px",
+                cursor: "pointer",
+              }}
+              updateClick={() => handleProjectDelete(index)}
+            />
+          </Grid> */}
+
+          <Grid item xs={12}>
+            <Box sx={{ position: "relative" }}>
+              <CustomInput
+                label="Project Name"
+                inputType="text"
+                currentValue={projects.title}
+                updateValue={(value) => handleProj(index, "title", value)}
+              />
+              {isValidFieldProjects(projects.title) && (
+                <CheckCircleIcon
+                  sx={{
+                    color: "green",
+                    position: "absolute",
+                    right: 10,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                  }}
+                />
+              )}
+            </Box>
+
+          </Grid>
+
+          <Grid item xs={12}>
+            <Box sx={{ position: "relative" }}>
+              <CustomInput
+                label="Technologies"
+                inputType="text"
+                currentValue={projects.technologies}
+                updateValue={(value) => handleProj(index, "technologies", value)}
+              />
+              {isValidFieldProjects(projects.technologies) && (
+                <CheckCircleIcon
+                  sx={{
+                    color: "green",
+                    position: "absolute",
+                    right: 10,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                  }}
+                />
+              )}
+            </Box>
+
+          </Grid>
+
+          <Grid item xs={12}>
+            <Box sx={{ position: "relative" }}>
+              <CustomInput
+                fullWidth
+                label="Description"
+                variant="outlined"
+                currentValue={projects.description}
+                updateValue={(value) => handleProj(index, "description", value)}
+                multiline
+                maxRows={4}
+                maxLength={200}
+              />
+              {isValidFieldProjects(projects.description) && (
+                <CheckCircleIcon
+                  sx={{
+                    color: "green",
+                    position: "absolute",
+                    right: 10,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                  }}
+                />
+              )}
+            </Box>
+        
+          </Grid>
+          <Grid item xs={6}>
+            <Box sx={{ position: "relative" }}>
+              <CustomInput
+                label="Start Date"
+                currentValue={projects.startDate}
+                updateValue={(value) =>
+                  handleProj(index, "startDate", value)
+                }
+                date={{ shrink: true }}
+                required
+                inputType="date"
+              />
+              {isValidFieldProjects(projects.startDate) && (
+                <CheckCircleIcon
+                  sx={{
+                    color: "green",
+                    position: "absolute",
+                    right: 10,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                  }}
+                />
+              )}
+            </Box>
+
+          </Grid>
+
+          <Grid item xs={6}>
+            <Box sx={{ position: "relative" }}>
+              <CustomInput
+                label="End Date"
+                currentValue={projects.endDate}
+                updateValue={(value) =>
+                  handleProj(index, "endDate", value)
+                }
+                date={{ shrink: true }}
+                required
+                inputType="date"
+              />
+              {isValidFieldProjects(projects.endDate) && (
+                <CheckCircleIcon
+                  sx={{
+                    color: "green",
+                    position: "absolute",
+                    right: 10,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                  }}
+                />
+              )}
+            </Box>
+
+          </Grid>
+
+          <Grid item xs={12}>
+            <Box sx={{ position: "relative" }}>
+              <CustomInput
+                label="Project Link"
+                inputType="text"
+                currentValue={projects.link}
+                updateValue={(value) => handleProj(index, "link", value)}
+              />
+              {isValidFieldProjects(projects.link) && (
+                <CheckCircleIcon
+                  sx={{
+                    color: "green",
+                    position: "absolute",
+                    right: 10,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                  }}
+                />
+              )}
+            </Box>
+         
+          </Grid>
+        </Grid>
+      ))}
+    </Box>
+  );
+}
+
+export default ProjectForm;
