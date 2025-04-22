@@ -31,7 +31,7 @@ function SettingsPage() {
       <CssBaseline />
       <AppBar position="fixed" className="settings-appbar">
         <Toolbar className="settings-toolbar">
-          <Typography variant="h4" className="settings-title">
+          <Typography variant="h3" className="settings-title">
             Settings
           </Typography>
           <div className="user-details">
