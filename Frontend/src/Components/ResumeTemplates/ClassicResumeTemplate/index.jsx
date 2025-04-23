@@ -18,7 +18,7 @@ const ClassicResumeTemplate = ({ resumeData, preview }) => {
 
     return (
         <Box
-            id="resume-to-download"
+            // id="resume-to-download"
 
             sx={{
             transform: preview ? 'scale(0.5)' : 'scale(1)',

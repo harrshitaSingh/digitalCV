@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var express_1 = require("express");
+var cors_1 = require("cors");
+var client_1 = require("@prisma/client");
+var authRoute_1 = require("./Routes/authRoute");
+var resumeRoute_1 = require("./Routes/resumeRoute");
+var prisma = new client_1.PrismaClient();
+var app = (0, express_1.default)();
+app.use(express_1.default.json());
+app.use((0, cors_1.default)());
+app.use("/auth", authRoute_1.default);
+app.use("/resume", resumeRoute_1.default);
+var PORT = process.env.PORT || 5000;
+app.listen(PORT, function () { return console.log("Server running on port ".concat(PORT)); });
