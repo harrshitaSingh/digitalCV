@@ -10,12 +10,14 @@ const SharedResume = () => {
     const [resume, setResume] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
     useEffect(() => {
         const fetchResume = async () => {
             try {
                 const token = localStorage.getItem("token");
 
-                const res = await fetch(`http://localhost:5000/resume/${id}`, {
+                const res = await fetch(`${baseUrl}/resume/${id}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",

@@ -14,6 +14,9 @@ function LoginPage() {
   const { setUserState } = useContext(UserContext);
   const navigate = useNavigate();
 
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
+
   const handleLogin = async (e) => {
   if (e && e.preventDefault) {
       e.preventDefault();
@@ -24,7 +27,7 @@ function LoginPage() {
 
     setLoading(true); 
     try {
-      const response = await fetch("http://localhost:5000/auth", {
+      const response = await fetch(`${baseUrl}/auth`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

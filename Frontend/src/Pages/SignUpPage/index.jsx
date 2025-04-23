@@ -13,6 +13,8 @@ function SignUpPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
   const handleSignUp = async (e) => {
   if (e && e.preventDefault) {
       e.preventDefault();
@@ -28,7 +30,7 @@ function SignUpPage() {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/auth/signUp", {
+      const response = await fetch(`${ baseUrl }/auth/signUp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, password }),

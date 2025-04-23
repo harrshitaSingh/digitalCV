@@ -54,6 +54,8 @@ function ResumeDashboard() {
   const navigate = useNavigate();
   const downloadRef = React.useRef(null);
 
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
 
   useEffect(() => {
     localStorage.removeItem("resume");
@@ -74,7 +76,7 @@ function ResumeDashboard() {
         return;
       }
 
-      const response = await fetch("http://localhost:5000/resume/home", {
+      const response = await fetch(`${baseUrl}/resume/home`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -154,7 +156,7 @@ function ResumeDashboard() {
         return;
       }
 
-      const response = await fetch(`http://localhost:5000/resume/${resumeID}`, {
+      const response = await fetch(`${baseUrl}/resume/${resumeID}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -178,7 +180,7 @@ function ResumeDashboard() {
   };
 
   const handleShareClick = (resumeId) => {
-    const shareURL = `http://localhost:3000/resume/${resumeId}`;
+    const shareURL = `${baseUrl}//resume/${resumeId}`;
     navigator.clipboard.writeText(shareURL)
       .then(() => {
         toast.success("Share link copied to clipboard!");
