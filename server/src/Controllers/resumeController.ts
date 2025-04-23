@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import prisma from "../Config/db";
 import { ResumeModel } from "../Models/resume.model";
 
@@ -73,7 +73,6 @@ export const getResumes = async (req: Request, res: Response) => {
 
     const authorId = decoded.id;
     const resumes = await prisma.resume.findMany({ where: { authorId } });
-
     res.json(resumes);
   } catch (error) {
     res.status(500).json({ success: false, message: "Internal Server Error" });
@@ -82,6 +81,7 @@ export const getResumes = async (req: Request, res: Response) => {
 
 export const updateResumes = async (req: Request, res: Response) => {
   try {
+    console.log("are you here")
     const { resumeID, section, data } = req.body;
 console.log(resumeID, "id", section, "section", data, "data")
     if (!resumeID || !section || !data) {
@@ -157,7 +157,6 @@ export const deleteResume = async (req: Request, res: Response) => {
 
 export const getResumeDataById = async (req: Request, res: Response) => {
   try {
-
     const token = req.header("Authorization")?.split(" ")[1];
 
     if (!token) {

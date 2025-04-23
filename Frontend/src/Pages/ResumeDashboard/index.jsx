@@ -172,9 +172,8 @@ function ResumeDashboard() {
       }
     } catch (error) {
       toast.warn("Resume data does not exist");
-    }
-    finally {
-      setLoading(false); // Hide loader when data fetching is done
+    } finally {
+      setLoading(false);
     }
   };
 
