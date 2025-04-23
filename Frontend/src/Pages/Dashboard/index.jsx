@@ -46,7 +46,7 @@ export default function DashboardPage({ resume: resumeFromProps }) {
     Certifications: "certificates",
     GitHub: "github",
     LinkedIn: "linkedin",
-    Links: "links", // ✅ Make sure this exists
+    Links: "links", 
     Template: "template",
   };
 
