@@ -1,6 +1,6 @@
 // CustomShareButton.js
 import React from 'react';
-import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { Box, IconButton, Tooltip } from '@mui/material';
 import {
     FacebookShareButton,
     TwitterShareButton,

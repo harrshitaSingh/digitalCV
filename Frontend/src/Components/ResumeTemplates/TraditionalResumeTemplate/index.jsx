@@ -17,7 +17,7 @@ const SectionTitle = ({ title }) => (
 const TraditionalTemplate = ({ resumeData, preview }) => {
   if (!resumeData) return null;
 
-  const { github, linkedin, contact, education, experience, project, certificates, skills } = resumeData;
+  const { contact, education, experience, project, certificates, skills } = resumeData;
 
   return (
     <Box
