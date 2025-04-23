@@ -5,7 +5,6 @@ import { toast, ToastContainer } from "react-toastify";
 import CustomInput from "../../Components/CustomInput";
 import CustomButton from "../../Components/CustomButton";
 import "./styled.css";
-// import signUpIllustration from "../../assets/login-illustration.png"; 
 
 function SignUpPage() {
   const [name, setName] = useState("");
