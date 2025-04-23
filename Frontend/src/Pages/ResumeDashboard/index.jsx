@@ -28,12 +28,10 @@ import ShareIcon from "@mui/icons-material/Share";
 import DownloadIcon from "@mui/icons-material/Download";
 import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import "./styled.css";
-import BluesResumeTemplate from "../../Components/ResumeTemplates/BlueResumeTemplate";
-import ClassicResumeTemplate from "../../Components/ResumeTemplates/ClassicResumeTemplate";
-import TraditionalTemplate from "../../Components/ResumeTemplates/TraditionalResumeTemplate";
-import ModernResumeTemplate from "../../Components/ResumeTemplates/ModernResumeTemplate";
 import CustomShareButton from "../../Components/CustomShareButton";
 import Grow from '@mui/material/Grow';
+import CommonShareTemplate from "../../Components/ResumeTemplates/CommonShareTemplate";
+import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 
 
 const Loader = () => (
@@ -219,19 +217,6 @@ function ResumeDashboard() {
     }, 100);
   };
 
-  const renderTemplate = (resumeData) => {
-    switch (resumeData.template) {
-      case "classic":
-        return <ClassicResumeTemplate resumeData={resumeData} preview={false} />;
-      case "traditional":
-        return <TraditionalTemplate resumeData={resumeData} preview={false} />;
-      case "modern":
-        return <ModernResumeTemplate resumeData={resumeData} preview={false} />;
-      case "blue":
-      default:
-        return <BluesResumeTemplate resumeData={resumeData} preview={false} />;
-    }
-  };
 
   return (
     <Box className="resume-dashboard">
@@ -303,17 +288,22 @@ function ResumeDashboard() {
                     <Card
                       className="animated-card"
                       sx={{
-                        width: "80%",
-                        minHeight: 400,
-                        bgcolor: "transparent",
-                        border: "1px solid #4b2354",
+                        width: "90%",
+                        minHeight: 420,
+                        mx: "auto",
+                        borderRadius: "20px",
+                        background: hoveredCard === resume.id
+                          ? "linear-gradient(135deg, #f1f5f8, #e3ecf0)"
+                          : "linear-gradient(135deg, #f8f9fa, #e8f0f7)",
+                        boxShadow: hoveredCard === resume.id
+                          ? "0px 12px 24px rgba(0, 0, 0, 0.15)"
+                          : "0px 6px 12px rgba(0,0,0,0.05)",
+                        transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                        transform: hoveredCard === resume.id ? "scale(1.03)" : "scale(1)",
                         position: "relative",
                         overflow: "hidden",
-                        transition: "0.3s ease",
-                        '&:hover .card-content': {
-                          filter: "blur(1px)",
-                        },
-                        '&:hover .card-actions': {
+                        cursor: "pointer",
+                        "&:hover .card-actions": {
                           opacity: 1,
                         },
                       }}
@@ -323,14 +313,25 @@ function ResumeDashboard() {
                       onMouseLeave={() => setHoveredCard(null)}
                     >
                       <Box onClick={() => handleCardData(resume.id)} sx={{ cursor: "pointer" }} className="card-content">
-                        <CardContent>
+                        <CardContent sx={{ textAlign: "center", pt: 6 }}>
+                          <FolderOpenIcon sx={{ fontSize: 60, color: "#c5c5c5", mb: 1 }} />
+
                           <Typography
                             variant="h5"
                             sx={{ color: "#4b2354", textAlign: "center", fontWeight: "bold" }}
                           >
                             {resume.title}
                           </Typography>
-
+                          <Typography
+                            sx={{
+                              fontSize: "0.9rem",
+                              color: "#888",
+                              fontStyle: "italic",
+                              mt: 2,
+                            }}
+                          >
+                            Click to edit this resume
+                          </Typography>
                         </CardContent>
                       </Box>
                       {loading && (
@@ -357,7 +358,7 @@ function ResumeDashboard() {
                           display: "flex",
                           justifyContent: "center",
                           gap: 4,
-                          opacity: 0,
+                          opacity: hoveredCard === resume.id ? 1 : 0.4,
                           transition: "opacity 0.3s ease",
                           zIndex: 2,
                         }}
@@ -390,8 +391,6 @@ function ResumeDashboard() {
                           </IconButton>
                         </Tooltip>
                       </CardActions>
-
-
                     </Card>
                   </Grow>
                 </Grid>
@@ -430,7 +429,6 @@ function ResumeDashboard() {
           </CustomModal>
         )}
 
-
         {resumeToDownload && (
           <Box
             ref={downloadRef}
@@ -438,13 +436,15 @@ function ResumeDashboard() {
               position: "absolute",
               top: "-9999px",
               left: "-9999px",
-              opacity: 0,
+              // opacity: 0,
               pointerEvents: "none",
+              backgroundColor:"transparent"
             }}
           >
-            {renderTemplate(resumeToDownload)}
+            <CommonShareTemplate resumeData={resumeToDownload} />
           </Box>
         )}
+
 
         {deleteModal && (
           <CustomModal isOpen={deleteModal} closeModal={handleCloseDeleteModal}>

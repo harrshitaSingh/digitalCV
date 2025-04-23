@@ -1,31 +1,20 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import BluesResumeTemplate from "../../../Components/ResumeTemplates/BlueResumeTemplate";
-import ClassicResumeTemplate from "../../../Components/ResumeTemplates/ClassicResumeTemplate";
-import ModernResumeTemplate from "../../../Components/ResumeTemplates/ModernResumeTemplate";
-import TraditionalTemplate from "../../../Components/ResumeTemplates/TraditionalResumeTemplate";
 import { toast } from "react-toastify";
-
-const templateMap = {
-    Blues: BluesResumeTemplate,
-    Classic: ClassicResumeTemplate,
-    Modern: ModernResumeTemplate,
-    Traditional: TraditionalTemplate,
-};
+import CommonShareTemplate from "../../../Components/ResumeTemplates/CommonShareTemplate";
+;
 
 const SharedResume = () => {
-    const { id } = useParams(); // Get the resume ID from the URL
+    const { id } = useParams();
     console.log(id, "wid");
-    const [resume, setResume] = useState(null); // Store resume data
-    const [loading, setLoading] = useState(true); // Loading state to show a loading indicator
+    const [resume, setResume] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchResume = async () => {
             try {
-                // Assuming you may want to pass an authorization token, check localStorage or sessionStorage
-                const token = localStorage.getItem("token"); // Retrieve token from localStorage
+                const token = localStorage.getItem("token");
 
-                // Add the token to your fetch request headers
                 const res = await fetch(`http://localhost:5000/resume/${id}`, {
                     method: "GET",
                     headers: {
@@ -50,18 +39,17 @@ const SharedResume = () => {
         };
 
         fetchResume();
-    }, [id]); // Fetch resume whenever the resume ID changes
+    }, [id]);
 
     if (loading) return <div>Loading...</div>;
 
-    const TemplateComponent = templateMap[resume?.template];
 
     return (
         <div style={{ padding: "2rem" }}>
-            {TemplateComponent ? (
-                <TemplateComponent resumeData={resume} />
+            {resume ? (
+                <CommonShareTemplate resumeData={resume} />
             ) : (
-                <p>Template not found</p>
+                <p>Resume data not available</p>
             )}
         </div>
     );
