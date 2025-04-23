@@ -10,12 +10,14 @@ const ResumeProvider = ({ children }) => {
     const [templateName, setTemplateName] = useState("");
     const [templateId, setTemplateId] = useState("");
 
-    const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
     /**
      * @name fetchResume
      * @description Fetches resumes that match the logged-in user's ID
      */
+
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
     const fetchResume = async () => {
         const token = localStorage.getItem("token");
         const userId = token ? decodeToken(token)?.id : null;
@@ -27,7 +29,7 @@ const ResumeProvider = ({ children }) => {
 
         setLoading(true);
         try {
-            const response = await fetch(`${baseUrl}/resume/home`, {
+            const response = await fetch("http://localhost:5000/resume/home", {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -49,21 +51,26 @@ const ResumeProvider = ({ children }) => {
 
     useEffect(() => {
         fetchResume();
-    }, []);
+    });
 
     /**
      * @name updateResume
      * @description Updates a specific resume field by ID
+     * @param {string} resumeId - ID of the resume to update
+     * @param {string} field - The field to update
+     * @param {any} value - The new value for the field
      */
+
     const updateResume = async (resumeId, section, data) => {
         try {
-            const token = localStorage.getItem("token");
+            const token = localStorage.getItem('token');
 
-            const response = await fetch(`${baseUrl}/resume/update`, {
-                method: "POST",
+            const response = await fetch(`http://localhost:5000/resume/update`, {
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
+
                 },
                 body: JSON.stringify({
                     resumeID: resumeId,
@@ -75,62 +82,61 @@ const ResumeProvider = ({ children }) => {
             const result = await response.json();
 
             if (!response.ok) {
-                throw new Error(result.message || "Failed to update resume");
+                throw new Error(result.message || 'Failed to update resume');
             }
-
             await fetchResume();
         } catch (error) {
-            console.error("Update error:", error.message);
+            console.error('Update errorecvefcve:', error.message);
         }
     };
 
-    /**
-     * @name deleteResume
-     * @description Deletes a resume by ID
-     */
+
     const deleteResume = async (resumeId) => {
         try {
             console.log("Are you deleting?", resumeId);
 
-            const token = localStorage.getItem("token");
+            const token = localStorage.getItem('token');
 
-            const response = await fetch(`${baseUrl}/resume/delete/${resumeId}`, {
-                method: "DELETE",
+            const response = await fetch(`http://localhost:5000/resume/delete/${resumeId}`, {
+                method: 'DELETE',
                 headers: {
-                    "Content-Type": "application/json",
+                    'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({ resumeID: resumeId }),
             });
-
             const result = await response.json();
-            console.log(result);
-
+            console.log(result)
+            // if (!response.ok) {
+            //     throw new Error(result.message || 'Failed to delete resume');
+            // }
             await fetchResume();
+
         } catch (error) {
-            console.error("Delete error:", error.message);
+            console.error('Delete error:', error.message);
             return { success: false, message: error.message };
         }
     };
 
+
+
+
     return (
-        <ResumeContext.Provider
-            value={{
-                resumes,
-                updateResume,
-                deleteResume,
-                setResumes,
-                loading,
-                setLoading,
-                fetchResume,
-                resumeData,
-                setResumeData,
-                templateName,
-                setTemplateName,
-                templateId,
-                setTemplateId,
-            }}
-        >
+        <ResumeContext.Provider value={{
+            resumes,
+            updateResume,
+            deleteResume,
+            setResumes,
+            loading,
+            setLoading,
+            fetchResume,
+            resumeData,
+            setResumeData,
+            templateName,
+            setTemplateName,
+            templateId,
+            setTemplateId
+        }}>
             {children}
         </ResumeContext.Provider>
     );

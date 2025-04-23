@@ -41,7 +41,7 @@ const SharedResume = () => {
         };
 
         fetchResume();
-    }, [id]);
+    }, [baseUrl, id]);
 
     if (loading) return <div>Loading...</div>;
 
