@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getResumeDataById = exports.deleteResume = exports.updateResumes = exports.getResumes = exports.createResume = void 0;
-var jsonwebtoken_1 = require("jsonwebtoken");
+var jwt = require("jsonwebtoken");
 var db_1 = require("../Config/db");
 var createResume = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var token, decoded, authorId, _a, title, experience, education, certificates, contact, project, github, linkedin, template, newResume, error_1;
@@ -53,7 +53,7 @@ var createResume = function (req, res) { return __awaiter(void 0, void 0, void 0
                             message: "Unauthorized, token missing",
                         })];
                 }
-                decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
+                decoded = jwt.verify(token, process.env.JWT_SECRET);
                 if (!decoded || !decoded.id) {
                     return [2 /*return*/, res.status(401).json({ success: false, message: "Invalid token" })];
                 }
@@ -100,7 +100,7 @@ var getResumes = function (req, res) { return __awaiter(void 0, void 0, void 0, 
                 if (!token) {
                     return [2 /*return*/, res.status(401).json({ success: false, message: "Unauthorized" })];
                 }
-                decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
+                decoded = jwt.verify(token, process.env.JWT_SECRET);
                 if (!decoded || !decoded.id) {
                     return [2 /*return*/, res.status(401).json({ success: false, message: "Invalid token" })];
                 }
@@ -214,7 +214,7 @@ var getResumeDataById = function (req, res) { return __awaiter(void 0, void 0, v
                 if (!token) {
                     return [2 /*return*/, res.status(401).json({ success: false, message: "Unauthorized" })];
                 }
-                decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
+                decoded = jwt.verify(token, process.env.JWT_SECRET);
                 if (!decoded || !decoded.id) {
                     return [2 /*return*/, res.status(401).json({ success: false, message: "Invalid token" })];
                 }

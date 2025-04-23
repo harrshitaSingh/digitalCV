@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.login = exports.signUp = void 0;
 var db_1 = require("../Config/db");
-var jsonwebtoken_1 = require("jsonwebtoken");
+var jwt = require("jsonwebtoken");
 /**
  * @name signUp
  * @description Registers a new user, stores the token, and returns user details with token.
@@ -66,7 +66,7 @@ var signUp = function (req, res) { return __awaiter(void 0, void 0, void 0, func
                     })];
             case 3:
                 newUser = _b.sent();
-                token = jsonwebtoken_1.default.sign({ id: newUser.id, name: newUser.name, email: newUser.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+                token = jwt.sign({ id: newUser.id, name: newUser.name, email: newUser.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
                 return [4 /*yield*/, db_1.default.user.update({
                         where: { id: newUser.id },
                         data: { token: token }
@@ -111,7 +111,7 @@ var login = function (req, res) { return __awaiter(void 0, void 0, void 0, funct
                 if (user.password !== password) {
                     return [2 /*return*/, res.status(401).json({ error: "Invalid password" })];
                 }
-                token = jsonwebtoken_1.default.sign({ id: user.id, name: user.name, email: user.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+                token = jwt.sign({ id: user.id, name: user.name, email: user.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
                 return [4 /*yield*/, db_1.default.user.update({
                         where: { id: user.id },
                         data: { token: token }

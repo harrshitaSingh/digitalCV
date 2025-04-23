@@ -1,5 +1,5 @@
 import prisma from "../Config/db";
-import jwt from "jsonwebtoken";
+import * as jwt from "jsonwebtoken";
 import { signUpModel } from "../Models/signUp.model";
 import { loginModel } from "../Models/logIn.model";
 import { Request, Response } from "express";
