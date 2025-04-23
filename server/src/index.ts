@@ -8,7 +8,10 @@ const prisma = new PrismaClient();
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: "https://your-frontend.netlify.app",
+  credentials: true
+}));
 
 app.use("/auth", authRoutes);
 app.use("/resume", resumeRoutes);
