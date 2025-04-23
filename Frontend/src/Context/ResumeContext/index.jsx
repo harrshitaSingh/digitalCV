@@ -29,7 +29,7 @@ const ResumeProvider = ({ children }) => {
 
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:5000/resume/home", {
+            const response = await fetch(`${baseUrl}/resume/home`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -65,7 +65,7 @@ const ResumeProvider = ({ children }) => {
         try {
             const token = localStorage.getItem('token');
 
-            const response = await fetch(`http://localhost:5000/resume/update`, {
+            const response = await fetch(`${baseUrl}/resume/update`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ const ResumeProvider = ({ children }) => {
 
             const token = localStorage.getItem('token');
 
-            const response = await fetch(`http://localhost:5000/resume/delete/${resumeId}`, {
+            const response = await fetch(`${baseUrl}/resume/delete/${resumeId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
