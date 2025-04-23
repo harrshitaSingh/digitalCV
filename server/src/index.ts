@@ -9,7 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-  origin: "https://your-frontend.netlify.app",
+  origin: "https://digitcv.netlify.app",
   credentials: true
 }));
 
