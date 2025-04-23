@@ -6,10 +6,20 @@ import resumeRoutes  from "./Routes/resumeRoute";
 
 const prisma = new PrismaClient();
 const app = express();
+const allowedOrigins = ['https://digitcv.netlify.app', 'http://localhost:3000'];
+
+
+
 
 app.use(express.json());
 app.use(cors({
-  origin: "https://digitcv.netlify.app",
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 
