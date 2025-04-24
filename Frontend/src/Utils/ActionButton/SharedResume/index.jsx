@@ -5,7 +5,6 @@ import CommonShareTemplate from "../../../Components/ResumeTemplates/CommonShare
 
 const SharedResume = () => {
     const { id } = useParams();
-    const navigate = useNavigate();
     const [resume, setResume] = useState(null);
     const [loading, setLoading] = useState(true);
 
