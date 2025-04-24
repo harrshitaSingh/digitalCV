@@ -13,7 +13,7 @@ app.use(
       const allowedOrigins = [
         "https://digitcv.netlify.app",
         "http://localhost:3000",
-        "http://localhost:3001",
+        "http://localhost:3001"
       ];
 
       if (!origin || allowedOrigins.includes(origin)) {
@@ -22,14 +22,13 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-    credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
+;
 
-
-app.options("*", cors());
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
