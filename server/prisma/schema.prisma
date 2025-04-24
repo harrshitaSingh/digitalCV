@@ -16,6 +16,7 @@ model User {
   name     String?
   password String?
   token    String?
+  profilePhoto Bytes?
   posts    Resume[]
 }
 

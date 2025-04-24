@@ -200,26 +200,28 @@ export default function DashboardPage({ resume: resumeFromProps }) {
 
         {selectedSection && selectedSection !== "Finalize" && (
           <>
-            <Box
-              sx={{
-                position: "absolute",
-                bottom: 30,
-                left: 300,
-                zIndex: 1000,
-              }}
-            >
-              <CustomButton
-                btnText="Back"
-                btnStyles={{
-                  backgroundColor: "transparent",
-                  color: "#000",
-                  padding: "8px 36px",
-                  border: "2px solid black",
-                  minWidth: "auto",
+            {selectedSection !== "Contact" && (
+              <Box
+                sx={{
+                  position: "absolute",
+                  bottom: 30,
+                  left: 300,
+                  zIndex: 1000,
                 }}
-                updateClick={handleBack}
-              />
-            </Box>
+              >
+                <CustomButton
+                  btnText="Back"
+                  btnStyles={{
+                    backgroundColor: "transparent",
+                    color: "#000",
+                    padding: "8px 36px",
+                    border: "2px solid black",
+                    minWidth: "auto",
+                  }}
+                  updateClick={handleBack}
+                />
+              </Box>
+            )}
 
             <Box
               sx={{
@@ -242,6 +244,7 @@ export default function DashboardPage({ resume: resumeFromProps }) {
             </Box>
           </>
         )}
+
       </Box>
     </Box>
   );

@@ -13,28 +13,23 @@ function CertificationForm({ resumeId, setGetData }) {
       title: '',
       startDate: '',
       endDate: '',
-      description: '',
-      link:''
+      link: '',
+      currentlyWorking: false,
     },
   ]);
   const { resumes } = useContext(ResumeContext);
 
-    const isValidFieldCertificates = (value) => {
-      const valid = typeof value === "string" && value.trim().length > 0;
-      return valid;
-    };
-  
-  const getter = useCallback(() => {
-    for (let i = 0; i < certificateName.length; i++) {
-      const cert = certificateName[i];
-      for (const key in cert) {
-        if (!isValidFieldCertificates(cert[key])) {
-        }
-      }
-    }
+  const isValidFieldCertificates = (value) => {
+    return typeof value === "string" && value.trim().length > 0;
+  };
 
-    const isAllValidCertificate = certificateName.every((edu) => {
-      return Object.values(edu).every((val) => isValidFieldCertificates(val));
+  const getter = useCallback(() => {
+    const isAllValidCertificate = certificateName.every((cert) => {
+      return Object.entries(cert).every(([key, val]) => {
+        if (key === "endDate" && cert.currentlyWorking) return true;
+        if (key === "currentlyWorking") return true;
+        return isValidFieldCertificates(val);
+      });
     });
 
     if (!isAllValidCertificate) {
@@ -44,7 +39,6 @@ function CertificationForm({ resumeId, setGetData }) {
     return certificateName;
   }, [certificateName]);
 
-  
 
   useEffect(() => {
     if (setGetData) {
@@ -68,8 +62,8 @@ function CertificationForm({ resumeId, setGetData }) {
             title: certi.title || '',
             startDate: certi.startDate || '',
             endDate: certi.endDate || '',
-            description: certi.description || '',
             link: certi.link || "",
+            currentlyWorking: certi.currentlyWorking || false,
           }))
         );
       }
@@ -81,6 +75,9 @@ function CertificationForm({ resumeId, setGetData }) {
     const updateCertiForms = certificateName.map((form, i) =>
       i === index ? { ...form, [field]: value } : form
     );
+    if (field === "currentlyWorking" && value === true) {
+      updateCertiForms[index]["endDate"] = "";
+    }
     setCertificateName(updateCertiForms);
   };
 
@@ -89,8 +86,8 @@ function CertificationForm({ resumeId, setGetData }) {
       title: '',
       startDate: '',
       endDate: '',
-      description: '',
-      link: ''
+      link: '',
+      currentlyWorking: false
     };
 
     const updatedCertificate = [...certificateName, newCertificate];
@@ -175,8 +172,8 @@ function CertificationForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-            
-          
+
+
           </Grid>
 
           <Grid item xs={6}>
@@ -217,8 +214,10 @@ function CertificationForm({ resumeId, setGetData }) {
                 date={{ shrink: true }}
                 required
                 inputType="date"
+                disabled={certificate.currentlyWorking}
+
               />
-              {isValidFieldCertificates(certificate.endDate) && (
+              {!certificate.currentlyWorking && isValidFieldCertificates(certificate.endDate) && (
                 <CheckCircleIcon
                   sx={{
                     color: "green",
@@ -230,36 +229,20 @@ function CertificationForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-
-          </Grid>
-
-          <Grid item xs={12}>
-            <Box sx={{ position: "relative" }}>
-              <CustomInput
-                fullWidth
-                label="Description"
-                currentValue={certificate.description}
-                updateValue={(value) =>
-                  handleCertificate(index, 'description', value)
-                }
-                multiline
-                maxRows={4}
-                maxLength={200}
-              />
-              {isValidFieldCertificates(certificate.description) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
+            <Grid item xs={12}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                <input
+                  type="checkbox"
+                  checked={certificate.currentlyWorking}
+                  onChange={(e) =>
+                    handleCertificate(index, "currentlyWorking", e.target.checked)
+                  }
                 />
-              )}
-            </Box>
-        
+                <Typography>In Progress</Typography>
+              </Box>
+            </Grid>
           </Grid>
+
 
           <Grid item xs={12}>
             <Box sx={{ position: "relative" }}>
@@ -271,19 +254,9 @@ function CertificationForm({ resumeId, setGetData }) {
                 currentValue={certificate.link}
                 updateValue={(value) => handleCertificate(index, 'link', value)}
               />
-              {isValidFieldCertificates(certificate.link) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
-              )}
+
             </Box>
-         
+
           </Grid>
         </Grid>
       ))}

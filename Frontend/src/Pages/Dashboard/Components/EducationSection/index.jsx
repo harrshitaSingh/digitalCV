@@ -12,7 +12,7 @@ import { callCountryApi, fetchCountries } from "../../../../Utils/Api/countryAPi
 
 function EducationForm({ resumeId, setGetData }) {
   const [countries, setCountries] = useState([]);
-  const { resumes, updateResume } = useContext(ResumeContext);
+  const { resumes } = useContext(ResumeContext);
   const [educationForms, setEducationForms] = useState([
     {
       degree: "",
@@ -23,27 +23,31 @@ function EducationForm({ resumeId, setGetData }) {
       city: "",
       startEducationDate: "",
       endEducationDate: "",
+      currentlyWorking: false,
     },
   ]);
   const isInitialRenderEducation = useRef(true);
   const fetchedPincodesRef = useRef({})
 
   const isValidFieldEducation = (value) => {
-    const valid = typeof value === "string" && value.trim().length > 0;
-    return valid;
+    return typeof value === "string" && value.trim().length > 0;
   };
 
   const getter = useCallback(() => {
-    const isAllValidEducation = educationForms.every((edu) => {
-      return Object.values(edu).every((val) => isValidFieldEducation(val));  
-    });
+    const isAllValidEducation = educationForms.every((exp) =>
+      Object.entries(exp).every(([key, val]) => {
+        if (key === "endDate" && exp.currentlyWorking) return true;
+        if (key === "currentlyWorking") return true; 
+        return isValidFieldEducation(val);
+      })
+    );
 
     if (!isAllValidEducation) {
       console.log("Not all fields are valid!");
-      return null;  
+      return null;
     }
 
-    return educationForms;  
+    return educationForms;
   }, [educationForms]);
 
 
@@ -54,6 +58,7 @@ function EducationForm({ resumeId, setGetData }) {
       setGetData(() => getter);
     }
   }, [setGetData, getter]);
+
   useEffect(() => {
     const debouncedFetch = callCountryApi(async () => {
       const countryList = await fetchCountries();
@@ -83,6 +88,7 @@ function EducationForm({ resumeId, setGetData }) {
               city: edu.city || "",
               startEducationDate: edu.startEducationDate || "",
               endEducationDate: edu.startEducationDate || "",
+              currentlyWorking: edu.currentlyWorking || false,
             }))
           );
           isInitialRenderEducation.current = false;
@@ -98,6 +104,7 @@ function EducationForm({ resumeId, setGetData }) {
             city: "",
             startEducationDate: "",
             endEducationDate: "",
+            currentlyWorking: false
           },
         ]);
         isInitialRenderEducation.current = false;
@@ -108,6 +115,11 @@ function EducationForm({ resumeId, setGetData }) {
   const handleInputChange = async (index, field, value) => {
     const updatedForms = [...educationForms];
     updatedForms[index][field] = value;
+
+    if (field === "currentlyWorking" && value === true) {
+      updatedForms[index]["endDate"] = "";
+    }
+
 
     if (field === "pincode" && value.length === 6) {
       const pincode = value;
@@ -122,7 +134,6 @@ function EducationForm({ resumeId, setGetData }) {
     }
 
     setEducationForms(updatedForms);
-    updateResume(resumeId, "education", updatedForms);
   };
 
 
@@ -136,6 +147,7 @@ function EducationForm({ resumeId, setGetData }) {
       city: "",
       startEducationDate: "",
       endEducationDate: "",
+      currentlyWorking: false
     };
 
     const updatedEducation = [...educationForms, newEducation];
@@ -364,46 +376,19 @@ function EducationForm({ resumeId, setGetData }) {
             </Box>
           </Grid>
 
-            <Grid item xs={6}>
-              <Box sx={{ position: "relative" }}>
-                <CustomInput
-                  label="Start Date"
-                currentValue={education.startEducationDate}
-                  updateValue={(value) =>
-                    handleInputChange(index, "startEducationDate", value)
-                  }
-                  date={{ shrink: true }}
-                  required
-                  inputType="date"
-                />
-              {isValidFieldEducation(education.startEducationDate) && (
-                  <CheckCircleIcon
-                    sx={{
-                      color: "green",
-                      position: "absolute",
-                      right: 10,
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                    }}
-                  />
-                )}
-              </Box>
-
-            </Grid>
-
           <Grid item xs={6}>
             <Box sx={{ position: "relative" }}>
               <CustomInput
-                label="End Date"
-                currentValue={education.endEducationDate}
+                label="Start Date"
+                currentValue={education.startEducationDate}
                 updateValue={(value) =>
-                  handleInputChange(index, "endEducationDate", value)
+                  handleInputChange(index, "startEducationDate", value)
                 }
                 date={{ shrink: true }}
                 required
                 inputType="date"
               />
-              {isValidFieldEducation(education.endEducationDate) && (
+              {isValidFieldEducation(education.startEducationDate) && (
                 <CheckCircleIcon
                   sx={{
                     color: "green",
@@ -415,6 +400,45 @@ function EducationForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
+
+          </Grid>
+
+
+
+          <Grid item xs={6}>
+            <Box sx={{ position: "relative" }}>
+              <CustomInput
+                label="End Date"
+                currentValue={education.endDate}
+                updateValue={(value) => handleInputChange(index, "endEducationDate", value)}
+                inputType="date"
+                disabled={education.currentlyWorking}
+              />
+              {!education.currentlyWorking && isValidFieldEducation(education.endDate) && (
+                <CheckCircleIcon
+                  sx={{
+                    color: "green",
+                    position: "absolute",
+                    right: 10,
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                  }}
+                />
+              )}
+
+            </Box>
+            <Grid item xs={12}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                <input
+                  type="checkbox"
+                  checked={education.currentlyWorking}
+                  onChange={(e) =>
+                    handleInputChange(index, "currentlyWorking", e.target.checked)
+                  }
+                />
+                <Typography>Current Education</Typography>
+              </Box>
+            </Grid>
 
           </Grid>
         </Grid>

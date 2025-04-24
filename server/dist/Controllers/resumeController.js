@@ -85,7 +85,6 @@ export const updateResumes = (req, res) => __awaiter(void 0, void 0, void 0, fun
             "template",
             "links"
         ];
-        console.log("Section received:", section);
         if (!validSections.includes(section)) {
             return res.status(400).json({ message: "Invalid section name" });
         }

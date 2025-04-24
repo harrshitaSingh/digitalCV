@@ -81,9 +81,7 @@ export const getResumes = async (req: Request, res: Response) => {
 
 export const updateResumes = async (req: Request, res: Response) => {
   try {
-    console.log("are you here")
     const { resumeID, section, data } = req.body;
-console.log(resumeID, "id", section, "section", data, "data")
     if (!resumeID || !section || !data) {
 
       return res.status(400).json({ message: "Missing required fields while updating" });
@@ -101,7 +99,6 @@ console.log(resumeID, "id", section, "section", data, "data")
       "links"
     ];
 
-    console.log("Section received:", section);
 
 
     if (!validSections.includes(section)) {

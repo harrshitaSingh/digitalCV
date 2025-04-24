@@ -125,9 +125,11 @@ const TraditionalTemplate = ({ resumeData, preview }) => {
             <SectionTitle title="Additional Skills" />
             <List dense>
               {certificates.map((s, i) => (
-                <ListItem key={i}>
-                  <ListItemText primary={s.skill} />
-                </ListItem>
+                <Box key={i} mb={2}>
+                  <Typography variant="h6">{s.title}</Typography>
+                  <Typography variant="subtitle2">{s.startDate} {s.endDate}</Typography>
+                  <Typography>{s.city}, {s.state} — {s.field} ({s.percentage})</Typography>
+                </Box>
               ))}
             </List>
           </>
