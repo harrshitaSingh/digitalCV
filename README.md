@@ -1,3 +1,7 @@
+
+
+![Digital Resume Preview](./Frontend/src/Assets/Images/ReadmeImage.png)
+
 # Digital Resume
 
 This project is a **React-based** web application designed to help users create and manage their resumes digitally. It provides a user-friendly interface for creating, editing, and sharing resumes in various formats. The application utilizes **React.js**, **Context API/Redux** for state management, **Node.js** with **Express.js** for the backend, **EJS** for server-side rendering (if required), **Prisma ORM** for database interactions, and **PostgreSQL** as the primary database.
