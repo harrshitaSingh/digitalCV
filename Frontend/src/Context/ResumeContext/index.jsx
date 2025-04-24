@@ -52,7 +52,8 @@ const ResumeProvider = ({ children }) => {
 
     useEffect(() => {
         fetchResume();
-    }, [fetchResume]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     /**
      * @name updateResume
