@@ -14,11 +14,9 @@ const SharedResume = () => {
     useEffect(() => {
         const fetchResume = async () => {
             const token = localStorage.getItem("token");
-
-
             if (!token) {
                 toast.warn("You need to be logged in to view this resume.");
-                navigate("/login"); // Redirect to login if no token is found
+                navigate("/login"); 
                 return;
             }
 

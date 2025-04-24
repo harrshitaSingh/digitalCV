@@ -56,7 +56,6 @@ function ResumeDashboard() {
 
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
-
   useEffect(() => {
     localStorage.removeItem("resume");
   }, []);
@@ -424,7 +423,7 @@ function ResumeDashboard() {
           <CustomModal isOpen={true} closeModal={() => setShareResumeId(null)}>
         
             <CustomShareButton
-              url={`${baseUrl}/resume/${shareResumeId}`}
+              url={`http://digitcv.netlify.app/resume/${shareResumeId}`}
               resume={resumes.find((resume) => resume.id === shareResumeId)}
               onClose={() => setShareResumeId(null)}
             />
