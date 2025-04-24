@@ -13,19 +13,12 @@ const SharedResume = () => {
 
     useEffect(() => {
         const fetchResume = async () => {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                toast.warn("You need to be logged in to view this resume.");
-                navigate("/login"); 
-                return;
-            }
 
             try {
                 const res = await fetch(`${baseUrl}/resume/${id}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
                     },
                 });
 
@@ -44,7 +37,7 @@ const SharedResume = () => {
         };
 
         fetchResume();
-    }, [baseUrl, id, navigate]); 
+    }, [baseUrl, id, navigate]);
 
     if (loading) return <div>Loading...</div>;
 
