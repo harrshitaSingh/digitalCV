@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import CommonShareTemplate from "../../../Components/ResumeTemplates/CommonShareTemplate";
 
@@ -41,20 +41,7 @@ const SharedResume = () => {
 
     return (
         <div style={{ padding: "2rem" }}>
-            {resume ? (
-                <CommonShareTemplate resumeData={resume} />
-            ) : (
-                <p>Resume data not available</p>
-            )}
-        </div>
-    );
-
-
-    if (loading) return <div>Loading...</div>;
-
-    return (
-        <div style={{ padding: "2rem" }}>
-            {console.log(resume,"hhjj")}
+            {console.log(resume, "Fetched Resume")}
             {resume ? (
                 <CommonShareTemplate resumeData={resume} />
             ) : (
