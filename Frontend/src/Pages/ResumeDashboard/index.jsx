@@ -179,10 +179,11 @@ function ResumeDashboard() {
   };
 
   const handleShareClick = (resumeId) => {
-    const shareURL = `${baseUrl}/resume/${resumeId}`;
+    const shareURL = `https://digitcv.netlify.app/resume/${resumeId}`;
     navigator.clipboard.writeText(shareURL)
       .then(() => {
         toast.success("Share link copied to clipboard!");
+        // Update the modal display after the clipboard copy operation
         setTimeout(() => setShareResumeId(resumeId), 500);
       })
       .catch(() => {
@@ -421,10 +422,9 @@ function ResumeDashboard() {
 
         {shareResumeId && (
           <CustomModal isOpen={true} closeModal={() => setShareResumeId(null)}>
-        
             <CustomShareButton
-              url={`http://digitcv.netlify.app/resume/${shareResumeId}`}
-              resume={resumes.find((resume) => resume.id === shareResumeId)}
+              url={`https://digitcv.netlify.app/resume/${shareResumeId}`}
+              resume={resumes.find((resume) => resume.id === shareResumeId)} 
               onClose={() => setShareResumeId(null)}
             />
           </CustomModal>

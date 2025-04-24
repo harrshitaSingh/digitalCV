@@ -185,3 +185,23 @@ export const getResumeDataById = async (req: Request, res: Response) => {
   }
 };
 
+export const getShareResumeDataById = async (req: Request, res: Response) => {
+  try {
+    const resumeID = req.params.resumeID;
+    if (!resumeID) {
+      return res.status(400).json({ success: false, message: "Resume ID is required" });
+    }
+
+    const resume = await prisma.resume.findUnique({
+      where: { id: Number(resumeID) },
+    });
+
+    if (!resume) {
+      return res.status(404).json({ success: false, message: "Resume not found" });
+    }
+
+    res.status(200).json({ success: true, data: resume });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Internal Server Error", error: error.message });
+  }
+};

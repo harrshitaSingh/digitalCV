@@ -13,9 +13,8 @@ const SharedResume = () => {
 
     useEffect(() => {
         const fetchResume = async () => {
-
             try {
-                const res = await fetch(`${baseUrl}/resume/${id}`, {
+                const res = await fetch(`${baseUrl}/resume/share/${id}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
@@ -37,12 +36,26 @@ const SharedResume = () => {
         };
 
         fetchResume();
-    }, [baseUrl, id, navigate]);
+    }, [baseUrl, id]);
 
     if (loading) return <div>Loading...</div>;
 
     return (
         <div style={{ padding: "2rem" }}>
+            {resume ? (
+                <CommonShareTemplate resumeData={resume} />
+            ) : (
+                <p>Resume data not available</p>
+            )}
+        </div>
+    );
+
+
+    if (loading) return <div>Loading...</div>;
+
+    return (
+        <div style={{ padding: "2rem" }}>
+            {console.log(resume,"hhjj")}
             {resume ? (
                 <CommonShareTemplate resumeData={resume} />
             ) : (
