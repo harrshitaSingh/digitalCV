@@ -18,6 +18,7 @@ const ResumeProvider = ({ children }) => {
 
     const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const fetchResume = async () => {
         const token = localStorage.getItem("token");
         const userId = token ? decodeToken(token)?.id : null;
@@ -51,7 +52,7 @@ const ResumeProvider = ({ children }) => {
 
     useEffect(() => {
         fetchResume();
-    });
+    }, [fetchResume]);
 
     /**
      * @name updateResume
