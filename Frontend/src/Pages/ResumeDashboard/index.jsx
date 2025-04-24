@@ -423,7 +423,7 @@ function ResumeDashboard() {
         {shareResumeId && (
           <CustomModal isOpen={true} closeModal={() => setShareResumeId(null)}>
             <CustomShareButton
-              url={`http://digitcv.netlify.app/resume/${shareResumeId}`}
+              url={`http://digitcv.netlify.appresume/${shareResumeId}`}
               resume={resumes.find((resume) => resume.id === shareResumeId)}
               onClose={() => setShareResumeId(null)}
             />
