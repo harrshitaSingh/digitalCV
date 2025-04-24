@@ -12,6 +12,7 @@ function SignUpPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordVisibility, setPasswordVisibility] = useState({
     password: false,
@@ -34,7 +35,7 @@ function SignUpPage() {
       toast.warn("Passwords do not match");
       return;
     }
-
+    setLoading(true);
     try {
       const response = await fetch(`${baseUrl}/auth/signUp`, {
         method: "POST",
@@ -53,6 +54,9 @@ function SignUpPage() {
     } catch (error) {
       toast.error("Failed to create an account. Please try again.");
     }
+    finally {
+      setLoading(false);
+    }
   };
 
   const handlePasswordVisibilityToggle = (field) => {
@@ -63,7 +67,7 @@ function SignUpPage() {
   };
 
   return (
-    <div className="signup-container">
+    <div className={`signup-container ${loading ? "blurred" : ""}`}>
       <ToastContainer />
       <Typography className="signup-title" sx={{ fontSize: "3rem", fontFamily: "Helvetica Neue" }}>
         DigitalCV
@@ -129,6 +133,11 @@ function SignUpPage() {
           </form>
         </div>
       </div>
+      {loading && (
+        <div className="loader-overlay">
+          <div className="loader"></div>
+        </div>
+      )}
     </div>
   );
 }

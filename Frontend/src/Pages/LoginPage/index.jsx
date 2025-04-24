@@ -79,7 +79,7 @@ function LoginPage() {
             </div>
             <div className="input-group">
               <CustomInput
-                inputType={passwordVisibility.password ? "text" : "password"} // Toggle input type based on visibility state
+                inputType={passwordVisibility.password ? "text" : "password"} 
                 currentValue={password}
                 updateValue={setPassword}
                 label="Enter your Password"
