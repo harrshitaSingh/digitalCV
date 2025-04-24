@@ -95,8 +95,6 @@ const ResumeProvider = ({ children }) => {
 
     const deleteResume = async (resumeId) => {
         try {
-            console.log("Are you deleting?", resumeId);
-
             const token = localStorage.getItem('token');
 
             const response = await fetch(`${baseUrl}/resume/delete/${resumeId}`, {
@@ -109,9 +107,7 @@ const ResumeProvider = ({ children }) => {
             });
             const result = await response.json();
             console.log(result)
-            // if (!response.ok) {
-            //     throw new Error(result.message || 'Failed to delete resume');
-            // }
+           
             await fetchResume();
 
         } catch (error) {

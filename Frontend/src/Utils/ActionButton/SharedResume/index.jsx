@@ -35,7 +35,6 @@ const SharedResume = () => {
                 if (res.ok) {
                     setResume(result.data);
                 } else {
-                    // Handle specific error messages
                     toast.warn(result.message || "Failed to load resume.");
                 }
             } catch (err) {
@@ -47,7 +46,7 @@ const SharedResume = () => {
         };
 
         fetchResume();
-    }, [baseUrl, id, navigate]); // Add navigate to dependencies to avoid stale closure issues
+    }, [baseUrl, id, navigate]); 
 
     if (loading) return <div>Loading...</div>;
 

@@ -34,7 +34,6 @@ const CustomAvatar = ({
   }, []);
 
   useEffect(() => {
-    // Prioritize prop image for display
     if (imageProp) {
       setImage(imageProp);
     }

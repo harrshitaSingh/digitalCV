@@ -180,7 +180,7 @@ function ResumeDashboard() {
   };
 
   const handleShareClick = (resumeId) => {
-    const shareURL = `${baseUrl}//resume/${resumeId}`;
+    const shareURL = `${baseUrl}/resume/${resumeId}`;
     navigator.clipboard.writeText(shareURL)
       .then(() => {
         toast.success("Share link copied to clipboard!");
