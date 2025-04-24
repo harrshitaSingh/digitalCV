@@ -10,11 +10,13 @@ const app = express();
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (
-        origin === "https://digitcv.netlify.app" ||
-        origin === "http://localhost:3000" ||
-        origin === "http://localhost:3001"
-      ) {
+      const allowedOrigins = [
+        "https://digitcv.netlify.app",
+        "http://localhost:3000",
+        "http://localhost:3001"
+      ];
+
+      if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
@@ -25,8 +27,8 @@ app.use(
     credentials: true,
   })
 );
+;
 
-app.options("*", cors());
 
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
