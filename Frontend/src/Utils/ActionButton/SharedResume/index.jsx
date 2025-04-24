@@ -15,7 +15,7 @@ const SharedResume = () => {
         const fetchResume = async () => {
             const token = localStorage.getItem("token");
 
-            // Redirect if the token is missing
+
             if (!token) {
                 toast.warn("You need to be logged in to view this resume.");
                 navigate("/login"); // Redirect to login if no token is found
