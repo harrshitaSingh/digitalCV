@@ -19,25 +19,27 @@ function CertificationForm({ resumeId, setGetData }) {
   ]);
   const { resumes } = useContext(ResumeContext);
 
-  const isValidFieldCertificates = (value) => {
+  const isValidFieldCertificates = (key, value) => {
+    if (key === "link") return true; // allow empty string for link
     return typeof value === "string" && value.trim().length > 0;
   };
 
   const getter = useCallback(() => {
-    const isAllValidCertificate = certificateName.every((cert) => {
-      return Object.entries(cert).every(([key, val]) => {
-        if (key === "endDate" && cert.currentlyWorking) return true;
+    const isAllValidCertificates = certificateName.every((proj) => {
+      return Object.entries(proj).every(([key, val]) => {
+        if (key === "endDate" && proj.currentlyWorking) return true;
         if (key === "currentlyWorking") return true;
-        return isValidFieldCertificates(val);
+        return isAllValidCertificates(key, val);
       });
     });
 
-    if (!isAllValidCertificate) {
+    if (!isAllValidCertificates) {
       return null;
     }
 
     return certificateName;
   }, [certificateName]);
+
 
 
   useEffect(() => {
@@ -161,7 +163,7 @@ function CertificationForm({ resumeId, setGetData }) {
                 textInputStyles={{ width: '100%' }}
                 required
               />
-              {isValidFieldCertificates(certificate.title) && (
+              {isValidFieldCertificates('title',certificate.title) && (
                 <CheckCircleIcon
                   sx={{
                     color: "green",
@@ -187,7 +189,7 @@ function CertificationForm({ resumeId, setGetData }) {
                 required
                 inputType="date"
               />
-              {isValidFieldCertificates(certificate.startDate) && (
+              {isValidFieldCertificates("startDate",certificate.startDate) && (
                 <CheckCircleIcon
                   sx={{
                     color: "green",
@@ -214,7 +216,7 @@ function CertificationForm({ resumeId, setGetData }) {
                 inputType="date"
                 disabled={certificate.currentlyWorking}
               />
-              {!certificate.currentlyWorking && isValidFieldCertificates(certificate.endDate) && (
+              {!certificate.currentlyWorking && isValidFieldCertificates("endDate",certificate.endDate) && (
                 <CheckCircleIcon
                   sx={{
                     color: "green",

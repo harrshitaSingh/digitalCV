@@ -21,29 +21,28 @@ function ProjectForm({ resumeId, setGetData }) {
     },
   ]);
 
-  const isValidFieldProjects = (value) => {
-    if (value === "") return true;
+  const isValidFieldProjects = (key,value) => {
+    if (key === "link") return true; // allow empty string for link
     return typeof value === "string" && value.trim().length > 0;
 
   };
 
   const getter = useCallback(() => {
-
-
-    const isAllValidCertificate = projectName.every((proj) => {
+    const isAllValidProjects = projectName.every((proj) => {
       return Object.entries(proj).every(([key, val]) => {
         if (key === "endDate" && proj.currentlyWorking) return true;
         if (key === "currentlyWorking") return true;
-        return isValidFieldProjects(val);
+        return isValidFieldProjects(key, val);
       });
     });
 
-    if (!isAllValidCertificate) {
+    if (!isAllValidProjects) {
       return null;
     }
 
     return projectName;
-  }, [projectName])
+  }, [projectName]);
+
 
   useEffect(() => {
     if (setGetData) {
@@ -170,7 +169,7 @@ function ProjectForm({ resumeId, setGetData }) {
                 currentValue={projects.title}
                 updateValue={(value) => handleProj(index, "title", value)}
               />
-              {isValidFieldProjects(projects.title) && (
+              {isValidFieldProjects("title",projects.title) && (
                 <CheckCircleIcon
                   sx={{
                     color: "green",
@@ -192,7 +191,7 @@ function ProjectForm({ resumeId, setGetData }) {
                 currentValue={projects.technologies}
                 updateValue={(value) => handleProj(index, "technologies", value)}
               />
-              {isValidFieldProjects(projects.technologies) && (
+              {isValidFieldProjects("technologies",projects.technologies) && (
                 <CheckCircleIcon
                   sx={{
                     color: "green",
@@ -218,7 +217,7 @@ function ProjectForm({ resumeId, setGetData }) {
                 maxRows={4}
                 maxLength={200}
               />
-              {isValidFieldProjects(projects.description) && (
+              {isValidFieldProjects("description",projects.description) && (
                 <CheckCircleIcon
                   sx={{
                     color: "green",
@@ -244,7 +243,7 @@ function ProjectForm({ resumeId, setGetData }) {
                 required
                 inputType="date"
               />
-              {isValidFieldProjects(projects.startDate) && (
+              {isValidFieldProjects("startDate",projects.startDate) && (
                 <CheckCircleIcon
                   sx={{
                     color: "green",
@@ -271,7 +270,7 @@ function ProjectForm({ resumeId, setGetData }) {
                 inputType="date"
                 disabled={projects.currentlyWorking}
               />
-              {!projects.currentlyWorking && isValidFieldProjects(projects.endDate) && (
+              {!projects.currentlyWorking && isValidFieldProjects("endDate",projects.endDate) && (
                 <CheckCircleIcon
                   sx={{
                     color: "green",
