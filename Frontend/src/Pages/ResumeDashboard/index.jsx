@@ -179,7 +179,9 @@ function ResumeDashboard() {
   };
 
   const handleShareClick = (resumeId) => {
-    const shareURL = `http://localhost:3000/resume/${resumeId}`;
+    // const shareURL = `http://localhost:3000/resume/${resumeId}`;
+    const shareURL = ` http://localhost:3001/resume/${resumeId}`;
+
     navigator.clipboard.writeText(shareURL)
       .then(() => {
         toast.success("Share link copied to clipboard!");
@@ -422,7 +424,9 @@ function ResumeDashboard() {
         {shareResumeId && (
           <CustomModal isOpen={true} closeModal={() => setShareResumeId(null)}>
             <CustomShareButton
-              url={`http://localhost:3000/resume/${shareResumeId}`}
+              // url={`http://localhost:3000/resume/${shareResumeId}`}
+              url={`http://localhost:3001/${shareResumeId}`}
+
               resume={resumes.find((resume) => resume.id === shareResumeId)}
               onClose={() => setShareResumeId(null)}
             />
@@ -436,7 +440,6 @@ function ResumeDashboard() {
               position: "absolute",
               top: "-9999px",
               left: "-9999px",
-              // opacity: 0,
               pointerEvents: "none",
               backgroundColor:"transparent"
             }}
