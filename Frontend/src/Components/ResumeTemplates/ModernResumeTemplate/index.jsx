@@ -14,6 +14,7 @@ import CustomAvatar from "../../CustomAvatar";
 const ModernResumeTemplate = ({ resumeData, preview }) => {
     if (!resumeData) return null;
 
+    
     const { id, github, linkedin, contact, education, experience, project, certificates, skills } = resumeData;
 
     return (
@@ -51,6 +52,7 @@ const ModernResumeTemplate = ({ resumeData, preview }) => {
                             <CustomAvatar
                                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoOoSxVgEWMmcPVGqg8fkwzzP3WRmt7wP-Ew&usqp=CAU"
                                 alt="Profile"
+                                
                                 sx={{ width: 150, height: 150, mb: 2 }}
                             />
                             <Typography variant="h6" gutterBottom>Work Links</Typography>
@@ -185,8 +187,8 @@ const ModernResumeTemplate = ({ resumeData, preview }) => {
                                             {certificates.map((cert, index) => (
                                                 <ListItem key={index}>
                                                     <ListItemText
-                                                        primary={cert.name}
-                                                        secondary={cert.issuedBy}
+                                                        primary={cert.title}
+                                                        secondary={`${cert.startDate} - ${cert.endDate} | ${cert.description}`}
                                                     />
                                                 </ListItem>
                                             ))}

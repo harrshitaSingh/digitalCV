@@ -17,31 +17,28 @@ function ProjectForm({ resumeId, setGetData }) {
       startDate: '',
       endDate: '',
       link: "",
+      currentlyWorking: false,
     },
   ]);
 
   const isValidFieldProjects = (value) => {
-    const valid = typeof value === "string" && value.trim().length > 0;
-    return valid;
+    if (value === "") return true;
+    return typeof value === "string" && value.trim().length > 0;
+
   };
 
   const getter = useCallback(() => {
-    for (let i = 0; i < projectName.length; i++) {
-      const cert = projectName[i];
-      console.log(cert)
-      for (const key in cert) {
-        if (!isValidFieldProjects(cert[key])) {
-          console.log(`Invalid field: Index ${i}, Field: ${key}, Value: "${cert[key]}"`);
-        }
-      }
-    }
 
-    const isAllValidCertificate = projectName.every((edu) => {
-      return Object.values(edu).every((val) => isValidFieldProjects(val));
+
+    const isAllValidCertificate = projectName.every((proj) => {
+      return Object.entries(proj).every(([key, val]) => {
+        if (key === "endDate" && proj.currentlyWorking) return true;
+        if (key === "currentlyWorking") return true;
+        return isValidFieldProjects(val);
+      });
     });
 
     if (!isAllValidCertificate) {
-      console.log("Not all fields are valid!");
       return null;
     }
 
@@ -69,14 +66,15 @@ function ProjectForm({ resumeId, setGetData }) {
             title: proj.title || "",
             description: proj.description || "",
             technologies: proj.technologies || "",
-            startDate: proj.startDate|| '',
-            endDate: proj.endDate||'',
+            startDate: proj.startDate || '',
+            endDate: proj.endDate || '',
             link: proj.link || "",
+            currentlyWorking: proj.currentlyWorking || false,
           }))
         );
       }
     }
-  }, [resumes, resumeId, projectName]);
+  }, [resumes, resumeId]);
 
 
 
@@ -85,6 +83,9 @@ function ProjectForm({ resumeId, setGetData }) {
       i === index ? { ...proj, [field]: value } : proj
     );
 
+    if (field === "currentlyWorking" && value === true) {
+      updatedProjectName[index]["endDate"] = "";
+    }
     setProjectName(updatedProjectName);
   };
 
@@ -97,18 +98,12 @@ function ProjectForm({ resumeId, setGetData }) {
       startDate: '',
       endDate: '',
       link: "",
+      currentlyWorking: false
     };
 
     const updatedProject = [...projectName, newProject];
     setProjectName(updatedProject);
-    // updateResume(resumeId, "project", updatedProject);
   };
-
-  // const handleProjectDelete = (index) => {
-  //   const updatedProject = projectName.filter((_, i) => i !== index);
-  //   setProjectName(updatedProject);
-  //   updateResume(resumeId, "projects", updatedProject);
-  // };
 
   return (
     <Box
@@ -249,7 +244,7 @@ function ProjectForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-        
+
           </Grid>
           <Grid item xs={6}>
             <Box sx={{ position: "relative" }}>
@@ -289,8 +284,10 @@ function ProjectForm({ resumeId, setGetData }) {
                 date={{ shrink: true }}
                 required
                 inputType="date"
+                disabled={projects.currentlyWorking}
+
               />
-              {isValidFieldProjects(projects.endDate) && (
+              {!projects.currentlyWorking && isValidFieldProjects(projects.endDate) && (
                 <CheckCircleIcon
                   sx={{
                     color: "green",
@@ -302,7 +299,18 @@ function ProjectForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-
+     <Grid item xs={12}>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                <input
+                  type="checkbox"
+                  checked={projects.currentlyWorking}
+                  onChange={(e) =>
+                    handleProj(index, "currentlyWorking", e.target.checked)
+                  }
+                />
+                <Typography>In Progress</Typography>
+              </Box>
+            </Grid>
           </Grid>
 
           <Grid item xs={12}>
@@ -313,19 +321,8 @@ function ProjectForm({ resumeId, setGetData }) {
                 currentValue={projects.link}
                 updateValue={(value) => handleProj(index, "link", value)}
               />
-              {isValidFieldProjects(projects.link) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
-              )}
             </Box>
-         
+
           </Grid>
         </Grid>
       ))}

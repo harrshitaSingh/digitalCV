@@ -26,17 +26,21 @@ function App() {
         <Route path="/signUp" element={<SignUpPage />}></Route>
         <Route path="/emailVerify" element={<EmailVerify />}></Route>
         <Route path='/addDetails' element={
-        <ResumeProvider>
-      <DashboardPage />
-    </ResumeProvider>
+          <ResumeProvider>
+            <DashboardPage />
+          </ResumeProvider>
         }></Route>
 
         <Route path='/home' element=
           {<ResumeProvider>
-          <ResumeDashboard />
-        </ResumeProvider>
-            }></Route>
-        <Route path="/settings" element={<SettingsPage />}></Route>
+            <ResumeDashboard />
+          </ResumeProvider>
+          }></Route>
+        <Route path="/settings" element={
+          <UserContext>
+            <SettingsPage />
+          </UserContext>
+        }></Route>
         <Route path='/help' element={<GoogleFormPage />}></Route>
         <Route path="/resume/:id" element={<SharedResume />} />
       </Routes>

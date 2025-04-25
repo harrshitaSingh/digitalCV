@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import prisma from "../Config/db";
 import { ResumeModel } from "../Models/resume.model";
 
@@ -73,7 +73,6 @@ export const getResumes = async (req: Request, res: Response) => {
 
     const authorId = decoded.id;
     const resumes = await prisma.resume.findMany({ where: { authorId } });
-
     res.json(resumes);
   } catch (error) {
     res.status(500).json({ success: false, message: "Internal Server Error" });
@@ -83,7 +82,6 @@ export const getResumes = async (req: Request, res: Response) => {
 export const updateResumes = async (req: Request, res: Response) => {
   try {
     const { resumeID, section, data } = req.body;
-console.log(resumeID, "id", section, "section", data, "data")
     if (!resumeID || !section || !data) {
 
       return res.status(400).json({ message: "Missing required fields while updating" });
@@ -101,7 +99,6 @@ console.log(resumeID, "id", section, "section", data, "data")
       "links"
     ];
 
-    console.log("Section received:", section);
 
 
     if (!validSections.includes(section)) {
@@ -157,7 +154,6 @@ export const deleteResume = async (req: Request, res: Response) => {
 
 export const getResumeDataById = async (req: Request, res: Response) => {
   try {
-
     const token = req.header("Authorization")?.split(" ")[1];
 
     if (!token) {
@@ -189,3 +185,23 @@ export const getResumeDataById = async (req: Request, res: Response) => {
   }
 };
 
+export const getShareResumeDataById = async (req: Request, res: Response) => {
+  try {
+    const resumeID = req.params.resumeID;
+    if (!resumeID) {
+      return res.status(400).json({ success: false, message: "Resume ID is required" });
+    }
+
+    const resume = await prisma.resume.findUnique({
+      where: { id: Number(resumeID) },
+    });
+
+    if (!resume) {
+      return res.status(404).json({ success: false, message: "Resume not found" });
+    }
+
+    res.status(200).json({ success: true, data: resume });
+  } catch (error) {
+    res.status(500).json({ success: false, message: "Internal Server Error", error: error.message });
+  }
+};

@@ -112,9 +112,17 @@ const BluesResumeTemplate = ({ resumeData, preview }) => {
                 {certificates?.length > 0 && (
                     <Section title="Certifications" preview={preview}>
                         {certificates.map((cert, index) => (
-                            <Typography key={index} color="text.secondary" sx={{ fontSize: preview ? "1.2rem" : "0.85rem" }}>
-                                {cert.name}
-                            </Typography>
+                            <Box key={index} mb={1}>
+                                <Typography key={index} fontWeight={600} sx={{ fontSize: preview ? "1.2rem" : "0.85rem" }}>
+                                    {cert.title}
+                                </Typography>
+                                <Typography color="text.secondary" sx={{ fontSize: preview ? "1rem" : "0.8rem" }}>
+                                    {cert.startDate} - {cert.endDate}
+                                </Typography>
+                                <Typography key={index} color="text.secondary" sx={{ fontSize: preview ? "1.2rem" : "0.85rem" }}>
+                                    {cert.link}
+                                </Typography>
+                            </Box>
                         ))}
                     </Section>
                 )}

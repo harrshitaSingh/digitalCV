@@ -21,17 +21,17 @@ const ClassicResumeTemplate = ({ resumeData, preview }) => {
             // id="resume-to-download"
 
             sx={{
-            transform: preview ? 'scale(0.5)' : 'scale(1)',
-            transformOrigin: 'top center',
-            width: '100%', // Ensures container takes full width
-            height: preview ? 'auto' : '100%',
-            overflow: 'hidden',
-            display: 'flex',
-            justifyContent: 'center', // Centers Paper horizontally
-            alignItems: 'flex-start',
-            marginTop: preview ? '2rem' : '0', // Optional top margin for preview mode
-            padding: '0', // Remove any padding from the Box
-        }}>
+                transform: preview ? 'scale(0.5)' : 'scale(1)',
+                transformOrigin: 'top center',
+                width: '100%', // Ensures container takes full width
+                height: preview ? 'auto' : '100%',
+                overflow: 'hidden',
+                display: 'flex',
+                justifyContent: 'center', // Centers Paper horizontally
+                alignItems: 'flex-start',
+                marginTop: preview ? '2rem' : '0', // Optional top margin for preview mode
+                padding: '0', // Remove any padding from the Box
+            }}>
             <Paper
                 elevation={3}
                 sx={{
@@ -138,11 +138,23 @@ const ClassicResumeTemplate = ({ resumeData, preview }) => {
                 {certificates?.length > 0 && (
                     <Section title="Certifications">
                         {certificates.map((cert, index) => (
-                            <Typography key={index} variant="body2" color="text.secondary" sx={{
-                                fontSize: preview ? "1.5rem" : "0.65rem", // Example scaling
-                            }}>
-                                {cert.name}
-                            </Typography>
+                            <Box key={index} mb={1}>
+                                <Typography variant="subtitle1" fontWeight={600} sx={{
+                                    fontSize: preview ? "1.5rem" : "0.65rem",
+                                }}>
+                                    {cert.title}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary" sx={{
+                                    fontSize: preview ? "1.2rem" : "0.65rem", // Example scaling
+                                }}>
+                                    {cert.startDate} - {cert.endDate}
+                                </Typography>
+                                <Typography variant="body2" color="text.secondary" sx={{
+                                    fontSize: preview ? "1rem" : "0.65rem", // Example scaling
+                                }}>
+                                    {cert.link}
+                                </Typography>
+                            </Box>
                         ))}
                     </Section>
                 )}

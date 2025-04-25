@@ -16,6 +16,9 @@ const ResumeProvider = ({ children }) => {
      * @description Fetches resumes that match the logged-in user's ID
      */
 
+    const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const fetchResume = async () => {
         const token = localStorage.getItem("token");
         const userId = token ? decodeToken(token)?.id : null;
@@ -27,7 +30,7 @@ const ResumeProvider = ({ children }) => {
 
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:5000/resume/home", {
+            const response = await fetch(`${baseUrl}/resume/home`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
@@ -49,6 +52,7 @@ const ResumeProvider = ({ children }) => {
 
     useEffect(() => {
         fetchResume();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     /**
@@ -63,7 +67,7 @@ const ResumeProvider = ({ children }) => {
         try {
             const token = localStorage.getItem('token');
 
-            const response = await fetch(`http://localhost:5000/resume/update`, {
+            const response = await fetch(`${baseUrl}/resume/update`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,11 +95,9 @@ const ResumeProvider = ({ children }) => {
 
     const deleteResume = async (resumeId) => {
         try {
-            console.log("Are you deleting?", resumeId);
-
             const token = localStorage.getItem('token');
 
-            const response = await fetch(`http://localhost:5000/resume/delete/${resumeId}`, {
+            const response = await fetch(`${baseUrl}/resume/delete/${resumeId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -104,10 +106,8 @@ const ResumeProvider = ({ children }) => {
                 body: JSON.stringify({ resumeID: resumeId }),
             });
             const result = await response.json();
-console.log(result)
-            // if (!response.ok) {
-            //     throw new Error(result.message || 'Failed to delete resume');
-            // }
+            console.log(result)
+           
             await fetchResume();
 
         } catch (error) {

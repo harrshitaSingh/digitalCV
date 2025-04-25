@@ -54,6 +54,7 @@ function ResumeDashboard() {
   const navigate = useNavigate();
   const downloadRef = React.useRef(null);
 
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
   useEffect(() => {
     localStorage.removeItem("resume");
@@ -74,7 +75,7 @@ function ResumeDashboard() {
         return;
       }
 
-      const response = await fetch("http://localhost:5000/resume/home", {
+      const response = await fetch(`${baseUrl}/resume/home`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -154,7 +155,7 @@ function ResumeDashboard() {
         return;
       }
 
-      const response = await fetch(`http://localhost:5000/resume/${resumeID}`, {
+      const response = await fetch(`${baseUrl}/resume/${resumeID}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -172,9 +173,8 @@ function ResumeDashboard() {
       }
     } catch (error) {
       toast.warn("Resume data does not exist");
-    }
-    finally {
-      setLoading(false); // Hide loader when data fetching is done
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -182,9 +182,13 @@ function ResumeDashboard() {
     // const shareURL = `http://localhost:3000/resume/${resumeId}`;
     const shareURL = ` http://localhost:3001/resume/${resumeId}`;
 
+
+    const shareURL = `https://digitcv.netlify.app/resume/${resumeId}`;
+
     navigator.clipboard.writeText(shareURL)
       .then(() => {
         toast.success("Share link copied to clipboard!");
+        // Update the modal display after the clipboard copy operation
         setTimeout(() => setShareResumeId(resumeId), 500);
       })
       .catch(() => {
@@ -424,10 +428,15 @@ function ResumeDashboard() {
         {shareResumeId && (
           <CustomModal isOpen={true} closeModal={() => setShareResumeId(null)}>
             <CustomShareButton
+
               // url={`http://localhost:3000/resume/${shareResumeId}`}
               url={`http://localhost:3001/${shareResumeId}`}
 
               resume={resumes.find((resume) => resume.id === shareResumeId)}
+
+              url={`https://digitcv.netlify.app/resume/${shareResumeId}`}
+              resume={resumes.find((resume) => resume.id === shareResumeId)} 
+
               onClose={() => setShareResumeId(null)}
             />
           </CustomModal>

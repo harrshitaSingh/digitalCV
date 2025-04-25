@@ -1,7 +1,6 @@
 import React from "react";
-import './styled.css'
-import { TextField, Box } from "@mui/material"
-
+import './styled.css';
+import { TextField, Box } from "@mui/material";
 
 const CustomInput = ({
     updateValue,
@@ -13,12 +12,12 @@ const CustomInput = ({
     maxLength,
     maxRows,
     multiline,
-    date, 
-    Adornment, 
+    date,
+    Adornment,
     fullWidth,
-    className
+    className,
+    readOnly = false, 
 }) => {
-
     const handleChange = (e) => {
         let value = e.target.value;
 
@@ -32,13 +31,16 @@ const CustomInput = ({
     return (
         <Box style={{ ...containerStyles }}>
             <TextField
-                className="input"
-                type={inputType}
+                className={`input ${className}`}
+                type={inputType === "numberOnly" ? "text" : inputType}
                 value={currentValue}
                 onChange={(e) => handleChange(e)}
                 label={label}
                 style={{ ...textInputStyles }}
-                inputProps={{ maxLength }}
+                inputProps={{
+                    maxLength,
+                    readOnly,
+                }}
                 rows={maxRows}
                 multiline={multiline}
                 InputLabelProps={date}
@@ -46,7 +48,7 @@ const CustomInput = ({
                 fullWidth={fullWidth}
             />
         </Box>
-    )
-}
+    );
+};
 
-export default CustomInput
+export default CustomInput;

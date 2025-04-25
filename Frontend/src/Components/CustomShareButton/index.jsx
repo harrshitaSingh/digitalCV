@@ -1,6 +1,6 @@
 // CustomShareButton.js
 import React from 'react';
-import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { Box, IconButton, Tooltip } from '@mui/material';
 import {
     FacebookShareButton,
     TwitterShareButton,
@@ -13,7 +13,8 @@ import { toast } from 'react-toastify';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const CustomShareButton = ({ url, onClose }) => {
-
+    console.log(url)
+    
     const handleCopyLink = () => {
         navigator.clipboard.writeText(url).then(() => {
             toast.success("Link copied to clipboard!");
