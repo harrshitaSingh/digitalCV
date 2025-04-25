@@ -20,14 +20,14 @@ function CertificationForm({ resumeId, setGetData }) {
   const { resumes } = useContext(ResumeContext);
 
   const isValidFieldCertificates = (key, value) => {
-    if (key === "link") return true; // allow empty string for link
+    if (key === "link") return true; 
     return typeof value === "string" && value.trim().length > 0;
   };
 
   const getter = useCallback(() => {
-    const isAllValidCertificates = certificateName.every((proj) => {
-      return Object.entries(proj).every(([key, val]) => {
-        if (key === "endDate" && proj.currentlyWorking) return true;
+    const isAllValidCertificates = certificateName.every((cert) => {
+      return Object.entries(cert).every(([key, val]) => {
+        if (key === "endDate" && cert.currentlyWorking) return true;
         if (key === "currentlyWorking") return true;
         return isAllValidCertificates(key, val);
       });
