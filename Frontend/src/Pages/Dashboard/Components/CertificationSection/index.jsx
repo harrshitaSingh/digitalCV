@@ -29,7 +29,7 @@ function CertificationForm({ resumeId, setGetData }) {
       return Object.entries(cert).every(([key, val]) => {
         if (key === "endDate" && cert.currentlyWorking) return true;
         if (key === "currentlyWorking") return true;
-        return isAllValidCertificates(key, val);
+        return isValidFieldCertificates(key, val);
       });
     });
 

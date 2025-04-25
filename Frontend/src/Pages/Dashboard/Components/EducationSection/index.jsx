@@ -37,7 +37,7 @@ function EducationForm({ resumeId, setGetData }) {
     const isAllValidEducation = educationForms.every((exp) =>
       Object.entries(exp).every(([key, val]) => {
         if (key === "endDate" && exp.currentlyWorking) return true;
-        if (key === "currentlyWorking") return true; 
+        if (key === "currentlyWorking") return true;
         return isValidFieldEducation(val);
       })
     );
@@ -161,8 +161,9 @@ function EducationForm({ resumeId, setGetData }) {
   return (
     <Box
       sx={{
-        width: { xs: "90%", sm: "80%", md: "70%" },
-        margin: "0 auto",
+        width: '100%',
+        maxWidth: 1000,
+        margin: '0 auto',
         padding: { xs: '0.5rem', sm: '0.5rem', md: '1rem' },
         boxShadow: 3,
         borderRadius: 2,
@@ -403,9 +404,12 @@ function EducationForm({ resumeId, setGetData }) {
               <CustomInput
                 label="End Date"
                 currentValue={education.endDate}
+                required
                 updateValue={(value) => handleInputChange(index, "endEducationDate", value)}
                 inputType="date"
                 disabled={education.currentlyWorking}
+                date={{ shrink: true }}
+
               />
               {!education.currentlyWorking && isValidFieldEducation(education.endDate) && (
                 <CheckCircleIcon
