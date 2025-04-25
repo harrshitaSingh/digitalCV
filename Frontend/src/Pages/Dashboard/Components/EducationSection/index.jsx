@@ -158,13 +158,12 @@ function EducationForm({ resumeId, setGetData }) {
   if (!resumes) {
     return <div>Loading...</div>;
   }
-
   return (
     <Box
       sx={{
-        width: "60%",
+        width: { xs: "90%", sm: "80%", md: "70%" },
         margin: "0 auto",
-        padding: "2rem",
+        padding: { xs: '0.5rem', sm: '0.5rem', md: '1rem' },
         boxShadow: 3,
         borderRadius: 2,
         bgcolor: "#f9f9f9",
@@ -177,22 +176,22 @@ function EducationForm({ resumeId, setGetData }) {
             variant="h5"
             sx={{
               fontWeight: 'bold',
-              fontSize: '1.5rem',
+              fontSize: { xs: '1.2rem', sm: '1.5rem' },  // Adjust font size for smaller screens
               color: '#1e1e1e',
             }}
           >
             Let’s talk about your education
-
           </Typography>
           <Typography
             variant="body1"
             sx={{
-              fontSize: '1rem',
+              fontSize: { xs: '0.9rem', sm: '1rem' },  // Adjust font size for smaller screens
               color: '#1e1e1e',
               marginTop: 0.5,
             }}
           >
-            Tell us about any colleges, vocational programs, or training courses you took. Even if you didn’t finish, it’s important to list them.          </Typography>
+            Tell us about any colleges, vocational programs, or training courses you took. Even if you didn’t finish, it’s important to list them.
+          </Typography>
         </Box>
 
         <CustomButton
@@ -214,7 +213,6 @@ function EducationForm({ resumeId, setGetData }) {
           updateClick={handleAddForm}
         />
       </Box>
-
 
       {educationForms.map((education, index) => (
         <Grid container spacing={2} sx={{ mb: 10 }} key={index}>
@@ -241,8 +239,8 @@ function EducationForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-
           </Grid>
+
           <Grid item xs={12}>
             <Box sx={{ position: "relative" }}>
               <CustomInput
@@ -266,7 +264,6 @@ function EducationForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-
           </Grid>
 
           <Grid item xs={12}>
@@ -296,12 +293,11 @@ function EducationForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Grid container spacing={2}>
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <Box sx={{ position: "relative" }}>
                   <CustomSelect
                     select="Country"
@@ -323,7 +319,7 @@ function EducationForm({ resumeId, setGetData }) {
                 </Box>
               </Grid>
 
-              <Grid item xs={6}>
+              <Grid item xs={12} sm={6}>
                 <Box sx={{ position: "relative" }}>
                   <CustomInput
                     label="Pin Code"
@@ -353,7 +349,7 @@ function EducationForm({ resumeId, setGetData }) {
             </Grid>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Box sx={{ position: "relative" }}>
               <CustomInput
                 label="City"
@@ -376,7 +372,7 @@ function EducationForm({ resumeId, setGetData }) {
             </Box>
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Box sx={{ position: "relative" }}>
               <CustomInput
                 label="Start Date"
@@ -400,12 +396,9 @@ function EducationForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-
           </Grid>
 
-
-
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Box sx={{ position: "relative" }}>
               <CustomInput
                 label="End Date"
@@ -425,26 +418,26 @@ function EducationForm({ resumeId, setGetData }) {
                   }}
                 />
               )}
-
             </Box>
-            <Grid item xs={12}>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                <input
-                  type="checkbox"
-                  checked={education.currentlyWorking}
-                  onChange={(e) =>
-                    handleInputChange(index, "currentlyWorking", e.target.checked)
-                  }
-                />
-                <Typography>Current Education</Typography>
-              </Box>
-            </Grid>
+          </Grid>
 
+          <Grid item xs={12}>
+            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+              <input
+                type="checkbox"
+                checked={education.currentlyWorking}
+                onChange={(e) =>
+                  handleInputChange(index, "currentlyWorking", e.target.checked)
+                }
+              />
+              <Typography>Current Education</Typography>
+            </Box>
           </Grid>
         </Grid>
       ))}
     </Box>
   );
+
 }
 
 export default EducationForm;

@@ -179,11 +179,8 @@ function ResumeDashboard() {
   };
 
   const handleShareClick = (resumeId) => {
-    // const shareURL = `http://localhost:3000/resume/${resumeId}`;
-    const shareURL = ` http://localhost:3001/resume/${resumeId}`;
-
-
     const shareURL = `https://digitcv.netlify.app/resume/${resumeId}`;
+    // const shareURL = `http://localhost:3000/resume/${resumeId}`;
 
     navigator.clipboard.writeText(shareURL)
       .then(() => {
@@ -229,64 +226,62 @@ function ResumeDashboard() {
       <CssBaseline />
       <ToastContainer />
       <AppBar position="fixed" className="app-bar">
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
-          <Typography variant="h4" className="app-title">
+        <Toolbar sx={{ display: "flex", justifyContent: "space-between", px: { xs: 2, sm: 4 } }}>
+          <Typography variant="h5" className="app-title" sx={{ fontSize: { xs: "1.4rem", sm: "2rem" } }}>
             Resumes
           </Typography>
-          <div className="userDetails">
+          <Box className="userDetails">
             <UserComponent />
-          </div>
+          </Box>
         </Toolbar>
       </AppBar>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3, mt: "80px" }}>
+      <Box component="main" sx={{ flexGrow: 1, px: { xs: 2, sm: 3 }, mt: "80px", mb: 4 }}>
         {loading && <Loader />}
 
         <Grid container spacing={3}>
           {resumes.length === 0 ? (
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "50vh",
-                textAlign: "center",
-                width: "100%",
-              }}
-            >
-              <ErrorOutlineIcon sx={{ fontSize: 80, color: "#4b2354", mb: 2 }} />
-              <Typography variant="h5" sx={{ color: "#4b2354", mb: 2 }}>
-                No resumes found
-              </Typography>
-              <Typography variant="body1" color="text.secondary">
-                Click "Add Resume" to start creating your first resume.
-              </Typography>
-
-              <Box sx={{ mt: 3 }}>
-                <CustomButton
-                  btnText="Add Resume"
-                  className="add-button"
-                  updateClick={() => setAddModal(true)}
-                />
-              </Box>
-            </Box>
-          ) : (
-            <>
+            <Grid item xs={12}>
               <Box
                 sx={{
-                  width: "100%",
                   display: "flex",
-                  justifyContent: "flex-start",
-                  mb: 2,
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  height: "50vh",
+                  textAlign: "center",
+                  width: "100%",
+                  px: 2,
                 }}
               >
-                <CustomButton
-                  btnText="Add Resume"
-                  updateClick={() => setAddModal(true)}
-                  className="add-button"
-                />
+                <ErrorOutlineIcon sx={{ fontSize: 60, color: "#4b2354", mb: 2 }} />
+                <Typography variant="h6" sx={{ color: "#4b2354", mb: 2 }}>
+                  No resumes found
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Click "Add Resume" to start creating your first resume.
+                </Typography>
+
+                <Box sx={{ mt: 3 }}>
+                  <CustomButton
+                    btnText="Add Resume"
+                    className="add-button"
+                    updateClick={() => setAddModal(true)}
+                  />
+                </Box>
               </Box>
+            </Grid>
+          ) : (
+            <>
+              <Grid item xs={12}>
+                <Box sx={{ display: "flex", justifyContent: "flex-start", mb: 2 }}>
+                  <CustomButton
+                    btnText="Add Resume"
+                    updateClick={() => setAddModal(true)}
+                    className="add-button"
+                  />
+                </Box>
+              </Grid>
 
               {resumes.map((resume) => (
                 <Grid item xs={12} sm={6} md={4} key={resume.id}>
@@ -294,9 +289,14 @@ function ResumeDashboard() {
                     <Card
                       className="animated-card"
                       sx={{
-                        width: "90%",
+                        width: {
+                          xs: "100%", 
+                          sm: "85%", 
+                          md: "80%", 
+                          lg: "75%", 
+                          xl: "70%"  
+                        },
                         minHeight: 420,
-                        mx: "auto",
                         borderRadius: "20px",
                         background: hoveredCard === resume.id
                           ? "linear-gradient(135deg, #f1f5f8, #e3ecf0)"
@@ -313,24 +313,22 @@ function ResumeDashboard() {
                           opacity: 1,
                         },
                       }}
-
-
                       onMouseEnter={() => setHoveredCard(resume.id)}
                       onMouseLeave={() => setHoveredCard(null)}
                     >
-                      <Box onClick={() => handleCardData(resume.id)} sx={{ cursor: "pointer" }} className="card-content">
-                        <CardContent sx={{ textAlign: "center", pt: 6 }}>
-                          <FolderOpenIcon sx={{ fontSize: 60, color: "#c5c5c5", mb: 1 }} />
+                      <Box onClick={() => handleCardData(resume.id)} className="card-content">
+                        <CardContent sx={{ textAlign: "center", pt: 6, px: 2 }}>
+                          <FolderOpenIcon sx={{ fontSize: 50, color: "#c5c5c5", mb: 1 }} />
 
                           <Typography
-                            variant="h5"
-                            sx={{ color: "#4b2354", textAlign: "center", fontWeight: "bold" }}
+                            variant="h6"
+                            sx={{ color: "#4b2354", fontWeight: "bold", fontSize: { xs: "1rem", sm: "1.2rem" } }}
                           >
                             {resume.title}
                           </Typography>
                           <Typography
                             sx={{
-                              fontSize: "0.9rem",
+                              fontSize: "0.85rem",
                               color: "#888",
                               fontStyle: "italic",
                               mt: 2,
@@ -340,6 +338,7 @@ function ResumeDashboard() {
                           </Typography>
                         </CardContent>
                       </Box>
+
                       {loading && (
                         <Box
                           sx={{
@@ -363,7 +362,7 @@ function ResumeDashboard() {
                           right: 0,
                           display: "flex",
                           justifyContent: "center",
-                          gap: 4,
+                          gap: 3,
                           opacity: hoveredCard === resume.id ? 1 : 0.4,
                           transition: "opacity 0.3s ease",
                           zIndex: 2,
@@ -374,25 +373,18 @@ function ResumeDashboard() {
                             <EditIcon sx={{ color: "#4b2354" }} />
                           </IconButton>
                         </Tooltip>
-
                         <Tooltip title="Delete">
                           <IconButton onClick={() => handleDeleteClick(resume.id)}>
                             <DeleteIcon sx={{ color: "#4b2354" }} />
                           </IconButton>
                         </Tooltip>
-
-
                         <Tooltip title="Share">
                           <IconButton onClick={() => handleShareClick(resume.id)}>
                             <ShareIcon sx={{ color: "#4b2354" }} />
                           </IconButton>
                         </Tooltip>
-
-
                         <Tooltip title="Download">
-                          <IconButton onClick={() => {
-                            handleDownloadClick(resume)
-                          }}>
+                          <IconButton onClick={() => handleDownloadClick(resume)}>
                             <DownloadIcon sx={{ color: "#4b2354" }} />
                           </IconButton>
                         </Tooltip>
@@ -400,16 +392,16 @@ function ResumeDashboard() {
                     </Card>
                   </Grow>
                 </Grid>
-
               ))}
             </>
           )}
         </Grid>
 
+        {/* Modals stay the same — just ensure modal-box styles are responsive */}
         {addModal && (
           <CustomModal isOpen={addModal} closeModal={() => setAddModal(false)}>
             <Box className="modal-box">
-              <Typography variant="h6" sx={{ color: "#4b2354", fontWeight: "bold" }}>
+              <Typography variant="h6" sx={{ color: "#4b2354", fontWeight: "bold", mb: 2 }}>
                 Add a New Resume
               </Typography>
               <CustomInput
@@ -419,8 +411,7 @@ function ResumeDashboard() {
                 required
                 inputType="text"
               />
-              <CustomButton btnText={loading ? "Creating..." : "ADD"}
-                btnClass="add-button" updateClick={handleAdd} />
+              <CustomButton btnText={loading ? "Creating..." : "ADD"} btnClass="add-button" updateClick={handleAdd} />
             </Box>
           </CustomModal>
         )}
@@ -428,14 +419,12 @@ function ResumeDashboard() {
         {shareResumeId && (
           <CustomModal isOpen={true} closeModal={() => setShareResumeId(null)}>
             <CustomShareButton
-
-              // url={`http://localhost:3000/resume/${shareResumeId}`}
-              url={`http://localhost:3001/${shareResumeId}`}
+            
+              url={`https://digitcv.netlify.app/resume/${shareResumeId}`}
+              // url={`http://localhost:3001/${shareResumeId}`}
 
               resume={resumes.find((resume) => resume.id === shareResumeId)}
 
-              url={`https://digitcv.netlify.app/resume/${shareResumeId}`}
-              resume={resumes.find((resume) => resume.id === shareResumeId)} 
 
               onClose={() => setShareResumeId(null)}
             />
@@ -450,13 +439,12 @@ function ResumeDashboard() {
               top: "-9999px",
               left: "-9999px",
               pointerEvents: "none",
-              backgroundColor:"transparent"
+              backgroundColor: "transparent"
             }}
           >
             <CommonShareTemplate resumeData={resumeToDownload} />
           </Box>
         )}
-
 
         {deleteModal && (
           <CustomModal isOpen={deleteModal} closeModal={handleCloseDeleteModal}>
@@ -464,7 +452,7 @@ function ResumeDashboard() {
               <Typography variant="h6" sx={{ color: "#4b2354", fontWeight: "bold" }}>
                 Are you sure you want to delete this resume?
               </Typography>
-              <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
+              <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2, gap: 2 }}>
                 <CustomButton
                   btnText="Cancel"
                   btnClass="cancel-button"
@@ -479,10 +467,10 @@ function ResumeDashboard() {
             </Box>
           </CustomModal>
         )}
-
       </Box>
     </Box>
   );
+
 }
 
 export default ResumeDashboard;

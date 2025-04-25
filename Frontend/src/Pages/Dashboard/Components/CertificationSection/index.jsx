@@ -97,21 +97,21 @@ function CertificationForm({ resumeId, setGetData }) {
   return (
     <Box
       sx={{
-        width: '60%',
+        width: { xs: '90%', sm: '80%', md: '70%', lg: '60%' },
         margin: '0 auto',
-        padding: '2rem',
+        padding: { xs: '1rem', sm: '1.5rem', md: '2rem' },
         boxShadow: 3,
         borderRadius: 2,
         bgcolor: '#f9f9f9',
       }}
     >
       <Box sx={{ display: "flex", justifyContent: "space-between", p: 3 }}>
-        <Box sx={{ marginBottom: 3 }}>
+        <Box sx={{ marginBottom: 3, width: { xs: '100%', sm: '70%' } }}>
           <Typography
             variant="h5"
             sx={{
               fontWeight: 'bold',
-              fontSize: '1.5rem',
+              fontSize: { xs: '1.2rem', sm: '1.5rem' },
               color: '#1e1e1e',
             }}
           >
@@ -120,7 +120,7 @@ function CertificationForm({ resumeId, setGetData }) {
           <Typography
             variant="body1"
             sx={{
-              fontSize: '1rem',
+              fontSize: { xs: '0.9rem', sm: '1rem' },
               color: '#1e1e1e',
               marginTop: 0.5,
             }}
@@ -148,6 +148,7 @@ function CertificationForm({ resumeId, setGetData }) {
           updateClick={handleFormBtn}
         />
       </Box>
+
       {certificateName.map((certificate, index) => (
         <Grid container spacing={2} sx={{ mb: 10 }} key={index}>
           <Grid item xs={12}>
@@ -172,11 +173,9 @@ function CertificationForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-
-
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Box sx={{ position: "relative" }}>
               <CustomInput
                 label="Start Date"
@@ -200,10 +199,9 @@ function CertificationForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Box sx={{ position: "relative" }}>
               <CustomInput
                 label="End Date"
@@ -215,7 +213,6 @@ function CertificationForm({ resumeId, setGetData }) {
                 required
                 inputType="date"
                 disabled={certificate.currentlyWorking}
-
               />
               {!certificate.currentlyWorking && isValidFieldCertificates(certificate.endDate) && (
                 <CheckCircleIcon
@@ -243,7 +240,6 @@ function CertificationForm({ resumeId, setGetData }) {
             </Grid>
           </Grid>
 
-
           <Grid item xs={12}>
             <Box sx={{ position: "relative" }}>
               <CustomInput
@@ -254,15 +250,13 @@ function CertificationForm({ resumeId, setGetData }) {
                 currentValue={certificate.link}
                 updateValue={(value) => handleCertificate(index, 'link', value)}
               />
-
             </Box>
-
           </Grid>
         </Grid>
       ))}
-
     </Box>
   );
+
 }
 
 export default CertificationForm;

@@ -108,16 +108,16 @@ function ProjectForm({ resumeId, setGetData }) {
   return (
     <Box
       sx={{
-        width: "60%",
-        margin: "0 auto",
-        padding: "2rem",
+        width: { xs: '90%', sm: '80%', md: '70%', lg: '60%' },
+        margin: '0 auto',
+        padding: { xs: '0.5rem', sm: '0.5rem', md: '1rem' },
         boxShadow: 3,
         borderRadius: 2,
-        bgcolor: "#f9f9f9",
+        bgcolor: '#f9f9f9',
       }}
     >
-      <Box sx={{ display: "flex", justifyContent: "space-between", p: 3 }}>
-        <Box sx={{ marginBottom: 3 }}>
+      <Box sx={{ display: "flex", flexDirection: { xs: "column", sm: "row" }, justifyContent: "space-between", p: 3 }}>
+        <Box sx={{ marginBottom: 3, flex: 1 }}>
           <Typography
             variant="h5"
             sx={{
@@ -136,7 +136,8 @@ function ProjectForm({ resumeId, setGetData }) {
               marginTop: 0.5,
             }}
           >
-            Highlight the real-world projects that reflect your initiative, innovation, and ability to drive results from concept to completion          </Typography>
+            Highlight the real-world projects that reflect your initiative, innovation, and ability to drive results from concept to completion
+          </Typography>
         </Box>
 
         <CustomButton
@@ -158,22 +159,9 @@ function ProjectForm({ resumeId, setGetData }) {
           updateClick={handleProjectAdd}
         />
       </Box>
+
       {projectName.map((projects, index) => (
         <Grid container spacing={2} sx={{ mb: 10 }} key={index}>
-          {/* <Grid item xs={12} sx={{ display: "flex", justifyContent: "flex-end" }}>
-            <CustomButton
-              btnText={<DeleteIcon />}
-              btnStyles={{
-                backgroundColor: "#d32f2f",
-                border: "none",
-                color: "white",
-                width: "50px",
-                cursor: "pointer",
-              }}
-              updateClick={() => handleProjectDelete(index)}
-            />
-          </Grid> */}
-
           <Grid item xs={12}>
             <Box sx={{ position: "relative" }}>
               <CustomInput
@@ -194,7 +182,6 @@ function ProjectForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-
           </Grid>
 
           <Grid item xs={12}>
@@ -217,7 +204,6 @@ function ProjectForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-
           </Grid>
 
           <Grid item xs={12}>
@@ -244,9 +230,9 @@ function ProjectForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-
           </Grid>
-          <Grid item xs={6}>
+
+          <Grid item xs={12} sm={6}>
             <Box sx={{ position: "relative" }}>
               <CustomInput
                 label="Start Date"
@@ -270,10 +256,9 @@ function ProjectForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-
           </Grid>
 
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <Box sx={{ position: "relative" }}>
               <CustomInput
                 label="End Date"
@@ -285,7 +270,6 @@ function ProjectForm({ resumeId, setGetData }) {
                 required
                 inputType="date"
                 disabled={projects.currentlyWorking}
-
               />
               {!projects.currentlyWorking && isValidFieldProjects(projects.endDate) && (
                 <CheckCircleIcon
@@ -299,7 +283,7 @@ function ProjectForm({ resumeId, setGetData }) {
                 />
               )}
             </Box>
-     <Grid item xs={12}>
+            <Grid item xs={12}>
               <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
                 <input
                   type="checkbox"
@@ -322,12 +306,12 @@ function ProjectForm({ resumeId, setGetData }) {
                 updateValue={(value) => handleProj(index, "link", value)}
               />
             </Box>
-
           </Grid>
         </Grid>
       ))}
     </Box>
   );
+
 }
 
 export default ProjectForm;

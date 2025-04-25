@@ -24,3 +24,9 @@
   text-align: center;
   margin-top: 16px;
 }
+/* styled.css */
+@media (max-width: 960px) {
+  .main-content {
+    padding-top: 64px; /* Height of AppBar */
+  }
+}

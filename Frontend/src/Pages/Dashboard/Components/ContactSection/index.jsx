@@ -129,9 +129,9 @@ function ContactForm({ resumeId, setGetData }) {
   return (
     <Box
       sx={{
-        width: '70%',
-        margin: '2rem auto',
-        padding: '2rem',
+        width: { xs: '90%', sm: '80%', md: '70%', lg: '60%' },
+        margin: '0 auto',
+        padding: { xs: '0.5rem', sm: '0.5rem', md: '1rem' },
         boxShadow: 3,
         borderRadius: 2,
         bgcolor: '#f9f9f9',
@@ -161,15 +161,15 @@ function ContactForm({ resumeId, setGetData }) {
       </Box>
 
       <Grid container spacing={2}>
-        <Grid item xs={6}>{renderInputWithCheck('firstName', 'First Name')}</Grid>
-        <Grid item xs={6}>{renderInputWithCheck('lastName', 'Surname')}</Grid>
+        <Grid item xs={12} sm={6} md={6} lg={6}>{renderInputWithCheck('firstName', 'First Name')}</Grid>
+        <Grid item xs={12} sm={6} md={6} lg={6}>{renderInputWithCheck('lastName', 'Surname')}</Grid>
 
-        <Grid item xs={6}>{renderInputWithCheck('phnNumber', 'Phone', 'numberOnly', 10)}</Grid>
-        <Grid item xs={6}>{renderInputWithCheck('email', 'Email', 'email')}</Grid>
+        <Grid item xs={12} sm={6} md={6} lg={6}>{renderInputWithCheck('phnNumber', 'Phone', 'numberOnly', 10)}</Grid>
+        <Grid item xs={12} sm={6} md={6} lg={6}>{renderInputWithCheck('email', 'Email', 'email')}</Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6} md={6} lg={6}>
           <Grid container spacing={2}>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
               <Box sx={{ position: 'relative' }}>
                 <CustomSelect
                   select="Country"
@@ -190,7 +190,7 @@ function ContactForm({ resumeId, setGetData }) {
                 )}
               </Box>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
               <Box sx={{ position: 'relative' }}>
                 <CustomInput
                   label="Pin Code"
@@ -216,7 +216,7 @@ function ContactForm({ resumeId, setGetData }) {
           </Grid>
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6} md={6} lg={6}>
           <Box sx={{ position: 'relative' }}>
             <CustomInput
               label="City"
@@ -238,10 +238,10 @@ function ContactForm({ resumeId, setGetData }) {
             )}
           </Box>
         </Grid>
-
       </Grid>
     </Box>
   );
+
 }
 
 export default ContactForm;

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
 import {
   Box,
@@ -5,6 +6,7 @@ import {
   AppBar,
   Toolbar,
   Typography,
+  IconButton,
 } from "@mui/material";
 import EducationForm from "./Components/EducationSection";
 import CertificationForm from "./Components/CertificationSection";
@@ -20,6 +22,11 @@ import TemplatePreview from "../../Components/TemplatePreview";
 import { ResumeContext } from "../../Context/ResumeContext";
 import { toast, ToastContainer } from "react-toastify";
 import { motion, AnimatePresence } from "framer-motion";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
+import MenuIcon from "@mui/icons-material/Menu";
+import zIndex from "@mui/material/styles/zIndex";
+
 
 export default function DashboardPage({ resume: resumeFromProps }) {
   const [selectedSection, setSelectedSection] = useState("Contact");
@@ -27,6 +34,12 @@ export default function DashboardPage({ resume: resumeFromProps }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [getSectionData, setGetSectionData] = useState(() => () => ({}));
   const { updateResume } = useContext(ResumeContext);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"))
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleDrawerToggle = () => setMobileOpen(prev=>!prev);
+
 
   const sectionOrder = [
     "Contact",
@@ -46,7 +59,7 @@ export default function DashboardPage({ resume: resumeFromProps }) {
     Certifications: "certificates",
     GitHub: "github",
     LinkedIn: "linkedin",
-    Links: "links", 
+    Links: "links",
     Template: "template",
   };
 
@@ -162,91 +175,105 @@ export default function DashboardPage({ resume: resumeFromProps }) {
   };
 
   return (
-
-    <Box sx={{ display: "flex" }}>
-      <ToastContainer />
-      <CssBaseline />
+    <>
       <AppBar
+        position="fixed"
         sx={{ backgroundImage: "linear-gradient(135deg, #FFDEE9, #B5FFFC)" }}
         className="dashboard-appbar"
       >
         <Toolbar className="dashboard-toolbar">
+          {isMobile && (
+            <IconButton edge="start" onClick={handleDrawerToggle}>
+              <MenuIcon />
+            </IconButton>
+          )}
           <UserComponent />
         </Toolbar>
       </AppBar>
 
-      <Sidebar
-        output={Object.keys(sectionComponents)}
-        selectedSection={selectedSection}
-        setSelectedSection={handleSectionChange}
-        resumeData={resumeData}
-        open={sidebarOpen}
-      />
 
-      <Box className="dashboard-main">
-        <Toolbar />
-        <Box sx={{ minHeight: "calc(100vh - 64px - 80px)" }}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={selectedSection}
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-              transition={{ duration: 0.3 }}
-            >
-              {sectionComponents[selectedSection] || <Typography></Typography>}
-            </motion.div>
-          </AnimatePresence>        </Box>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <ToastContainer/>
+        <Sidebar
+          output={Object.keys(sectionComponents)}
+          selectedSection={selectedSection}
+          setSelectedSection={handleSectionChange}
+          resumeData={resumeData}
+          open={mobileOpen}
+          handleDrawerToggle={handleDrawerToggle}
+        />
 
-        {selectedSection && selectedSection !== "Finalize" && (
-          <>
-            {selectedSection !== "Contact" && (
+          <Box className="dashboard-main">
+            <Toolbar />
+            <Box sx={{ minHeight: "calc(100vh - 64px - 80px)" }}>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={selectedSection}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -50 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {sectionComponents[selectedSection] || <Typography></Typography>}
+                </motion.div>
+              </AnimatePresence>
+            </Box>
+
+          {selectedSection && selectedSection !== "Finalize" && (
+            <>
+              {selectedSection !== "Contact" && (
+                <Box
+                  sx={{
+                    position: "fixed",
+                    bottom: 30,
+                    left: { xs: 20, sm: 40, md: 300 },
+                    zIndex: 1300,
+                  }}
+                >
+                  <CustomButton
+                    btnText="Back"
+                    btnStyles={{
+                      backgroundColor: "white",
+                      color: "#000",
+                      padding: "8px 36px",
+                      border: "2px solid black",
+                      minWidth: "auto",
+                      width: { xs: "100px", sm: "auto" },
+                    }}
+                    updateClick={handleBack}
+                  />
+                </Box>
+              )}
+
               <Box
                 sx={{
-                  position: "absolute",
+                  position: "fixed",
                   bottom: 30,
-                  left: 300,
-                  zIndex: 1000,
+                  right: 30,
+                  zIndex: 1300,
                 }}
               >
                 <CustomButton
-                  btnText="Back"
+                  btnText="Continue"
                   btnStyles={{
-                    backgroundColor: "transparent",
-                    color: "#000",
-                    padding: "8px 36px",
-                    border: "2px solid black",
+                    backgroundColor: "#4b2354",
+                    color: "#fff",
+                    padding: "8px 24px",
                     minWidth: "auto",
+                    width: { xs: "100px", sm: "auto" },
                   }}
-                  updateClick={handleBack}
+                  updateClick={handleContinue}
                 />
               </Box>
-            )}
+            </>
+          )}
 
-            <Box
-              sx={{
-                position: "fixed",
-                bottom: 30,
-                right: 30,
-                zIndex: 1000,
-              }}
-            >
-              <CustomButton
-                btnText="Continue"
-                btnStyles={{
-                  backgroundColor: "#4b2354",
-                  color: "#fff",
-                  padding: "8px 24px",
-                  minWidth: "auto",
-                }}
-                updateClick={handleContinue}
-              />
-            </Box>
-          </>
-        )}
+          </Box>
+        </Box>
+ 
+    </>
 
-      </Box>
-    </Box>
   );
 }
 

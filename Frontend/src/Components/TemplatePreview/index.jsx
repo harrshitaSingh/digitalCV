@@ -112,7 +112,7 @@ const TemplatePreview = ({ resumeData }) => {
     };
 
     return (
-        <Box px={4} py={6}>
+        <Box px={4} py={1} overflow="hidden">
             <Box textAlign="center" mb={4}>
                 <Typography variant="h4" fontWeight="bold" gutterBottom color="#4b2354">
                     Templates we recommend for you
@@ -185,14 +185,14 @@ const TemplatePreview = ({ resumeData }) => {
                         top: "50%",
                         left: "50%",
                         transform: "translate(-50%, -50%)",
-                        width: "90vw",
-                        maxWidth: 1000,
+                        width: "95vw",
+                        maxWidth: "1000px",
                         maxHeight: "90vh",
                         overflow: "auto",
                         bgcolor: "background.paper",
                         boxShadow: 24,
                         borderRadius: 4,
-                        p: 3,
+                        p: { xs: 2, sm: 3 }, 
                     }}
                 >
                     <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>

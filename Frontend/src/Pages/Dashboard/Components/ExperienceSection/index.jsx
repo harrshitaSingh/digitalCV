@@ -143,21 +143,21 @@ function ExperienceForm({ resumeId, setGetData }) {
             sx={{
                 width: '100%',
                 maxWidth: 1000,
-                margin: '2rem auto',
-                padding: { xs: '1rem', sm: '2rem' },
+                margin: '0 auto',
+                padding: { xs: '0.5rem', sm: '0.5rem', md: '1rem' },
                 boxShadow: 3,
                 borderRadius: 2,
                 bgcolor: "#f9f9f9",
             }}
         >
-      <Box sx={{ display: "flex", justifyContent: "space-between", p: { xs: 2, sm: 3 } }}>
+            <Box sx={{ display: "flex", justifyContent: "space-between", p: { xs: 2, sm: 3 } }}>
                 {/* Left side: Heading */}
                 <Box sx={{ marginBottom: 3 }}>
                     <Typography
                         variant="h5"
                         sx={{
                             fontWeight: 'bold',
-                            fontSize: '1.5rem',
+                            fontSize: { xs: '1.25rem', sm: '1.5rem' },
                             color: '#1e1e1e',
                         }}
                     >
@@ -166,7 +166,7 @@ function ExperienceForm({ resumeId, setGetData }) {
                     <Typography
                         variant="body1"
                         sx={{
-                            fontSize: '1rem',
+                            fontSize: { xs: '0.875rem', sm: '1rem' },
                             color: '#1e1e1e',
                             marginTop: 0.5,
                         }}
@@ -219,7 +219,7 @@ function ExperienceForm({ resumeId, setGetData }) {
                         </Box>
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={12} sm={6}>
                         <Box sx={{ position: "relative" }}>
                             <CustomInput
                                 label="Title"
@@ -241,9 +241,9 @@ function ExperienceForm({ resumeId, setGetData }) {
                         </Box>
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={12} sm={6}>
                         <Grid container spacing={2}>
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                                 <Box sx={{ position: "relative" }}>
                                     <CustomSelect
                                         select="Country"
@@ -265,7 +265,7 @@ function ExperienceForm({ resumeId, setGetData }) {
                                 </Box>
                             </Grid>
 
-                            <Grid item xs={6}>
+                            <Grid item xs={12} sm={6}>
                                 <Box sx={{ position: "relative" }}>
                                     <CustomInput
                                         label="Pin Code"
@@ -295,7 +295,7 @@ function ExperienceForm({ resumeId, setGetData }) {
                         </Grid>
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={12} sm={6}>
                         <Box sx={{ position: "relative" }}>
                             <CustomInput
                                 label="City"
@@ -318,7 +318,7 @@ function ExperienceForm({ resumeId, setGetData }) {
                         </Box>
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={12} sm={6}>
                         <Box sx={{ position: "relative" }}>
                             <CustomInput
                                 label="Start Date"
@@ -338,10 +338,9 @@ function ExperienceForm({ resumeId, setGetData }) {
                                 />
                             )}
                         </Box>
-
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={12} sm={6}>
                         <Box sx={{ position: "relative" }}>
                             <CustomInput
                                 label="End Date"
@@ -361,7 +360,6 @@ function ExperienceForm({ resumeId, setGetData }) {
                                     }}
                                 />
                             )}
-
                         </Box>
                         <Grid item xs={12}>
                             <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
@@ -375,7 +373,6 @@ function ExperienceForm({ resumeId, setGetData }) {
                                 <Typography>Currently Working Here</Typography>
                             </Box>
                         </Grid>
-
                     </Grid>
 
                     <Grid item xs={12}>
@@ -402,12 +399,12 @@ function ExperienceForm({ resumeId, setGetData }) {
                                 />
                             )}
                         </Box>
-
                     </Grid>
                 </Grid>
             ))}
         </Box>
     );
+
 }
 
 export default ExperienceForm;

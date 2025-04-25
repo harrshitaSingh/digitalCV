@@ -65,7 +65,7 @@ function SocialUrls({ resumeId, setGetData }) {
   return (
     <Box
       sx={{
-        width: "60%",
+        width: { xs: "90%", sm: "60%" }, // Makes container width 90% on smaller screens
         margin: "0 auto",
         padding: "2rem",
         boxShadow: 3,
@@ -76,14 +76,19 @@ function SocialUrls({ resumeId, setGetData }) {
       <Box sx={{ display: "flex", justifyContent: "flex-start" }}>
         <Typography
           variant="h5"
-          sx={{ marginBottom: 2, textAlign: "center", color: "#4b2354" }}
+          sx={{
+            marginBottom: 2,
+            textAlign: "center",
+            color: "#4b2354",
+            width: "100%", // Ensures full-width on smaller screens
+          }}
         >
           Add Links
         </Typography>
       </Box>
 
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={6}>  
           <CustomInput
             label="LinkedIn URL"
             inputType="text"
@@ -92,9 +97,9 @@ function SocialUrls({ resumeId, setGetData }) {
             required
             error={linkErrors.linkedin}
           />
-
         </Grid>
-        <Grid item xs={6}>
+
+        <Grid item xs={12} sm={6}> 
           <CustomInput
             label="GitHub URL"
             inputType="text"
@@ -104,10 +109,10 @@ function SocialUrls({ resumeId, setGetData }) {
             error={linkErrors.github}
           />
         </Grid>
-
       </Grid>
     </Box>
   );
+
 }
 
 export default SocialUrls;
