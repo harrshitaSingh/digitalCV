@@ -109,7 +109,6 @@ function ResumeDashboard() {
         localStorage.setItem("resume", JSON.stringify(data.data));
         navigate("/addDetails", { state: { resumeData: data.data } });
       } catch (parseError) {
-        console.warn("Invalid JSON from server:", text);
         toast.warn("Server response is not valid JSON. Check console for details.");
       }
     } catch (error) {
@@ -181,8 +180,8 @@ function ResumeDashboard() {
   };
 
   const handleShareClick = (resumeId) => {
-    // const shareURL = `https://digitcv.netlify.app/resume/${resumeId}`;
-    const shareURL = `http://localhost:3000/resume/${resumeId}`;
+    const shareURL = `https://digitcv.netlify.app/resume/${resumeId}`;
+    // const shareURL = `http://localhost:3000/resume/${resumeId}`;
 
     navigator.clipboard.writeText(shareURL)
       .then(() => {
@@ -421,8 +420,8 @@ function ResumeDashboard() {
         {shareResumeId && (
           <CustomModal isOpen={true} closeModal={() => setShareResumeId(null)}>
             <CustomShareButton
-              // url={`https://digitcv.netlify.app/resume/${shareResumeId}`}
-              url={`http://localhost:3000/${shareResumeId}`}
+              url={`https://digitcv.netlify.app/resume/${shareResumeId}`}
+              // url={`http://localhost:3000/${shareResumeId}`}
               resume={resumes.find((resume) => resume.id === shareResumeId)}
               isSharing={isSharing}
               onClose={() => setShareResumeId(null)}
