@@ -7,6 +7,7 @@ import {
     List,
     ListItem,
     ListItemText,
+    Divider,
 } from "@mui/material";
 import "./styled.css";
 import CustomAvatar from "../../CustomAvatar";
@@ -15,7 +16,7 @@ const ModernResumeTemplate = ({ resumeData, preview }) => {
     if (!resumeData) return null;
 
     
-    const { id, github, linkedin, contact, education, experience, project, certificates, skills } = resumeData;
+    const { id, github, linkedin, youTube,contact, education, experience, project, certificates, skills } = resumeData;
 
     return (
         <Box
@@ -126,6 +127,26 @@ const ModernResumeTemplate = ({ resumeData, preview }) => {
                             {/* Timeline Content */}
                             <Box>
                                 {/* Education */}
+                                {youTube && (
+                                    <Box sx={{ mb: 4 }}>
+                                        <Typography variant="h4" sx={{ display: "flex", alignItems: "center", mb: 1, color: "#2c3e50" }}>
+                                            YouTube Video Preview
+                                        </Typography>
+                                        <Divider sx={{ mb: 1 }} />
+                                        <Box sx={{ width: "100%", height: "auto", mb: 3 }}>
+                                            <iframe
+                                                width="100%"
+                                                height="315"
+                                                src={`https://www.youtube.com/embed/${youTube.split("v=")[1]}`}
+                                                title="YouTube video"
+                                                frameBorder="0"
+                                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowFullScreen
+                                            />
+                                        </Box>
+                                    </Box>
+                                )}
+
                                 {education?.length > 0 && (
                                     <>
                                         <Typography variant="h6" fontWeight="bold" gutterBottom>Education</Typography>

@@ -1,6 +1,5 @@
 import React from "react";
 import {
-    Avatar,
     Box,
     Grid,
     Typography,
@@ -15,11 +14,21 @@ import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import SchoolIcon from "@mui/icons-material/School";
 import WorkIcon from "@mui/icons-material/Work";
 import CodeIcon from "@mui/icons-material/Code";
-import CertificateIcon from "@mui/icons-material/WorkspacePremium";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import CustomAvatar from "../../CustomAvatar";
+import YouTubeIcon from "@mui/icons-material/YouTube"
 
-const CommonShareTemplate = ({ resumeData }) => {
-    console.log(resumeData)
-    const { contact, education = [], experience = [], project = [], certificates = [], linkedin, github } = resumeData;
+
+const CommonShareTemplate = ({ resumeData, isSharing }) => {
+    const { contact = {}, education = [], experience = [], project = [], certificates = [], linkedin, github, youTube } = resumeData || {};
+
+
+    const getYouTubeEmbedId = (url) => {
+        if (!url) return "";
+        const urlObj = new URL(url);
+        return urlObj.searchParams.get("v") || url.split("/").pop();
+    };
+
 
     return (
         <Box id="resume-to-download">
@@ -46,50 +55,86 @@ const CommonShareTemplate = ({ resumeData }) => {
                                 display: "flex",
                                 flexDirection: "column",
                                 alignItems: "center",
-                                minHeight: "85vh",
+                                minHeight: "100%",
                                 boxSizing: "border-box",
                                 overflow: "auto",
-                                overflowX: "hidden"
+                                overflowX: "hidden",
                             }}
                         >
-                            <Avatar sx={{ width: 100, height: 100, mb: 3, bgcolor: "#ffffff55" }} />
-                            <Typography variant="h5" sx={{ fontWeight: "bold", color: "#fff", mb: 3 }}>
-                                {`${contact.firstName} ${contact.lastName}`}
-                            </Typography>
-                            <Typography variant="body2" sx={{ fontStyle: "italic", mb: 3, color: "#ecf0f1" }}>
-                                I want to work full time
+                            <CustomAvatar
+                                showUpload={true}
+                                avatarStyles={{ width: "120px", height: "120px" }}
+                                image={resumeData.profilePhoto}
+                            />                            <Typography variant="h5" sx={{ fontWeight: "bold", mb: 3 }}>
+                                {`${contact.firstName || ""} ${contact.lastName || ""}`}
                             </Typography>
 
                             <Box sx={{ textAlign: "left", width: "100%" }}>
-                                <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                                    <EmailIcon fontSize="large" sx={{ mr: 1 }} />
-                                    <Link href={`mailto:${contact.email}`} target="_blank" rel="noopener" underline="hover" sx={{ color: "#fff" }}>
-                                        {contact.email}
-                                    </Link>
+                                {contact.email && (
+                                    <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+                                        <EmailIcon fontSize="large" sx={{ mr: 1 }} />
+                                        <Link href={`mailto:${contact.email}`} target="_blank" rel="noopener" underline="hover" sx={{ color: "#fff" }}>
+                                            {contact.email}
+                                        </Link>
+                                    </Box>
+                                )}
+                                {contact.phnNumber && (
+                                    <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+                                        <PhoneIcon fontSize="large" sx={{ mr: 1 }} />
+                                        <Typography variant="body2">{contact.phnNumber}</Typography>
+                                    </Box>
+                                )}
+                                {linkedin && (
+                                    <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+                                        <LinkedInIcon fontSize="large" sx={{ mr: 1 }} />
+                                        <Link href={linkedin} target="_blank" rel="noopener" underline="hover" sx={{ color: "#fff" }}>
+                                            {linkedin}
+                                        </Link>
+                                    </Box>
+                                )}
+                                {github && (
+                                    <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+                                        <GitHubIcon fontSize="large" sx={{ mr: 1 }} />
+                                        <Link href={github} target="_blank" rel="noopener" underline="hover" sx={{ color: "#fff" }}>
+                                            {github}
+                                        </Link>
+                                    </Box>
+                                )}
+                                {youTube && !isSharing && (
+                                    <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
+                                        <YouTubeIcon fontSize="large" sx={{ mr: 1 }} />
+                                        <Link href={youTube} target="_blank" rel="noopener" underline="hover" sx={{ color: "#fff" }}>
+                                            YouTube Video Link
+                                        </Link>
+                                    </Box>
+                                )}
 
-                                    
-                                </Box>
-                                <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                                    <PhoneIcon fontSize="large" sx={{ mr: 1 }} /> {contact.phnNumber}
-                                </Box>
-                                <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                                    <LinkedInIcon fontSize="large" sx={{ mr: 1 }} />
-                                    <Link href={linkedin} target="_blank" rel="noopener" underline="hover" sx={{ color: "#fff" }}>
-                                        {linkedin}
-                                    </Link>
-                                </Box>
-                                <Box sx={{ display: "flex", alignItems: "center", mb: 3 }}>
-                                    <GitHubIcon fontSize="large" sx={{ mr: 1 }} />
-                                    <Link href={github} target="_blank" rel="noopener" underline="hover" sx={{ color: "#fff" }}>
-                                        {github}
-                                    </Link>
-                                </Box>
                             </Box>
                         </Box>
                     </Grid>
 
                     {/* Right Section */}
                     <Grid item xs={12} md={8}>
+                        {isSharing && youTube && (
+                            <Box sx={{ mb: 4 }}>
+                                <Typography variant="h4" sx={{ display: "flex", alignItems: "center", mb: 1, color: "#2c3e50" }}>
+                                    YouTube Video Preview
+                                </Typography>
+                                <Divider sx={{ mb: 1 }} />
+                                <Box sx={{ width: "100%", height: "auto", mb: 3 }}>
+                                    <iframe
+                                        width="100%"
+                                        height="315"
+                                        src={`https://www.youtube.com/embed/${getYouTubeEmbedId(youTube)}`}
+                                        title="YouTube video"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                </Box>
+                            </Box>
+                        )}
+
                         {/* Education */}
                         <Box sx={{ mb: 4 }}>
                             <Typography variant="h4" sx={{ display: "flex", alignItems: "center", mb: 1, color: "#2c3e50" }}>
@@ -156,7 +201,7 @@ const CommonShareTemplate = ({ resumeData }) => {
                         {/* Certificates */}
                         <Box sx={{ mb: 4 }}>
                             <Typography variant="h4" sx={{ display: "flex", alignItems: "center", mb: 1, color: "#2c3e50" }}>
-                                <CertificateIcon sx={{ mr: 1, fontSize: "2rem" }} /> Certificates
+                                <WorkspacePremiumIcon sx={{ mr: 1, fontSize: "2rem" }} /> Certificates
                             </Typography>
                             <Divider sx={{ mb: 1 }} />
                             {certificates.length > 0 ? (
@@ -188,5 +233,6 @@ const CommonShareTemplate = ({ resumeData }) => {
         </Box>
     );
 };
+
 
 export default CommonShareTemplate;

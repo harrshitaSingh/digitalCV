@@ -28,8 +28,9 @@ model Resume {
   certificates Json
   contact      Json
   project      Json
-  github       String
-  linkedin     String
+  github       String?
+  linkedin     String?
+  youTube      String?
   template     String
   authorId     Int    @map("user_id")
 

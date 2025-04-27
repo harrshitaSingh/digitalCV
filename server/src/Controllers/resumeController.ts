@@ -31,6 +31,7 @@ export const createResume = async (req: Request, res: Response) => {
       project,
       github,
       linkedin,
+      youTube,
       template,
     }: ResumeModel = req.body;
 
@@ -48,6 +49,7 @@ export const createResume = async (req: Request, res: Response) => {
         project,
         github,
         linkedin,
+        youTube,
         template,
         authorId,
       },
@@ -95,15 +97,15 @@ export const updateResumes = async (req: Request, res: Response) => {
       "project",
       "github",
       "linkedin",
+      "youTube",
       "template",
       "links"
     ];
 
+if (!validSections.includes(section)) {
+  return res.status(400).json({ message: "Invalid section name987897" });
+}
 
-
-    if (!validSections.includes(section)) {
-      return res.status(400).json({ message: "Invalid section name" });
-    }
 
     const updatedResume = await prisma.resume.update({
       where: {
@@ -119,7 +121,7 @@ export const updateResumes = async (req: Request, res: Response) => {
       resume: updatedResume,
     });
   } catch (error) {
-    console.error("Update error232323:", error);
+    console.error("Update error:", error);
     res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
@@ -174,6 +176,8 @@ export const getResumeDataById = async (req: Request, res: Response) => {
     const resume = await prisma.resume.findUnique({
       where: { id: Number(resumeID) },
     });
+
+    console.log(resume, "klo")
 
     if (!resume) {
       return res.status(404).json({ success: false, message: "Resume not found" });

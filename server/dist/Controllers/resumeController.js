@@ -24,7 +24,7 @@ export const createResume = (req, res) => __awaiter(void 0, void 0, void 0, func
             return res.status(401).json({ success: false, message: "Invalid token" });
         }
         const authorId = decoded.id;
-        const { title, experience, education, certificates, contact, project, github, linkedin, template, } = req.body;
+        const { title, experience, education, certificates, contact, project, github, linkedin, youTube, template, } = req.body;
         if (!title || !experience || !education || !contact || !project) {
             return res.status(400).json({ success: false, message: "Missing required fields while creating" });
         }
@@ -38,6 +38,7 @@ export const createResume = (req, res) => __awaiter(void 0, void 0, void 0, func
                 project,
                 github,
                 linkedin,
+                youTube,
                 template,
                 authorId,
             },
@@ -82,11 +83,12 @@ export const updateResumes = (req, res) => __awaiter(void 0, void 0, void 0, fun
             "project",
             "github",
             "linkedin",
+            "youTube",
             "template",
             "links"
         ];
         if (!validSections.includes(section)) {
-            return res.status(400).json({ message: "Invalid section name" });
+            return res.status(400).json({ message: "Invalid section name2222" });
         }
         const updatedResume = yield prisma.resume.update({
             where: {
@@ -102,7 +104,6 @@ export const updateResumes = (req, res) => __awaiter(void 0, void 0, void 0, fun
         });
     }
     catch (error) {
-        console.error("Update error232323:", error);
         res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 });

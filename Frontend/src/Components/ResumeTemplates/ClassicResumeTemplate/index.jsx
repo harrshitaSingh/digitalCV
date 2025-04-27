@@ -14,7 +14,7 @@ const Section = ({ title, children }) => (
 const ClassicResumeTemplate = ({ resumeData, preview }) => {
     if (!resumeData) return null;
 
-    const { github, linkedin, contact, education, experience, project, certificates, skills } = resumeData;
+    const { github, linkedin, youTube, contact, education, experience, project, certificates, skills } = resumeData;
 
     return (
         <Box
@@ -68,6 +68,23 @@ const ClassicResumeTemplate = ({ resumeData, preview }) => {
                         </Typography>
                     </Box>
                 )}
+
+
+                {youTube && (
+                    <Box mb={3} textAlign="center">
+                        <iframe
+                            width={preview ? "350" : "560"}
+                            height={preview ? "200" : "315"}
+                            src={youTube.replace("watch?v=", "embed/")}
+                            title="YouTube video"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            style={{ borderRadius: "8px" }}
+                        ></iframe>
+                    </Box>
+                )}
+
 
                 {education?.length > 0 && (
                     <Section title="Education">

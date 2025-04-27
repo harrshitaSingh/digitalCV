@@ -6,6 +6,18 @@ import CustomButton from "../../../../Components/CustomButton";
 import Add from "@mui/icons-material/Add";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
+const StyleCheckIcon = () => (
+  <CheckCircleIcon
+    sx={{
+      color: "green",
+      position: "absolute",
+      right: 10,
+      top: "50%",
+      transform: "translateY(-50%)",
+    }}
+  />
+);
+
 
 function ProjectForm({ resumeId, setGetData }) {
   const { resumes } = useContext(ResumeContext);
@@ -170,15 +182,7 @@ function ProjectForm({ resumeId, setGetData }) {
                 updateValue={(value) => handleProj(index, "title", value)}
               />
               {isValidFieldProjects("title",projects.title) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+                <StyleCheckIcon/>
               )}
             </Box>
           </Grid>
@@ -192,15 +196,7 @@ function ProjectForm({ resumeId, setGetData }) {
                 updateValue={(value) => handleProj(index, "technologies", value)}
               />
               {isValidFieldProjects("technologies",projects.technologies) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+                <StyleCheckIcon/>
               )}
             </Box>
           </Grid>
@@ -218,15 +214,7 @@ function ProjectForm({ resumeId, setGetData }) {
                 maxLength={200}
               />
               {isValidFieldProjects("description",projects.description) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+                <StyleCheckIcon/>
               )}
             </Box>
           </Grid>
@@ -244,15 +232,7 @@ function ProjectForm({ resumeId, setGetData }) {
                 inputType="date"
               />
               {isValidFieldProjects("startDate",projects.startDate) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+                <StyleCheckIcon/>
               )}
             </Box>
           </Grid>
@@ -271,15 +251,7 @@ function ProjectForm({ resumeId, setGetData }) {
                 disabled={projects.currentlyWorking}
               />
               {!projects.currentlyWorking && isValidFieldProjects("endDate",projects.endDate) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+                <StyleCheckIcon/>
               )}
             </Box>
             <Grid item xs={12}>

@@ -7,6 +7,7 @@ export interface ResumeModel {
   project: string[];
   github: string;
   linkedin: string;
+  youTube: string;
   template: string;
 
 }

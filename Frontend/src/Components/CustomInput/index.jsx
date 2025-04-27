@@ -1,6 +1,6 @@
 import React from "react";
 import './styled.css';
-import { TextField, Box } from "@mui/material";
+import { TextField, Box, InputAdornment } from "@mui/material";
 
 const CustomInput = ({
     updateValue,
@@ -16,7 +16,8 @@ const CustomInput = ({
     Adornment,
     fullWidth,
     className,
-    readOnly = false, 
+    readOnly = false,
+    icon
 }) => {
     const handleChange = (e) => {
         let value = e.target.value;
@@ -44,8 +45,16 @@ const CustomInput = ({
                 rows={maxRows}
                 multiline={multiline}
                 InputLabelProps={date}
-                InputProps={Adornment}
+                InputProps={{
+                    startAdornment: icon ? (
+                        <InputAdornment position="start">
+                            {icon}
+                        </InputAdornment>
+                    ) : null,
+                    ...Adornment, 
+                }}
                 fullWidth={fullWidth}
+
             />
         </Box>
     );

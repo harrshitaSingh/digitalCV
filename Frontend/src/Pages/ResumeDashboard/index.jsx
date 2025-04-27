@@ -53,6 +53,7 @@ function ResumeDashboard() {
   const [addModal, setAddModal] = useState(false);
   const navigate = useNavigate();
   const downloadRef = React.useRef(null);
+  const [isSharing, setIsSharing] = useState(false); 
 
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -90,6 +91,7 @@ function ResumeDashboard() {
           project: [],
           github: "",
           linkedin: "",
+          youTube: "",
           template: "",
         }),
       });
@@ -179,13 +181,13 @@ function ResumeDashboard() {
   };
 
   const handleShareClick = (resumeId) => {
-    const shareURL = `https://digitcv.netlify.app/resume/${resumeId}`;
-    // const shareURL = `http://localhost:3000/resume/${resumeId}`;
+    // const shareURL = `https://digitcv.netlify.app/resume/${resumeId}`;
+    const shareURL = `http://localhost:3000/resume/${resumeId}`;
 
     navigator.clipboard.writeText(shareURL)
       .then(() => {
         toast.success("Share link copied to clipboard!");
-        // Update the modal display after the clipboard copy operation
+        setIsSharing(true)
         setTimeout(() => setShareResumeId(resumeId), 500);
       })
       .catch(() => {
@@ -195,7 +197,7 @@ function ResumeDashboard() {
 
   const handleDownloadClick = (resume) => {
     setResumeToDownload(resume);
-
+    setIsSharing(false)
     setTimeout(() => {
       const input = document.getElementById('resume-to-download');
       console.log(input)
@@ -290,11 +292,11 @@ function ResumeDashboard() {
                       className="animated-card"
                       sx={{
                         width: {
-                          xs: "100%", 
-                          sm: "85%", 
-                          md: "80%", 
-                          lg: "75%", 
-                          xl: "70%"  
+                          xs: "100%",
+                          sm: "85%",
+                          md: "80%",
+                          lg: "75%",
+                          xl: "70%"
                         },
                         minHeight: 420,
                         borderRadius: "20px",
@@ -419,13 +421,10 @@ function ResumeDashboard() {
         {shareResumeId && (
           <CustomModal isOpen={true} closeModal={() => setShareResumeId(null)}>
             <CustomShareButton
-            
-              url={`https://digitcv.netlify.app/resume/${shareResumeId}`}
-              // url={`http://localhost:3001/${shareResumeId}`}
-
+              // url={`https://digitcv.netlify.app/resume/${shareResumeId}`}
+              url={`http://localhost:3000/${shareResumeId}`}
               resume={resumes.find((resume) => resume.id === shareResumeId)}
-
-
+              isSharing={isSharing}
               onClose={() => setShareResumeId(null)}
             />
           </CustomModal>
@@ -442,7 +441,7 @@ function ResumeDashboard() {
               backgroundColor: "transparent"
             }}
           >
-            <CommonShareTemplate resumeData={resumeToDownload} />
+            <CommonShareTemplate resumeData={resumeToDownload} isSharing={isSharing} />
           </Box>
         )}
 

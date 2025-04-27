@@ -25,8 +25,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import MenuIcon from "@mui/icons-material/Menu";
-import zIndex from "@mui/material/styles/zIndex";
-
 
 export default function DashboardPage({ resume: resumeFromProps }) {
   const [selectedSection, setSelectedSection] = useState("Contact");
@@ -38,7 +36,7 @@ export default function DashboardPage({ resume: resumeFromProps }) {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"))
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const handleDrawerToggle = () => setMobileOpen(prev=>!prev);
+  const handleDrawerToggle = () => setMobileOpen(prev => !prev);
 
 
   const sectionOrder = [
@@ -59,6 +57,7 @@ export default function DashboardPage({ resume: resumeFromProps }) {
     Certifications: "certificates",
     GitHub: "github",
     LinkedIn: "linkedin",
+    YouTube: "youTube",
     Links: "links",
     Template: "template",
   };
@@ -85,6 +84,18 @@ export default function DashboardPage({ resume: resumeFromProps }) {
     const sectionData = getSectionData?.();
     const normalizedKey = sectionKeyMap[selectedSection];
 
+    const isValidYouTubeLink = (url) => {
+      const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube|youtu|youtube-nocookie)\.(com|be)\/(watch\?v=|embed\/|v\/|.+\/videoseries\?v=)[a-zA-Z0-9_-]{11}$/;
+      return youtubeRegex.test(url);
+    };
+
+
+    if (sectionData.youTube && !isValidYouTubeLink(sectionData.youTube)) {
+      toast.error("Please provide a valid YouTube link.");
+      return;
+    }
+
+
     if (!normalizedKey) {
       toast.error("Invalid section name. Please try again.");
       return;
@@ -104,6 +115,10 @@ export default function DashboardPage({ resume: resumeFromProps }) {
         }
         if (sectionData.linkedin) {
           updateResume(resumeData.id, "linkedin", sectionData.linkedin);
+        }
+        if (sectionData.youTube) {
+
+          updateResume(resumeData.id, "youTube", sectionData.youTube)
         }
       } else {
         updateResume(resumeData.id, normalizedKey, sectionData);
@@ -194,7 +209,7 @@ export default function DashboardPage({ resume: resumeFromProps }) {
 
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <ToastContainer/>
+        <ToastContainer />
         <Sidebar
           output={Object.keys(sectionComponents)}
           selectedSection={selectedSection}
@@ -204,21 +219,21 @@ export default function DashboardPage({ resume: resumeFromProps }) {
           handleDrawerToggle={handleDrawerToggle}
         />
 
-          <Box className="dashboard-main">
-            <Toolbar />
-            <Box sx={{ minHeight: "calc(100vh - 64px - 80px)" }}>
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={selectedSection}
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -50 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {sectionComponents[selectedSection] || <Typography></Typography>}
-                </motion.div>
-              </AnimatePresence>
-            </Box>
+        <Box className="dashboard-main">
+          <Toolbar />
+          <Box sx={{ minHeight: "calc(100vh - 64px - 80px)" }}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={selectedSection}
+                initial={{ opacity: 0, x: 50 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -50 }}
+                transition={{ duration: 0.3 }}
+              >
+                {sectionComponents[selectedSection] || <Typography></Typography>}
+              </motion.div>
+            </AnimatePresence>
+          </Box>
 
           {selectedSection && selectedSection !== "Finalize" && (
             <>
@@ -269,9 +284,9 @@ export default function DashboardPage({ resume: resumeFromProps }) {
             </>
           )}
 
-          </Box>
         </Box>
- 
+      </Box>
+
     </>
 
   );

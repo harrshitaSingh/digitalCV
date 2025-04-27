@@ -40,7 +40,7 @@ exports.getResumeDataById = exports.deleteResume = exports.updateResumes = expor
 var jwt = require("jsonwebtoken");
 var db_1 = require("../Config/db");
 var createResume = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var token, decoded, authorId, _a, title, experience, education, certificates, contact, project, github, linkedin, template, newResume, error_1;
+    var token, decoded, authorId, _a, title, experience, education, certificates, contact, project, github, linkedin, youTube, template, newResume, error_1;
     var _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
@@ -58,7 +58,7 @@ var createResume = function (req, res) { return __awaiter(void 0, void 0, void 0
                     return [2 /*return*/, res.status(401).json({ success: false, message: "Invalid token" })];
                 }
                 authorId = decoded.id;
-                _a = req.body, title = _a.title, experience = _a.experience, education = _a.education, certificates = _a.certificates, contact = _a.contact, project = _a.project, github = _a.github, linkedin = _a.linkedin, template = _a.template;
+                _a = req.body, title = _a.title, experience = _a.experience, education = _a.education, certificates = _a.certificates, contact = _a.contact, project = _a.project, github = _a.github, linkedin = _a.linkedin, youTube = _a.youTube, template = _a.template;
                 if (!title || !experience || !education || !contact || !project) {
                     return [2 /*return*/, res.status(400).json({ success: false, message: "Missing required fields while creating" })];
                 }
@@ -71,7 +71,8 @@ var createResume = function (req, res) { return __awaiter(void 0, void 0, void 0
                             contact: contact,
                             project: project,
                             github: github,
-                            linkedin: linkedin,
+                        linkedin: linkedin,
+                        youTube:youTube,
                             template: template,
                             authorId: authorId,
                         },
@@ -139,11 +140,12 @@ var updateResumes = function (req, res) { return __awaiter(void 0, void 0, void 
                     "project",
                     "github",
                     "linkedin",
+                    "youTube",
                     "template",
                     "links"
                 ];
                 if (!validSections.includes(section)) {
-                    return [2 /*return*/, res.status(400).json({ message: "Invalid section name" })];
+                    return [2 , res.status(400).json({ message: "Invalid section name222" })];
                 }
                 return [4 /*yield*/, db_1.default.resume.update({
                         where: {

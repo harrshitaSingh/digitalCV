@@ -9,6 +9,19 @@ import CustomSelect from "../../../../Components/CustomSelect";
 import { callCountryApi, fetchCountries } from "../../../../Utils/Api/countryAPi";
 import { fetchCityByPincode } from "../../../../Utils/Api/pincodeApi";
 
+const StyleCheckIcon = () => (
+    <CheckCircleIcon
+        sx={{
+            color: "green",
+            position: "absolute",
+            right: 10,
+            top: "50%",
+            transform: "translateY(-50%)",
+        }}
+    />
+);
+
+
 function ExperienceForm({ resumeId, setGetData }) {
     const [countries, setCountries] = useState([]);
     const { resumes, updateResume } = useContext(ResumeContext);
@@ -39,7 +52,7 @@ function ExperienceForm({ resumeId, setGetData }) {
         const isAllValid = companyName.every((exp) =>
             Object.entries(exp).every(([key, val]) => {
                 if (key === "endDate" && exp.currentlyWorking) return true; 
-                if (key === "currentlyWorking") return true; // skip boolean validation
+                if (key === "currentlyWorking") return true; 
                 return isValidField(val);
             })
         );
@@ -206,15 +219,7 @@ function ExperienceForm({ resumeId, setGetData }) {
                                 updateValue={(value) => handleExperience(index, "company", value)}
                             />
                             {isValidField(experience.company) && (
-                                <CheckCircleIcon
-                                    sx={{
-                                        color: "green",
-                                        position: "absolute",
-                                        right: 10,
-                                        top: "50%",
-                                        transform: "translateY(-50%)",
-                                    }}
-                                />
+                               <StyleCheckIcon/>
                             )}
                         </Box>
                     </Grid>
@@ -228,15 +233,7 @@ function ExperienceForm({ resumeId, setGetData }) {
                                 updateValue={(value) => handleExperience(index, "jobTitle", value)}
                             />
                             {isValidField(experience.jobTitle) && (
-                                <CheckCircleIcon
-                                    sx={{
-                                        color: "green",
-                                        position: "absolute",
-                                        right: 10,
-                                        top: "50%",
-                                        transform: "translateY(-50%)",
-                                    }}
-                                />
+                               <StyleCheckIcon/>
                             )}
                         </Box>
                     </Grid>
@@ -305,15 +302,7 @@ function ExperienceForm({ resumeId, setGetData }) {
                                 InputProps={{ readOnly: true }}
                             />
                             {isValidField(experience.city) && (
-                                <CheckCircleIcon
-                                    sx={{
-                                        color: "green",
-                                        position: "absolute",
-                                        right: 10,
-                                        top: "50%",
-                                        transform: "translateY(-50%)",
-                                    }}
-                                />
+                               <StyleCheckIcon/>
                             )}
                         </Box>
                     </Grid>
@@ -327,15 +316,7 @@ function ExperienceForm({ resumeId, setGetData }) {
                                 inputType="date"
                             />
                             {isValidField(experience.startDate) && (
-                                <CheckCircleIcon
-                                    sx={{
-                                        color: "green",
-                                        position: "absolute",
-                                        right: 10,
-                                        top: "50%",
-                                        transform: "translateY(-50%)",
-                                    }}
-                                />
+                               <StyleCheckIcon/>
                             )}
                         </Box>
                     </Grid>
@@ -350,15 +331,7 @@ function ExperienceForm({ resumeId, setGetData }) {
                                 disabled={experience.currentlyWorking}
                             />
                             {!experience.currentlyWorking && isValidField(experience.endDate) && (
-                                <CheckCircleIcon
-                                    sx={{
-                                        color: "green",
-                                        position: "absolute",
-                                        right: 10,
-                                        top: "50%",
-                                        transform: "translateY(-50%)",
-                                    }}
-                                />
+                               <StyleCheckIcon/>
                             )}
                         </Box>
                         <Grid item xs={12}>
@@ -388,15 +361,7 @@ function ExperienceForm({ resumeId, setGetData }) {
                                 maxLength={500}
                             />
                             {isValidField(experience.description) && (
-                                <CheckCircleIcon
-                                    sx={{
-                                        color: "green",
-                                        position: "absolute",
-                                        right: 10,
-                                        top: "50%",
-                                        transform: "translateY(-50%)",
-                                    }}
-                                />
+                               <StyleCheckIcon/>
                             )}
                         </Box>
                     </Grid>

@@ -7,6 +7,7 @@ const SharedResume = () => {
     const { id } = useParams();
     const [resume, setResume] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [isSharing, setIsSharing] = useState(false);
 
     const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -23,6 +24,7 @@ const SharedResume = () => {
                 const result = await res.json();
                 if (res.ok) {
                     setResume(result.data);
+                    setIsSharing(true)
                 } else {
                     toast.warn(result.message || "Failed to load resume.");
                 }
@@ -41,9 +43,8 @@ const SharedResume = () => {
 
     return (
         <div style={{ padding: "2rem" }}>
-            {console.log(resume, "Fetched Resume")}
             {resume ? (
-                <CommonShareTemplate resumeData={resume} />
+                <CommonShareTemplate resumeData={resume} isSharing={isSharing} />
             ) : (
                 <p>Resume data not available</p>
             )}

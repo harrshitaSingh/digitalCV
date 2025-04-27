@@ -52,7 +52,7 @@ const ResumeProvider = ({ children }) => {
 
     useEffect(() => {
         fetchResume();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     /**
@@ -82,7 +82,6 @@ const ResumeProvider = ({ children }) => {
             });
 
             const result = await response.json();
-
             if (!response.ok) {
                 throw new Error(result.message || 'Failed to update resume');
             }
@@ -107,7 +106,7 @@ const ResumeProvider = ({ children }) => {
             });
             const result = await response.json();
             console.log(result)
-           
+
             await fetchResume();
 
         } catch (error) {

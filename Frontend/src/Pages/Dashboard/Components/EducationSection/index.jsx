@@ -9,6 +9,19 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CustomSelect from "../../../../Components/CustomSelect";
 import { callCountryApi, fetchCountries } from "../../../../Utils/Api/countryAPi";
 
+const StyleCheckIcon = () => (
+  <CheckCircleIcon
+    sx={{
+      color: "green",
+      position: "absolute",
+      right: 10,
+      top: "50%",
+      transform: "translateY(-50%)",
+    }}
+  />
+);
+
+
 
 function EducationForm({ resumeId, setGetData }) {
   const [countries, setCountries] = useState([]);
@@ -229,15 +242,7 @@ function EducationForm({ resumeId, setGetData }) {
                 inputType="text"
               />
               {isValidFieldEducation(education.degree) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+               <StyleCheckIcon/>
               )}
             </Box>
           </Grid>
@@ -254,15 +259,7 @@ function EducationForm({ resumeId, setGetData }) {
                 inputType="text"
               />
               {isValidFieldEducation(education.instituteName) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+               <StyleCheckIcon/>
               )}
             </Box>
           </Grid>
@@ -283,15 +280,7 @@ function EducationForm({ resumeId, setGetData }) {
                 required
               />
               {isValidFieldEducation(education.percentage) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+               <StyleCheckIcon/>
               )}
             </Box>
           </Grid>
@@ -360,15 +349,7 @@ function EducationForm({ resumeId, setGetData }) {
                 InputProps={{ readOnly: true }}
               />
               {isValidFieldEducation(education.city) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+               <StyleCheckIcon/>
               )}
             </Box>
           </Grid>
@@ -386,15 +367,7 @@ function EducationForm({ resumeId, setGetData }) {
                 inputType="date"
               />
               {isValidFieldEducation(education.startEducationDate) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+               <StyleCheckIcon/>
               )}
             </Box>
           </Grid>
@@ -404,23 +377,13 @@ function EducationForm({ resumeId, setGetData }) {
               <CustomInput
                 label="End Date"
                 currentValue={education.endDate}
-                required
                 updateValue={(value) => handleInputChange(index, "endEducationDate", value)}
                 inputType="date"
                 disabled={education.currentlyWorking}
-                date={{ shrink: true }}
 
               />
               {!education.currentlyWorking && isValidFieldEducation(education.endDate) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+               <StyleCheckIcon/>
               )}
             </Box>
           </Grid>

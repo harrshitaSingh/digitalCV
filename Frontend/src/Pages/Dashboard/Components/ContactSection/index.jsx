@@ -7,6 +7,19 @@ import CustomSelect from '../../../../Components/CustomSelect';
 import { fetchCountries, callCountryApi } from "../../../../Utils/Api/countryAPi"
 import { fetchCityByPincode } from '../../../../Utils/Api/pincodeApi';
 
+const StyleCheckIcon = () => (
+  <CheckCircleIcon
+    sx={{
+      color: "green",
+      position: "absolute",
+      right: 10,
+      top: "50%",
+      transform: "translateY(-50%)",
+    }}
+  />
+);
+
+
 function ContactForm({ resumeId, setGetData }) {
   const { resumes } = useContext(ResumeContext);
   const [contact, setContact] = useState({
@@ -112,15 +125,7 @@ function ContactForm({ resumeId, setGetData }) {
           required
         />
         {isValid && (
-          <CheckCircleIcon
-            sx={{
-              color: 'green',
-              position: 'absolute',
-              right: 10,
-              top: '50%',
-              transform: 'translateY(-50%)',
-            }}
-          />
+         <StyleCheckIcon/>
         )}
       </Box>
     );
@@ -178,15 +183,7 @@ function ContactForm({ resumeId, setGetData }) {
                   options={countries}
                 />
                 {validateField('country', contact.country) && (
-                  <CheckCircleIcon
-                    sx={{
-                      color: 'green',
-                      position: 'absolute',
-                      right: 10,
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                    }}
-                  />
+                  <StyleCheckIcon/>
                 )}
               </Box>
             </Grid>
@@ -201,15 +198,7 @@ function ContactForm({ resumeId, setGetData }) {
                   inputProps={{ maxLength: 6, inputMode: 'numeric', pattern: '[0-9]*' }}
                 />
                 {validateField('pincode', contact.pincode) && (
-                  <CheckCircleIcon
-                    sx={{
-                      color: 'green',
-                      position: 'absolute',
-                      right: 10,
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                    }}
-                  />
+                  <StyleCheckIcon/>
                 )}
               </Box>
             </Grid>

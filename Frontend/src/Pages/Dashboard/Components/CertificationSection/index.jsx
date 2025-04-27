@@ -6,6 +6,17 @@ import Add from '@mui/icons-material/Add';
 import { ResumeContext } from '../../../../Context/ResumeContext';
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
+const StyleCheckIcon = () => (
+  <CheckCircleIcon
+    sx={{
+      color: "green",
+      position: "absolute",
+      right: 10,
+      top: "50%",
+      transform: "translateY(-50%)",
+    }}
+  />
+);
 
 function CertificationForm({ resumeId, setGetData }) {
   const [certificateName, setCertificateName] = useState([
@@ -20,7 +31,7 @@ function CertificationForm({ resumeId, setGetData }) {
   const { resumes } = useContext(ResumeContext);
 
   const isValidFieldCertificates = (key, value) => {
-    if (key === "link") return true; 
+    if (key === "link") return true;
     return typeof value === "string" && value.trim().length > 0;
   };
 
@@ -163,16 +174,8 @@ function CertificationForm({ resumeId, setGetData }) {
                 textInputStyles={{ width: '100%' }}
                 required
               />
-              {isValidFieldCertificates('title',certificate.title) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+              {isValidFieldCertificates('title', certificate.title) && (
+                <StyleCheckIcon />
               )}
             </Box>
           </Grid>
@@ -189,16 +192,8 @@ function CertificationForm({ resumeId, setGetData }) {
                 required
                 inputType="date"
               />
-              {isValidFieldCertificates("startDate",certificate.startDate) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+              {isValidFieldCertificates("startDate", certificate.startDate) && (
+                <StyleCheckIcon />
               )}
             </Box>
           </Grid>
@@ -216,16 +211,8 @@ function CertificationForm({ resumeId, setGetData }) {
                 inputType="date"
                 disabled={certificate.currentlyWorking}
               />
-              {!certificate.currentlyWorking && isValidFieldCertificates("endDate",certificate.endDate) && (
-                <CheckCircleIcon
-                  sx={{
-                    color: "green",
-                    position: "absolute",
-                    right: 10,
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                  }}
-                />
+              {!certificate.currentlyWorking && isValidFieldCertificates("endDate", certificate.endDate) && (
+                <StyleCheckIcon />
               )}
             </Box>
             <Grid item xs={12}>

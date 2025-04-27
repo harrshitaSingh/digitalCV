@@ -4,7 +4,7 @@ import { Box, Typography, Paper } from '@mui/material';
 const BluesResumeTemplate = ({ resumeData, preview }) => {
     if (!resumeData) return null;
 
-    const { github, linkedin, contact, education, experience, project, certificates, skills } = resumeData;
+    const { github, linkedin, youTube, contact, education, experience, project, certificates, skills } = resumeData;
 
     return (
         <Box
@@ -50,6 +50,23 @@ const BluesResumeTemplate = ({ resumeData, preview }) => {
                         ) : null
                     )}
                 </Box>
+
+  
+                {youTube && (
+                    <Box mb={3} textAlign="center">
+                        <iframe
+                            width={preview ? "350" : "560"}
+                            height={preview ? "200" : "315"}
+                            src={youTube.replace("watch?v=", "embed/")}
+                            title="YouTube video"
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                            style={{ borderRadius: "8px" }}
+                        ></iframe>
+                    </Box>
+                )}
+
 
                 {/* Education */}
                 {education?.length > 0 && (
