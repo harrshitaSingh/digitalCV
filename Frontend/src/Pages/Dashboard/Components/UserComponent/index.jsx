@@ -25,10 +25,14 @@ const UserComponent = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        const getCookie = (name) => {
+          const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+          return match ? match[2] : null;
+        };
         const response = await fetch(`${baseUrl}/auth/user`, {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${getCookie("token")}`,
           },
         });
 

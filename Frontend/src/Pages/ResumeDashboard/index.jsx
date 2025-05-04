@@ -33,7 +33,6 @@ import Grow from '@mui/material/Grow';
 import CommonShareTemplate from "../../Components/ResumeTemplates/CommonShareTemplate";
 import FolderOpenIcon from '@mui/icons-material/FolderOpen';
 
-
 const Loader = () => (
   <Box className="loader-container">
     <Box className="loader" />
@@ -53,7 +52,7 @@ function ResumeDashboard() {
   const [addModal, setAddModal] = useState(false);
   const navigate = useNavigate();
   const downloadRef = React.useRef(null);
-  const [isSharing, setIsSharing] = useState(false); 
+  const [isSharing, setIsSharing] = useState(false);
 
   const baseUrl = process.env.REACT_APP_API_BASE_URL;
 
@@ -63,8 +62,14 @@ function ResumeDashboard() {
 
 
   const handleAdd = async () => {
+    setLoading(true);
     try {
-      const token = localStorage.getItem("token");
+      const getCookie = (name) => {
+        const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+        return match ? match[2] : null;
+      };
+
+      const token = getCookie("token");
 
       if (!token) {
         toast.warn("Unauthorized! Please log in.");
@@ -115,6 +120,9 @@ function ResumeDashboard() {
       console.error("Error adding resume:", error);
       toast.warn("Failed to add resume");
     }
+    finally {
+      setLoading(false);
+    }
   };
 
   const handleDeleteClick = (id) => {
@@ -123,6 +131,9 @@ function ResumeDashboard() {
   };
 
   const handleConfirmDelete = async () => {
+    setLoading(true);
+
+
     try {
       const result = await deleteResume(resumeToDelete);
       console.log(resumeToDelete)
@@ -135,6 +146,7 @@ function ResumeDashboard() {
       toast.error("Something went wrong while deleting");
     } finally {
       setDeleteModal(false);
+      setLoading(false)
     }
   };
 
@@ -148,9 +160,13 @@ function ResumeDashboard() {
       return;
     }
     setLoading(true);
-
     try {
-      const token = localStorage.getItem("token");
+      const getCookie = (name) => {
+        const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+        return match ? match[2] : null;
+      };
+
+      const token = getCookie("token");
       if (!token) {
         toast.warn("Unauthorized! Please log in.");
         return;
@@ -174,8 +190,9 @@ function ResumeDashboard() {
       }
     } catch (error) {
       toast.warn("Resume data does not exist");
-    } finally {
-      setLoading(false);
+    }
+  finally {
+      setLoading(false)
     }
   };
 
@@ -273,7 +290,8 @@ function ResumeDashboard() {
               </Box>
             </Grid>
           ) : (
-            <>
+              <>
+                {loading && <Loader />}
               <Grid item xs={12}>
                 <Box sx={{ display: "flex", justifyContent: "flex-start", mb: 2 }}>
                   <CustomButton
@@ -340,20 +358,6 @@ function ResumeDashboard() {
                         </CardContent>
                       </Box>
 
-                      {loading && (
-                        <Box
-                          sx={{
-                            position: "absolute",
-                            top: "50%",
-                            left: "50%",
-                            transform: "translate(-50%, -50%)",
-                            zIndex: 10,
-                          }}
-                        >
-                          <CircularProgress sx={{ color: "#4b2354" }} />
-                        </Box>
-                      )}
-
                       <CardActions
                         className="card-actions"
                         sx={{
@@ -412,7 +416,8 @@ function ResumeDashboard() {
                 required
                 inputType="text"
               />
-              <CustomButton btnText={loading ? "Creating..." : "ADD"} btnClass="add-button" updateClick={handleAdd} />
+              <CustomButton btnText={loading ? <CircularProgress sx={{ color: "#4b2354" }} />
+                : "ADD"} btnClass="add-button" updateClick={handleAdd} />
             </Box>
           </CustomModal>
         )}
@@ -457,7 +462,8 @@ function ResumeDashboard() {
                   updateClick={handleCloseDeleteModal}
                 />
                 <CustomButton
-                  btnText="Delete"
+                  btnText={loading ? <CircularProgress sx={{ color: "#4b2354" }} />
+                    : "Delete"}
                   btnClass="delete-button"
                   updateClick={handleConfirmDelete}
                 />

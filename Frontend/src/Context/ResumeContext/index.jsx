@@ -20,7 +20,11 @@ const ResumeProvider = ({ children }) => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const fetchResume = async () => {
-        const token = localStorage.getItem("token");
+        const getCookie = (name) => {
+            const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+            return match ? match[2] : null;
+        };
+        const token = getCookie("token");
         const userId = token ? decodeToken(token)?.id : null;
 
         if (!userId) {
@@ -65,7 +69,12 @@ const ResumeProvider = ({ children }) => {
 
     const updateResume = async (resumeId, section, data) => {
         try {
-            const token = localStorage.getItem('token');
+            const getCookie = (name) => {
+                const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+                return match ? match[2] : null;
+            };
+
+            const token = getCookie("token");
 
             const response = await fetch(`${baseUrl}/resume/update`, {
                 method: 'POST',
@@ -94,7 +103,12 @@ const ResumeProvider = ({ children }) => {
 
     const deleteResume = async (resumeId) => {
         try {
-            const token = localStorage.getItem('token');
+            const getCookie = (name) => {
+                const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+                return match ? match[2] : null;
+            };
+
+            const token = getCookie("token");
 
             const response = await fetch(`${baseUrl}/resume/delete/${resumeId}`, {
                 method: 'DELETE',

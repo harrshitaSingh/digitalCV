@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { Box, Typography, Grid } from '@mui/material';
 import CustomInput from '../../../../Components/CustomInput';
 import CustomButton from '../../../../Components/CustomButton';
@@ -51,15 +51,11 @@ function CertificationForm({ resumeId, setGetData }) {
     return certificateName;
   }, [certificateName]);
 
-
-
   useEffect(() => {
     if (setGetData) {
-
       setGetData(() => getter);
     }
   }, [setGetData, getter]);
-
 
   useEffect(() => {
     if (resumes && resumes.length > 0) {
@@ -83,7 +79,6 @@ function CertificationForm({ resumeId, setGetData }) {
     }
   }, [resumes, resumeId]);
 
-
   const handleCertificate = (index, field, value) => {
     const updateCertiForms = certificateName.map((form, i) =>
       i === index ? { ...form, [field]: value } : form
@@ -103,8 +98,7 @@ function CertificationForm({ resumeId, setGetData }) {
       currentlyWorking: false
     };
 
-    const updatedCertificate = [...certificateName, newCertificate];
-    setCertificateName(updatedCertificate);
+    setCertificateName([...certificateName, newCertificate]); // Add new form
   };
 
   return (
@@ -118,30 +112,102 @@ function CertificationForm({ resumeId, setGetData }) {
         bgcolor: '#f9f9f9',
       }}
     >
-      <Box sx={{ display: "flex", justifyContent: "space-between", p: 3 }}>
-        <Box sx={{ marginBottom: 3, width: { xs: '100%', sm: '70%' } }}>
-          <Typography
-            variant="h5"
-            sx={{
-              fontWeight: 'bold',
-              fontSize: { xs: '1.2rem', sm: '1.5rem' },
-              color: '#1e1e1e',
-            }}
-          >
-            Let’s highlight your key certifications
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              fontSize: { xs: '0.9rem', sm: '1rem' },
-              color: '#1e1e1e',
-              marginTop: 0.5,
-            }}
-          >
-            Showcase your expertise and dedication to professional growth, proving to employers you're committed to staying ahead in your field.
-          </Typography>
-        </Box>
+      <Box sx={{ marginBottom: 3, textAlign: "center" }}>
+        <Typography
+          variant="h5"
+          sx={{
+            fontWeight: 'bold',
+            fontSize: { xs: '1.2rem', sm: '1.5rem' },
+            color: '#1e1e1e',
+          }}
+        >
+          Let’s highlight your key certifications
+        </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            fontSize: { xs: '0.9rem', sm: '1rem' },
+            color: '#1e1e1e',
+            marginTop: 0.5,
+          }}
+        >
+          Showcase your expertise and dedication to professional growth, proving to employers you're committed to staying ahead in your field.
+        </Typography>
+      </Box>
 
+      {certificateName.map((certificate, index) => (
+        <Box key={index} sx={{ mb: 6, p: 3, border: '1px solid #ddd', borderRadius: 2, position: "relative" }}>
+          <Grid container spacing={2}>
+            {/* Your Inputs */}
+            <Grid item xs={12}>
+              <Box sx={{ position: "relative" }}>
+                <CustomInput
+                  inputType="text"
+                  label="Certificate Name"
+                  currentValue={certificate.title}
+                  updateValue={(value) => handleCertificate(index, 'title', value)}
+                  textInputStyles={{ width: '100%' }}
+                  required
+                />
+                {isValidFieldCertificates('title', certificate.title) && <StyleCheckIcon />}
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <Box sx={{ position: "relative" }}>
+                <CustomInput
+                  label="Start Date"
+                  currentValue={certificate.startDate}
+                  updateValue={(value) => handleCertificate(index, "startDate", value)}
+                  date={{ shrink: true }}
+                  required
+                  inputType="date"
+                />
+                {isValidFieldCertificates("startDate", certificate.startDate) && <StyleCheckIcon />}
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <Box sx={{ position: "relative" }}>
+                <CustomInput
+                  label="End Date"
+                  currentValue={certificate.endDate}
+                  updateValue={(value) => handleCertificate(index, "endDate", value)}
+                  date={{ shrink: true }}
+                  required
+                  inputType="date"
+                  disabled={certificate.currentlyWorking}
+                />
+                {!certificate.currentlyWorking && isValidFieldCertificates("endDate", certificate.endDate) && <StyleCheckIcon />}
+              </Box>
+              <Box sx={{ display: "flex", alignItems: "center", gap: 2, mt: 1 }}>
+                <input
+                  type="checkbox"
+                  checked={certificate.currentlyWorking}
+                  onChange={(e) => handleCertificate(index, "currentlyWorking", e.target.checked)}
+                />
+                <Typography>In Progress</Typography>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12}>
+              <Box sx={{ position: "relative" }}>
+                <CustomInput
+                  fullWidth
+                  label="Add Link"
+                  variant="outlined"
+                  required
+                  currentValue={certificate.link}
+                  updateValue={(value) => handleCertificate(index, 'link', value)}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      ))}
+
+    
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
         <CustomButton
           btnText={<Add />}
           btnStyles={{
@@ -161,91 +227,8 @@ function CertificationForm({ resumeId, setGetData }) {
           updateClick={handleFormBtn}
         />
       </Box>
-
-      {certificateName.map((certificate, index) => (
-        <Grid container spacing={2} sx={{ mb: 10 }} key={index}>
-          <Grid item xs={12}>
-            <Box sx={{ position: "relative" }}>
-              <CustomInput
-                inputType="text"
-                label="Certificate Name"
-                currentValue={certificate.title}
-                updateValue={(value) => handleCertificate(index, 'title', value)}
-                textInputStyles={{ width: '100%' }}
-                required
-              />
-              {isValidFieldCertificates('title', certificate.title) && (
-                <StyleCheckIcon />
-              )}
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <Box sx={{ position: "relative" }}>
-              <CustomInput
-                label="Start Date"
-                currentValue={certificate.startDate}
-                updateValue={(value) =>
-                  handleCertificate(index, "startDate", value)
-                }
-                date={{ shrink: true }}
-                required
-                inputType="date"
-              />
-              {isValidFieldCertificates("startDate", certificate.startDate) && (
-                <StyleCheckIcon />
-              )}
-            </Box>
-          </Grid>
-
-          <Grid item xs={12} sm={6}>
-            <Box sx={{ position: "relative" }}>
-              <CustomInput
-                label="End Date"
-                currentValue={certificate.endDate}
-                updateValue={(value) =>
-                  handleCertificate(index, "endDate", value)
-                }
-                date={{ shrink: true }}
-                required
-                inputType="date"
-                disabled={certificate.currentlyWorking}
-              />
-              {!certificate.currentlyWorking && isValidFieldCertificates("endDate", certificate.endDate) && (
-                <StyleCheckIcon />
-              )}
-            </Box>
-            <Grid item xs={12}>
-              <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                <input
-                  type="checkbox"
-                  checked={certificate.currentlyWorking}
-                  onChange={(e) =>
-                    handleCertificate(index, "currentlyWorking", e.target.checked)
-                  }
-                />
-                <Typography>In Progress</Typography>
-              </Box>
-            </Grid>
-          </Grid>
-
-          <Grid item xs={12}>
-            <Box sx={{ position: "relative" }}>
-              <CustomInput
-                fullWidth
-                label="Add Link"
-                variant="outlined"
-                required
-                currentValue={certificate.link}
-                updateValue={(value) => handleCertificate(index, 'link', value)}
-              />
-            </Box>
-          </Grid>
-        </Grid>
-      ))}
     </Box>
   );
-
 }
 
 export default CertificationForm;

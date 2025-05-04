@@ -6,7 +6,6 @@ import { Typography, Box } from "@mui/material";
 import CustomButton from "../CustomButton";
 import CustomModal from "../CustomModal";
 import CropModal from "../CustomCropModal";
-
 import "./styled.css";
 
 const CustomAvatar = ({
@@ -25,13 +24,19 @@ const CustomAvatar = ({
   const [cropImage, setCropImage] = useState(null);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem("token");
-    const userData = storedUser ? decodeToken(storedUser) : null;
+    const getCookie = (name) => {
+      const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+      return match ? match[2] : null;
+    };
+
+    const token = getCookie("token");
+    const userData = token ? decodeToken(token) : null;
 
     if (userData?.name) {
       setName(userData.name);
     }
   }, []);
+
 
   useEffect(() => {
     if (imageProp) {

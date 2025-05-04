@@ -24,7 +24,7 @@ const StyleCheckIcon = () => (
 
 function ExperienceForm({ resumeId, setGetData }) {
     const [countries, setCountries] = useState([]);
-    const { resumes, updateResume } = useContext(ResumeContext);
+    const { resumes } = useContext(ResumeContext);
     const [isExperienceLoaded, setIsExperienceLoaded] = useState(false);
     const fetchedPincodesRef = useRef({});
 
@@ -146,9 +146,8 @@ function ExperienceForm({ resumeId, setGetData }) {
             city: "",
             currentlyWorking:false
         };
-        const updatedExperience = [...companyName, newExperience];
-        setCompanyName(updatedExperience);
-        updateResume(resumeId, "experience", updatedExperience);
+
+        setCompanyName((prevCompanyName)=>[...prevCompanyName, newExperience])
     };
 
     return (
@@ -187,25 +186,6 @@ function ExperienceForm({ resumeId, setGetData }) {
                         Start with your most recent job first.
                     </Typography>
                 </Box>
-
-                <CustomButton
-                    btnText={<Add />}
-                    btnStyles={{
-                        backgroundColor: "#4b2354",
-                        color: "white",
-                        border: "none",
-                        borderRadius: "50%",
-                        width: "48px",
-                        height: "48px",
-                        minWidth: "unset",
-                        padding: 0,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        cursor: "pointer"
-                    }}
-                    updateClick={handleExperienceForm}
-                />
             </Box>
 
             {companyName.map((experience, index) => (
@@ -367,6 +347,27 @@ function ExperienceForm({ resumeId, setGetData }) {
                     </Grid>
                 </Grid>
             ))}
+
+               <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+                    <CustomButton
+                      btnText={<Add />}
+                      btnStyles={{
+                        backgroundColor: "#4b2354",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "50%",
+                        width: "48px",
+                        height: "48px",
+                        minWidth: "unset",
+                        padding: 0,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        cursor: "pointer"
+                      }}
+                      updateClick={handleExperienceForm}
+                    />
+                  </Box>
         </Box>
     );
 

@@ -163,8 +163,7 @@ function EducationForm({ resumeId, setGetData }) {
       currentlyWorking: false
     };
 
-    const updatedEducation = [...educationForms, newEducation];
-    setEducationForms(updatedEducation);
+    setEducationForms((prevForms) => [...prevForms, newEducation]);
   };
 
 
@@ -207,25 +206,6 @@ function EducationForm({ resumeId, setGetData }) {
             Tell us about any colleges, vocational programs, or training courses you took. Even if you didn’t finish, it’s important to list them.
           </Typography>
         </Box>
-
-        <CustomButton
-          btnText={<Add />}
-          btnStyles={{
-            backgroundColor: "#4b2354",
-            color: "white",
-            border: "none",
-            borderRadius: "50%",
-            width: "48px",
-            height: "48px",
-            minWidth: "unset",
-            padding: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer"
-          }}
-          updateClick={handleAddForm}
-        />
       </Box>
 
       {educationForms.map((education, index) => (
@@ -402,6 +382,26 @@ function EducationForm({ resumeId, setGetData }) {
           </Grid>
         </Grid>
       ))}
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+        <CustomButton
+          btnText={<Add />}
+          btnStyles={{
+            backgroundColor: "#4b2354",
+            color: "white",
+            border: "none",
+            borderRadius: "50%",
+            width: "48px",
+            height: "48px",
+            minWidth: "unset",
+            padding: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer"
+          }}
+          updateClick={handleAddForm}
+        />
+      </Box>
     </Box>
   );
 

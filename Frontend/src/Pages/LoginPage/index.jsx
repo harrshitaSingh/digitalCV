@@ -40,8 +40,7 @@ function LoginPage() {
 
       if (response.ok) {
         setUserState(data.user);
-        localStorage.setItem("token", data.user.token);
-
+        document.cookie = `token=${data.user.token}; path=/; max-age=${7 * 24 * 60 * 60}`;
         navigate("/home");
       } else {
         toast.error(data.error, { position: "top-right" });
@@ -79,7 +78,7 @@ function LoginPage() {
             </div>
             <div className="input-group">
               <CustomInput
-                inputType={passwordVisibility.password ? "text" : "password"} 
+                inputType={passwordVisibility.password ? "text" : "password"}
                 currentValue={password}
                 updateValue={setPassword}
                 label="Enter your Password"

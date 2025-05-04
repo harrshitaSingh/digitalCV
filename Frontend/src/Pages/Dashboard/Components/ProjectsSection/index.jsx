@@ -33,7 +33,7 @@ function ProjectForm({ resumeId, setGetData }) {
     },
   ]);
 
-  const isValidFieldProjects = (key,value) => {
+  const isValidFieldProjects = (key, value) => {
     if (key === "link") return true; // allow empty string for link
     return typeof value === "string" && value.trim().length > 0;
 
@@ -111,9 +111,8 @@ function ProjectForm({ resumeId, setGetData }) {
       link: "",
       currentlyWorking: false
     };
+    setProjectName((prevProj) => [...prevProj, newProject])
 
-    const updatedProject = [...projectName, newProject];
-    setProjectName(updatedProject);
   };
 
   return (
@@ -151,24 +150,6 @@ function ProjectForm({ resumeId, setGetData }) {
           </Typography>
         </Box>
 
-        <CustomButton
-          btnText={<Add />}
-          btnStyles={{
-            backgroundColor: "#4b2354",
-            color: "white",
-            border: "none",
-            borderRadius: "50%",
-            width: "48px",
-            height: "48px",
-            minWidth: "unset",
-            padding: 0,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer"
-          }}
-          updateClick={handleProjectAdd}
-        />
       </Box>
 
       {projectName.map((projects, index) => (
@@ -181,8 +162,8 @@ function ProjectForm({ resumeId, setGetData }) {
                 currentValue={projects.title}
                 updateValue={(value) => handleProj(index, "title", value)}
               />
-              {isValidFieldProjects("title",projects.title) && (
-                <StyleCheckIcon/>
+              {isValidFieldProjects("title", projects.title) && (
+                <StyleCheckIcon />
               )}
             </Box>
           </Grid>
@@ -195,8 +176,8 @@ function ProjectForm({ resumeId, setGetData }) {
                 currentValue={projects.technologies}
                 updateValue={(value) => handleProj(index, "technologies", value)}
               />
-              {isValidFieldProjects("technologies",projects.technologies) && (
-                <StyleCheckIcon/>
+              {isValidFieldProjects("technologies", projects.technologies) && (
+                <StyleCheckIcon />
               )}
             </Box>
           </Grid>
@@ -213,8 +194,8 @@ function ProjectForm({ resumeId, setGetData }) {
                 maxRows={4}
                 maxLength={200}
               />
-              {isValidFieldProjects("description",projects.description) && (
-                <StyleCheckIcon/>
+              {isValidFieldProjects("description", projects.description) && (
+                <StyleCheckIcon />
               )}
             </Box>
           </Grid>
@@ -231,8 +212,8 @@ function ProjectForm({ resumeId, setGetData }) {
                 required
                 inputType="date"
               />
-              {isValidFieldProjects("startDate",projects.startDate) && (
-                <StyleCheckIcon/>
+              {isValidFieldProjects("startDate", projects.startDate) && (
+                <StyleCheckIcon />
               )}
             </Box>
           </Grid>
@@ -250,8 +231,8 @@ function ProjectForm({ resumeId, setGetData }) {
                 inputType="date"
                 disabled={projects.currentlyWorking}
               />
-              {!projects.currentlyWorking && isValidFieldProjects("endDate",projects.endDate) && (
-                <StyleCheckIcon/>
+              {!projects.currentlyWorking && isValidFieldProjects("endDate", projects.endDate) && (
+                <StyleCheckIcon />
               )}
             </Box>
             <Grid item xs={12}>
@@ -280,6 +261,27 @@ function ProjectForm({ resumeId, setGetData }) {
           </Grid>
         </Grid>
       ))}
+
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3 }}>
+        <CustomButton
+          btnText={<Add />}
+          btnStyles={{
+            backgroundColor: "#4b2354",
+            color: "white",
+            border: "none",
+            borderRadius: "50%",
+            width: "48px",
+            height: "48px",
+            minWidth: "unset",
+            padding: 0,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "pointer"
+          }}
+          updateClick={handleProjectAdd}
+        />
+      </Box>
     </Box>
   );
 
