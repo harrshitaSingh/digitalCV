@@ -159,7 +159,6 @@ function ResumeDashboard() {
       toast.warn("Resume ID is missing");
       return;
     }
-    setLoading(true);
     try {
       const getCookie = (name) => {
         const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
@@ -192,7 +191,6 @@ function ResumeDashboard() {
       toast.warn("Resume data does not exist");
     }
   finally {
-      setLoading(false)
     }
   };
 
@@ -291,7 +289,6 @@ function ResumeDashboard() {
             </Grid>
           ) : (
               <>
-                {loading && <Loader />}
               <Grid item xs={12}>
                 <Box sx={{ display: "flex", justifyContent: "flex-start", mb: 2 }}>
                   <CustomButton
