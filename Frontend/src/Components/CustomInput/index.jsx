@@ -16,7 +16,8 @@ const CustomInput = ({
     date, 
     Adornment, 
     fullWidth,
-    className
+    className, 
+    inputMode
 }) => {
 
     const handleChange = (e) => {
@@ -44,6 +45,7 @@ const CustomInput = ({
                 InputLabelProps={date}
                 InputProps={Adornment}
                 fullWidth={fullWidth}
+                inputMode={inputMode}
             />
         </Box>
     )

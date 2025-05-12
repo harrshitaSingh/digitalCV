@@ -23,6 +23,7 @@ function EmailVerify() {
           label="Enter the code"
           currentValue={code}
           updateValue={setCode}
+          inputMode="numeric"
         />
         <br></br>
         <CustomButton
