@@ -18,6 +18,7 @@ import CodeIcon from "@mui/icons-material/Code";
 import CertificateIcon from "@mui/icons-material/WorkspacePremium";
 
 const CommonShareTemplate = ({ resumeData }) => {
+    console.log(resumeData)
     const { contact, education = [], experience = [], project = [], certificates = [], linkedin, github } = resumeData;
 
     return (

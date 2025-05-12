@@ -1,30 +1,36 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { Typography } from "@mui/material";
+import { InputAdornment, Typography } from "@mui/material";
 import CustomInput from "../../Components/CustomInput";
 import CustomButton from "../../Components/CustomButton";
 import { UserContext } from "../../Context/UserContext";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import "./styled.css";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const { setUserState } = useContext(UserContext);
   const navigate = useNavigate();
+  const [passwordVisibility, setPasswordVisibility] = useState(false)
+
+  const baseUrl = process.env.REACT_APP_API_BASE_URL;
+
 
   const handleLogin = async (e) => {
-  if (e && e.preventDefault) {
+    if (e && e.preventDefault) {
       e.preventDefault();
-    }    if (!email || !password) {
+    } if (!email || !password) {
       toast.warn("Please enter both email and password", { position: "top-right" });
       return;
     }
 
-    setLoading(true); 
+    setLoading(true);
     try {
-      const response = await fetch("http://localhost:5000/auth", {
+      const response = await fetch(`${baseUrl}/auth`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -47,6 +53,13 @@ function LoginPage() {
     }
   };
 
+  const handlePasswordVisibilityToggle = (field) => {
+    setPasswordVisibility((prevState) => ({
+      ...prevState,
+      password: !prevState.password,
+    }));
+  };
+
   return (
     <div className={`login-container ${loading ? "blurred" : ""}`}>
       <ToastContainer />
@@ -65,7 +78,25 @@ function LoginPage() {
               <CustomInput inputType="email" currentValue={email} updateValue={setEmail} label="Enter your Email" />
             </div>
             <div className="input-group">
-              <CustomInput inputType="password" currentValue={password} updateValue={setPassword} label="Enter your Password" />
+              <CustomInput
+                inputType={passwordVisibility.password ? "text" : "password"} 
+                currentValue={password}
+                updateValue={setPassword}
+                label="Enter your Password"
+                Adornment={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <span
+                        style={{ cursor: "pointer", marginLeft: "8px" }}
+                        onClick={handlePasswordVisibilityToggle} // Simplified toggle function
+                      >
+                        {passwordVisibility.password ? <VisibilityOff /> : <Visibility />}
+                      </span>
+                    </InputAdornment>
+                  ),
+                }}
+              />
+
             </div>
 
             <div className="button-group">

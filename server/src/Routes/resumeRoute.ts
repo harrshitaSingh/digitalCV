@@ -4,6 +4,7 @@ import {
   deleteResume,
   getResumeDataById,
   getResumes,
+  getShareResumeDataById,
   updateResumes
 } from "../Controllers/resumeController";
 
@@ -13,6 +14,7 @@ router.post("/home", createResume);
 router.get("/home", getResumes);
 router.post("/update", updateResumes);
 router.get("/:resumeID", getResumeDataById);
-router.delete("/delete/:resumeID", deleteResume); // ✅ Correct
+router.get("/share/:resumeID", getShareResumeDataById)
+router.delete("/delete/:resumeID", deleteResume); 
 
 export default router;

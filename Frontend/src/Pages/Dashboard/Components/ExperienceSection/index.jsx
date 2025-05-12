@@ -9,7 +9,6 @@ import CustomSelect from "../../../../Components/CustomSelect";
 import { callCountryApi, fetchCountries } from "../../../../Utils/Api/countryAPi";
 import { fetchCityByPincode } from "../../../../Utils/Api/pincodeApi";
 
-
 function ExperienceForm({ resumeId, setGetData }) {
     const [countries, setCountries] = useState([]);
     const { resumes, updateResume } = useContext(ResumeContext);
@@ -26,6 +25,7 @@ function ExperienceForm({ resumeId, setGetData }) {
             country: "",
             pincode: "",
             city: "",
+            currentlyWorking: false,
         },
     ]);
 
@@ -37,8 +37,13 @@ function ExperienceForm({ resumeId, setGetData }) {
 
     const getter = useCallback(() => {
         const isAllValid = companyName.every((exp) =>
-            Object.values(exp).every((val) => isValidField(val))
+            Object.entries(exp).every(([key, val]) => {
+                if (key === "endDate" && exp.currentlyWorking) return true; 
+                if (key === "currentlyWorking") return true; // skip boolean validation
+                return isValidField(val);
+            })
         );
+
 
         if (!isAllValid) {
             console.log("Not all fields are valid!");
@@ -54,14 +59,14 @@ function ExperienceForm({ resumeId, setGetData }) {
         }
     }, [setGetData, getter]);
 
-  useEffect(() => {
-    const debouncedFetch = callCountryApi(async () => {
-      const countryList = await fetchCountries();
-      setCountries(countryList);
-    }, 1000);
+    useEffect(() => {
+        const debouncedFetch = callCountryApi(async () => {
+            const countryList = await fetchCountries();
+            setCountries(countryList);
+        }, 1000);
 
-    debouncedFetch();
-  }, []);
+        debouncedFetch();
+    }, []);
 
     useEffect(() => {
         if (!isExperienceLoaded && resumes && resumes.length > 0) {
@@ -81,6 +86,8 @@ function ExperienceForm({ resumeId, setGetData }) {
                         country: exp.country || "",
                         pincode: exp.pincode || "",
                         city: exp.city || "",
+                        currentlyWorking: exp.currentlyWorking || false,
+
                     }))
                 );
                 setIsExperienceLoaded(true);
@@ -92,6 +99,10 @@ function ExperienceForm({ resumeId, setGetData }) {
         const updatedExperience = [...companyName];
 
         updatedExperience[index][field] = value;
+
+        if (field === "currentlyWorking" && value === true) {
+            updatedExperience[index]["endDate"] = "";
+        }
 
         if (field === "pincode" && value.length === 6) {
             const pincode = value;
@@ -107,6 +118,7 @@ function ExperienceForm({ resumeId, setGetData }) {
 
         setCompanyName(updatedExperience);
     };
+    ;
 
 
     const handleExperienceForm = () => {
@@ -119,6 +131,7 @@ function ExperienceForm({ resumeId, setGetData }) {
             country: "",
             pincode: "",
             city: "",
+            currentlyWorking:false
         };
         const updatedExperience = [...companyName, newExperience];
         setCompanyName(updatedExperience);
@@ -128,15 +141,16 @@ function ExperienceForm({ resumeId, setGetData }) {
     return (
         <Box
             sx={{
-                width: "60%",
-                margin: "0 auto",
-                padding: "2rem",
+                width: '100%',
+                maxWidth: 1000,
+                margin: '2rem auto',
+                padding: { xs: '1rem', sm: '2rem' },
                 boxShadow: 3,
                 borderRadius: 2,
                 bgcolor: "#f9f9f9",
             }}
         >
-        <Box sx={{ display: "flex", justifyContent: "space-between", p: 3 }}>
+      <Box sx={{ display: "flex", justifyContent: "space-between", p: { xs: 2, sm: 3 } }}>
                 {/* Left side: Heading */}
                 <Box sx={{ marginBottom: 3 }}>
                     <Typography
@@ -265,7 +279,7 @@ function ExperienceForm({ resumeId, setGetData }) {
                                             pattern: "[0-9]*",
                                         }}
                                     />
-                                    {isValidField( experience.pincode) && (
+                                    {isValidField(experience.pincode) && (
                                         <CheckCircleIcon
                                             sx={{
                                                 color: "green",
@@ -334,8 +348,9 @@ function ExperienceForm({ resumeId, setGetData }) {
                                 currentValue={experience.endDate}
                                 updateValue={(value) => handleExperience(index, "endDate", value)}
                                 inputType="date"
+                                disabled={experience.currentlyWorking}
                             />
-                            {isValidField(experience.endDate) && (
+                            {!experience.currentlyWorking && isValidField(experience.endDate) && (
                                 <CheckCircleIcon
                                     sx={{
                                         color: "green",
@@ -346,7 +361,21 @@ function ExperienceForm({ resumeId, setGetData }) {
                                     }}
                                 />
                             )}
+
                         </Box>
+                        <Grid item xs={12}>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                                <input
+                                    type="checkbox"
+                                    checked={experience.currentlyWorking}
+                                    onChange={(e) =>
+                                        handleExperience(index, "currentlyWorking", e.target.checked)
+                                    }
+                                />
+                                <Typography>Currently Working Here</Typography>
+                            </Box>
+                        </Grid>
+
                     </Grid>
 
                     <Grid item xs={12}>
@@ -359,7 +388,7 @@ function ExperienceForm({ resumeId, setGetData }) {
                                 updateValue={(value) => handleExperience(index, "description", value)}
                                 multiline
                                 maxRows={4}
-                                maxLength={200}
+                                maxLength={500}
                             />
                             {isValidField(experience.description) && (
                                 <CheckCircleIcon
